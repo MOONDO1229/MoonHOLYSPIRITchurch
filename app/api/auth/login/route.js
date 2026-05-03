@@ -3,11 +3,16 @@ import { cookies } from 'next/headers';
 export async function POST(request) {
   const { username, password } = await request.json();
 
+  // 환경 변수 확인 (없을 경우 기본값 사용 - 임시 디버깅용)
+  const ADMIN_USER = process.env.ADMIN_USER || 'moonhk69';
+  const ADMIN_PASS = process.env.ADMIN_PASS || 'moonhk690901';
+
+  console.log('Login attempt for:', username);
+
   if (
-    username === process.env.ADMIN_USER &&
-    password === process.env.ADMIN_PASS
+    username === ADMIN_USER &&
+    password === ADMIN_PASS
   ) {
-    // Simple cookie-based auth (for production use a more secure JWT)
     cookies().set('admin_session', 'authenticated', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
