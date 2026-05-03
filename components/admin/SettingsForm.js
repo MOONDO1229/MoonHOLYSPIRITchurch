@@ -47,6 +47,7 @@ export default function SettingsForm({ initialSettings }) {
     const formData = new FormData();
     formData.append('file', file);
 
+    setLoading(true);
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
@@ -56,52 +57,59 @@ export default function SettingsForm({ initialSettings }) {
       
       if (data.success && data.url) {
         // 함수형 업데이트를 사용하여 stale state 방지
-        setSettings(prev => {
-          let newSettings;
-          if (fieldName.includes('.')) {
-            const [parent, child] = fieldName.split('.');
-            newSettings = {
-              ...prev,
-              [parent]: { ...prev[parent], [child]: data.url }
-            };
-          } else {
-            newSettings = { ...prev, [fieldName]: data.url };
-          }
-          
-          // 상태 업데이트 직후 서버에 저장
-          updateSettings(newSettings).then(() => {
-            console.log('Settings auto-saved after image upload');
+        const updatedSettings = await new Promise((resolve) => {
+          setSettings(prev => {
+            let newSettings;
+            if (fieldName.includes('.')) {
+              const [parent, child] = fieldName.split('.');
+              newSettings = {
+                ...prev,
+                [parent]: { ...prev[parent], [child]: data.url }
+              };
+            } else {
+              newSettings = { ...prev, [fieldName]: data.url };
+            }
+            resolve(newSettings);
+            return newSettings;
           });
-          
-          return newSettings;
         });
         
-        alert('이미지가 업로드되고 즉시 저장되었습니다.');
+        // 상태 업데이트 직후 서버에 저장
+        await updateSettings(updatedSettings);
+        alert('이미지가 성공적으로 업로드되고 저장되었습니다.');
       } else {
         alert('업로드 실패: ' + (data.message || '알 수 없는 오류'));
       }
     } catch (err) {
       console.error('Upload error:', err);
       alert('이미지 업로드 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+    setLoading(true);
     try {
       await updateSettings(settings);
       alert('모든 설정이 성공적으로 저장되었습니다.');
     } catch (err) {
       alert('저장 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="settings-premium">
+      {loading && <div className="loading-overlay">저장 중...</div>}
       <div className="admin-header">
         <div className="header-info">
-          <h1>사이트 디자인 및 환경 설정</h1>
-          <p className="subtitle">교회 정보와 시각적 테마를 세밀하게 관리할 수 있습니다.</p>
+          <h1>사이트 환경 설정</h1>
+          <p className="subtitle">교회의 기본 정보와 디자인 테마를 통합 관리합니다.</p>
         </div>
         <div className="header-actions">
           <button 
@@ -134,58 +142,67 @@ export default function SettingsForm({ initialSettings }) {
           <div className="admin-card main-form-card">
             {activeTab === 'basic' && (
               <div className="tab-pane">
-                <h2 className="section-title">주요 사진 및 텍스트</h2>
-                <div className="image-field-grid">
-                  <div className="image-upload-card">
-                    <label>대표 로고</label>
-                    <div className="preview-box">
-                      {settings.logoImage ? <img src={settings.logoImage} /> : <ImageIcon size={32} color="#ddd" />}
+                <div className="form-section-group">
+                  <h2 className="section-title">이미지 자산 관리</h2>
+                  <p className="section-desc">로고와 교회 이미지를 업로드하세요. 변경 시 즉시 저장됩니다.</p>
+                  <div className="image-field-grid">
+                    <div className="image-upload-card">
+                      <label>교회 로고 (상단)</label>
+                      <div className="preview-box">
+                        {settings.logoImage ? <img src={settings.logoImage} /> : <ImageIcon size={32} color="#ddd" />}
+                      </div>
+                      <button className="btn-upload-sm" onClick={() => fileInputRef.current.logo.click()}>변경하기</button>
+                      <input type="file" ref={el => fileInputRef.current.logo = el} onChange={e => handleImageUpload(e, 'logoImage')} hidden />
                     </div>
-                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.logo.click()}>변경하기</button>
-                    <input type="file" ref={el => fileInputRef.current.logo = el} onChange={e => handleImageUpload(e, 'logoImage')} hidden />
-                  </div>
-                  <div className="image-upload-card">
-                    <label>목사님 프로필</label>
-                    <div className="preview-box circle">
-                      {settings.pastorImage ? <img src={settings.pastorImage} /> : <User size={32} color="#ddd" />}
+                    <div className="image-upload-card">
+                      <label>담임목사 프로필</label>
+                      <div className="preview-box circle">
+                        {settings.pastorImage ? <img src={settings.pastorImage} /> : <User size={32} color="#ddd" />}
+                      </div>
+                      <button className="btn-upload-sm" onClick={() => fileInputRef.current.pastor.click()}>변경하기</button>
+                      <input type="file" ref={el => fileInputRef.current.pastor = el} onChange={e => handleImageUpload(e, 'pastorImage')} hidden />
                     </div>
-                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.pastor.click()}>변경하기</button>
-                    <input type="file" ref={el => fileInputRef.current.pastor = el} onChange={e => handleImageUpload(e, 'pastorImage')} hidden />
-                  </div>
-                  <div className="image-upload-card">
-                    <label>메인 배경</label>
-                    <div className="preview-box">
-                      {settings.churchImage ? <img src={settings.churchImage} /> : <ImageIcon size={32} color="#ddd" />}
+                    <div className="image-upload-card">
+                      <label>홈페이지 메인 배경</label>
+                      <div className="preview-box">
+                        {settings.churchImage ? <img src={settings.churchImage} /> : <ImageIcon size={32} color="#ddd" />}
+                      </div>
+                      <button className="btn-upload-sm" onClick={() => fileInputRef.current.church.click()}>변경하기</button>
+                      <input type="file" ref={el => fileInputRef.current.church = el} onChange={e => handleImageUpload(e, 'churchImage')} hidden />
                     </div>
-                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.church.click()}>변경하기</button>
-                    <input type="file" ref={el => fileInputRef.current.church = el} onChange={e => handleImageUpload(e, 'churchImage')} hidden />
                   </div>
                 </div>
 
-                <div className="input-group-row">
-                  <div className="input-field">
-                    <label>환영 인사 제목</label>
-                    <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
+                <div className="form-section-group">
+                  <h2 className="section-title">교회 기본 정보</h2>
+                  <div className="input-group-row">
+                    <div className="input-field">
+                      <label>홈페이지 대제목 (H1)</label>
+                      <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
+                    </div>
                   </div>
-                </div>
-                <div className="input-field">
-                  <label>인사말 서브 텍스트</label>
-                  <input name="welcomeSubtitle" value={settings.welcomeSubtitle} onChange={handleChange} placeholder="교회의 슬로건이나 비전을 입력하세요" />
+                  <div className="input-field">
+                    <label>홈페이지 소제목 (Subtitle)</label>
+                    <input name="welcomeSubtitle" value={settings.welcomeSubtitle} onChange={handleChange} placeholder="교회의 슬로건이나 비전을 입력하세요" />
+                  </div>
                 </div>
 
-                <div className="input-group-row">
-                  <div className="input-field">
-                    <label><User size={16} /> 담임목사</label>
-                    <input name="pastor" value={settings.pastor} onChange={handleChange} />
+                <div className="form-section-group">
+                  <h2 className="section-title">연락처 및 위치</h2>
+                  <div className="input-group-row">
+                    <div className="input-field">
+                      <label><User size={16} /> 담임목사 성함</label>
+                      <input name="pastor" value={settings.pastor} onChange={handleChange} />
+                    </div>
+                    <div className="input-field">
+                      <label><Phone size={16} /> 교회 대표번호</label>
+                      <input name="phone" value={settings.phone} onChange={handleChange} />
+                    </div>
                   </div>
                   <div className="input-field">
-                    <label><Phone size={16} /> 연락처</label>
-                    <input name="phone" value={settings.phone} onChange={handleChange} />
+                    <label><MapPin size={16} /> 교회 주소</label>
+                    <input name="address" value={settings.address} onChange={handleChange} />
                   </div>
-                </div>
-                <div className="input-field">
-                  <label><MapPin size={16} /> 교회 주소</label>
-                  <input name="address" value={settings.address} onChange={handleChange} />
                 </div>
               </div>
             )}
@@ -370,6 +387,16 @@ export default function SettingsForm({ initialSettings }) {
         .pastor-card-mock { display: flex; gap: 12px; align-items: center; background: #f8fafc; padding: 12px; border-radius: 12px; }
         .avatar-mock { width: 45px; height: 45px; flex-shrink: 0; }
         
+        .loading-overlay {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(255,255,255,0.7); backdrop-filter: blur(4px);
+          display: flex; align-items: center; justify-content: center;
+          z-index: 1000; font-size: 1.5rem; font-weight: 900; color: #1b4d3e;
+        }
+        .form-section-group { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid #f1f5f9; }
+        .form-section-group:last-child { border-bottom: none; }
+        .section-desc { color: #64748b; margin-top: -20px; margin-bottom: 25px; font-size: 0.95rem; }
+
         @media (max-width: 1200px) {
           .settings-layout { grid-template-columns: 1fr; }
           .preview-column { display: none; }

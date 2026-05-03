@@ -90,50 +90,6 @@ export default function AuditLogsPage() {
           </tbody>
         </table>
       </div>
-
-      <style jsx>{`
-        .audit-logs-premium { width: 100%; max-width: 1400px; margin: 0 auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
-        .header-info h1 { margin: 0; font-size: 2.2rem; font-weight: 900; color: #1b4d3e; letter-spacing: -0.02em; }
-        .subtitle { color: #64748b; margin-top: 8px; font-size: 1.1rem; }
-        
-        .header-stats { background: white; padding: 15px 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; }
-        .stat-item { display: flex; flex-direction: column; align-items: center; }
-        .stat-item .label { font-size: 0.85rem; color: #94a3b8; font-weight: 700; margin-bottom: 4px; }
-        .stat-item .value { font-size: 1.4rem; font-weight: 900; color: #1b4d3e; }
-
-        .table-card { background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; overflow: hidden; }
-        .table-header { padding: 20px 30px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background: #fafbfc; }
-        
-        .search-box { display: flex; align-items: center; gap: 10px; background: white; padding: 8px 18px; border-radius: 12px; border: 1px solid #e2e8f0; width: 300px; }
-        .search-box input { border: none; outline: none; font-size: 0.95rem; width: 100%; }
-        .filter-group { display: flex; gap: 8px; }
-        .btn-filter { padding: 8px 16px; border-radius: 8px; border: 1px solid #e2e8f0; background: white; font-weight: 700; color: #64748b; cursor: pointer; font-size: 0.9rem; }
-        .btn-filter.active { background: #1b4d3e; color: white; border-color: #1b4d3e; }
-
-        .admin-table { width: 100%; border-collapse: collapse; }
-        .admin-table th { padding: 20px 30px; text-align: left; background: #f8fafc; font-weight: 800; color: #475569; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .admin-table td { padding: 18px 30px; border-bottom: 1px solid #f1f5f9; font-size: 1rem; color: #1e293b; }
-        
-        .time-wrap { display: flex; align-items: center; gap: 8px; color: #64748b; font-weight: 500; }
-        .user-info { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-        .avatar-mini { width: 24px; height: 24px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1b4d3e; }
-        
-        .cat-badge { padding: 4px 12px; background: #f1f5f9; color: #475569; border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
-        
-        .action-badge { padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 800; }
-        .action-badge.create { background: #eafaf1; color: #27ae60; }
-        .action-badge.update { background: #ebf5fb; color: #3498db; }
-        .action-badge.delete { background: #fadbd8; color: #e74c3c; }
-        
-        .detail-td { font-weight: 600; color: #334155; }
-        
-        .no-data { text-align: center; padding: 100px 0; }
-        .empty-state { display: flex; flex-direction: column; align-items: center; color: #cbd5e1; }
-        .empty-state p { margin-top: 15px; font-size: 1.1rem; font-weight: 600; }
-
-        tr:hover td { background: #fcfcfc; }
-      `}</style>
     </div>
   );
 }

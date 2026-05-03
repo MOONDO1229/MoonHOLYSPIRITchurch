@@ -1,4 +1,5 @@
 'use client';
+import '../admin.css';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
@@ -28,11 +29,18 @@ export default function AdminLayout({ children }) {
 
   const navItems = [
     { href: '/admin', icon: LayoutDashboard, label: '대시보드' },
+    { href: '/admin/settings', icon: Settings, label: '사이트 설정' },
+  ];
+
+  const contentItems = [
     { href: '/admin/notices', icon: Bell, label: '공지사항 관리' },
-    { href: '/admin/popups', icon: Image, label: '팝업 포스터 관리' },
     { href: '/admin/bulletins', icon: BookOpen, label: '주보 관리' },
     { href: '/admin/sermons', icon: Video, label: '설교 관리' },
     { href: '/admin/worship', icon: Clock, label: '예배시간 관리' },
+  ];
+
+  const systemItems = [
+    { href: '/admin/popups', icon: Image, label: '팝업 포스터 관리' },
     { href: '/admin/audit-logs', icon: History, label: '수정 이력 확인' },
   ];
 
@@ -53,7 +61,7 @@ export default function AdminLayout({ children }) {
         <div className="admin-logo" style={{ 
           fontSize: '1.4rem', 
           fontWeight: '900', 
-          marginBottom: '40px', 
+          marginBottom: '30px', 
           paddingBottom: '20px', 
           borderBottom: '1px solid rgba(255,255,255,0.1)',
           textAlign: 'center'
@@ -61,37 +69,51 @@ export default function AdminLayout({ children }) {
           퇴촌성령교회 관리자
         </div>
         
-        <nav className="admin-nav" style={{ display: 'flex', flexDirection: 'column', gap: '8px', flexGrow: 1 }}>
+        <nav className="admin-nav" style={{ display: 'flex', flexDirection: 'column', gap: '8px', flexGrow: 1, overflowY: 'auto' }}>
+          {/* Main Menus */}
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
-              <Link 
-                key={item.href} 
-                href={item.href}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 16px',
-                  borderRadius: '10px',
-                  textDecoration: 'none',
-                  color: isActive ? 'white' : '#aaa',
-                  background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
-                  fontWeight: isActive ? '700' : '500',
-                  transition: 'all 0.2s'
-                }}
-              >
-                <item.icon size={20} />
-                {item.label}
+              <Link key={item.href} href={item.href} style={{
+                  display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', textDecoration: 'none',
+                  color: isActive ? 'white' : '#aaa', background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
+                  fontWeight: isActive ? '700' : '500', transition: 'all 0.2s'
+                }}>
+                <item.icon size={20} /> {item.label}
+              </Link>
+            );
+          })}
+
+          <div style={{ margin: '15px 0 10px', paddingLeft: '16px', fontSize: '0.75rem', color: '#555', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px' }}>콘텐츠 관리</div>
+          {contentItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link key={item.href} href={item.href} style={{
+                  display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', textDecoration: 'none',
+                  color: isActive ? 'white' : '#aaa', background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
+                  fontWeight: isActive ? '700' : '500', transition: 'all 0.2s'
+                }}>
+                <item.icon size={20} /> {item.label}
+              </Link>
+            );
+          })}
+
+          <div style={{ margin: '15px 0 10px', paddingLeft: '16px', fontSize: '0.75rem', color: '#555', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px' }}>시스템 & 도구</div>
+          {systemItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link key={item.href} href={item.href} style={{
+                  display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', textDecoration: 'none',
+                  color: isActive ? 'white' : '#aaa', background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
+                  fontWeight: isActive ? '700' : '500', transition: 'all 0.2s'
+                }}>
+                <item.icon size={20} /> {item.label}
               </Link>
             );
           })}
           
-          <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            <Link href="/admin/settings" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#aaa', textDecoration: 'none' }}>
-              <Settings size={20} /> 사이트 설정
-            </Link>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#aaa', textDecoration: 'none' }}>
+          <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#aaa', textDecoration: 'none', transition: '0.2s' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = '#aaa'}>
               <Home size={20} /> 홈페이지 가기
             </Link>
           </div>

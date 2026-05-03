@@ -13,7 +13,8 @@ import {
   BookOpen,
   History,
   Activity,
-  ArrowUpRight
+  ArrowUpRight,
+  Home
 } from 'lucide-react';
 import Link from 'next/link';
 import { getLatestSermon, getLatestBulletin, getAllNotices, getSettings } from '@/lib/db';
@@ -142,7 +143,6 @@ export default function AdminDashboard() {
                 background: '#fcfcfc', 
                 borderRadius: '16px',
                 border: '1px solid #f0f0f0',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -213,29 +213,6 @@ export default function AdminDashboard() {
           </Link>
         </div>
       </div>
-
-      <style jsx>{`
-        .view-all-btn { 
-          color: #1b4d3e; 
-          text-decoration: none; 
-          font-size: 1rem; 
-          font-weight: 700; 
-          display: flex; 
-          align-items: center; 
-          gap: 6px;
-          padding: 8px 16px;
-          border-radius: 12px;
-          transition: all 0.2s;
-        }
-        .view-all-btn:hover { background: #f0f7f4; transform: translateX(3px); }
-        
-        .notice-item:hover { 
-          background: #f8faf9 !important; 
-          border-color: #1b4d3e33 !important; 
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-      `}</style>
     </div>
   );
 }
@@ -259,7 +236,6 @@ function StatusCard({ icon, title, value, desc, status, href }) {
       borderLeft: `8px solid ${current.border}`,
       textDecoration: 'none',
       color: 'inherit',
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       display: 'block'
     }} className="status-card">
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#94a3b8', fontWeight: '700', marginBottom: '20px', fontSize: '1rem' }}>
@@ -270,13 +246,6 @@ function StatusCard({ icon, title, value, desc, status, href }) {
         {value}
       </div>
       <div style={{ color: '#94a3b8', fontSize: '0.95rem' }}>{desc}</div>
-      <style jsx>{`
-        .status-card:hover { 
-          transform: translateY(-5px); 
-          box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
-          border-color: #eee;
-        }
-      `}</style>
     </Link>
   );
 }
@@ -305,13 +274,6 @@ function QuickAction({ icon, title, desc, href }) {
         <div style={{ fontWeight: '800', fontSize: '1.15rem', color: 'white' }}>{title}</div>
         <p style={{ margin: '4px 0 0 0', opacity: 0.7, fontSize: '0.95rem', fontWeight: '500' }}>{desc}</p>
       </div>
-      <style jsx>{`
-        .quick-action-card:hover { 
-          background: rgba(255,255,255,0.1); 
-          transform: scale(1.02);
-          border-color: rgba(255,255,255,0.3);
-        }
-      `}</style>
     </Link>
   );
 }

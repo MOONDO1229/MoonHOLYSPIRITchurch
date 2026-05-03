@@ -15,7 +15,11 @@
     "offeringInfo": "송금자: 이름헌금종류 (예: 홍길동십일조)",
     "parkingInfo": "교회 주차장 이용 가능",
     "history": [
-      {"year": "1994", "month": "12", "content": "퇴촌성령교회 설립"}
+      {
+        "year": "1994",
+        "month": "12",
+        "content": "퇴촌성령교회 설립"
+      }
     ],
     "popup": {
       "enabled": false,
