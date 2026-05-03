@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -19,25 +19,27 @@ export default function LoginPage() {
     const u = username.trim();
     const p = password.trim();
 
-    // 프론트엔드에서 직접 검증 (서버 환경 변수 문제 완전 차단)
+    // 1. 프론트엔드 1차 검증
     if (u === 'moonhk69' && p === 'moonhk690901') {
       try {
-        // 서버에도 세션 생성을 시도하지만, 결과와 관계없이 이동 시도
-        await fetch('/api/auth/login', {
+        // 2. 서버 세션 생성 API 호출
+        const res = await fetch('/api/auth/login', {
           method: 'POST',
           body: JSON.stringify({ username: u, password: p }),
           headers: { 'Content-Type': 'application/json' }
         });
         
-        // 로컬 스토리지에 임시 플래그 저장 (쿠키 문제 대비)
-        localStorage.setItem('admin_auth', 'true');
-        
-        router.push('/admin');
-        router.refresh();
+        if (res.ok) {
+          // 3. 성공 시 관리자 페이지로 강제 이동 (쿠키 반영을 위해 window.location 사용)
+          // router.push 대신 location.href를 사용하면 페이지가 새로고침되면서 쿠키가 확실히 적용됩니다.
+          window.location.href = '/admin';
+        } else {
+          setError('서버 인증에 실패했습니다. 다시 시도해 주세요.');
+          setLoading(false);
+        }
       } catch (err) {
-        // API 실패해도 일단 강제 이동 (긴급 조치)
-        localStorage.setItem('admin_auth', 'true');
-        router.push('/admin');
+        setError('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+        setLoading(false);
       }
     } else {
       setError('아이디 또는 비밀번호가 올바르지 않습니다.');
@@ -67,6 +69,7 @@ export default function LoginPage() {
               placeholder="아이디를 입력하세요"
               autoComplete="username"
               required
+              disabled={loading}
             />
           </div>
           
@@ -81,11 +84,13 @@ export default function LoginPage() {
                 placeholder="비밀번호를 입력하세요"
                 autoComplete="current-password"
                 required
+                disabled={loading}
               />
               <button 
                 type="button" 
                 className="btn-show-password"
                 onClick={() => setShowPassword(!showPassword)}
+                disabled={loading}
               >
                 {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
               </button>
@@ -100,7 +105,12 @@ export default function LoginPage() {
           )}
 
           <button type="submit" className="btn-login" disabled={loading}>
-            {loading ? '로그인 중...' : '로그인 하기'}
+            {loading ? (
+              <div className="loading-content">
+                <Loader2 className="animate-spin" size={24} />
+                <span>로그인 처리 중...</span>
+              </div>
+            ) : '로그인 하기'}
           </button>
         </form>
 
@@ -163,6 +173,7 @@ export default function LoginPage() {
           outline: none;
           box-shadow: 0 0 0 4px rgba(27, 77, 62, 0.1);
         }
+        .input-group input:disabled { background: #eee; cursor: not-allowed; }
 
         .password-input-wrapper { position: relative; }
         .btn-show-password {
@@ -180,7 +191,7 @@ export default function LoginPage() {
           padding: 5px;
           transition: color 0.2s;
         }
-        .btn-show-password:hover { color: #1b4d3e; }
+        .btn-show-password:hover:not(:disabled) { color: #1b4d3e; }
 
         .error-box {
           display: flex;
@@ -210,6 +221,18 @@ export default function LoginPage() {
         }
         .btn-login:hover:not(:disabled) { background: #143a2f; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27, 77, 62, 0.4); }
         .btn-login:disabled { background: #95a5a6; cursor: not-allowed; transform: none; }
+        
+        .loading-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+        }
+        .animate-spin { animation: spin 1s linear infinite; }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
 
         .login-footer { margin-top: 40px; text-align: center; border-top: 1px solid #f0f0f0; padding-top: 25px; }
         .login-footer p { font-size: 15px; color: #95a5a6; margin-bottom: 12px; }
