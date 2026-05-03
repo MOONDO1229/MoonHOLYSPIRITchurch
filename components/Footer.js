@@ -1,7 +1,4 @@
-import { getSettings } from '@/lib/db';
-
-export default function Footer() {
-  const settings = getSettings();
+export default function Footer({ settings }) {
   const churchName = settings?.welcomeTitle?.split('에')[0] || '퇴촌성령교회';
 
   return (
@@ -10,8 +7,8 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-info">
             <h2 className="footer-logo">{churchName}</h2>
-            <p>📍 {settings.address}</p>
-            <p>📞 {settings.phone}</p>
+            <p>📍 {settings?.address}</p>
+            <p>📞 {settings?.phone}</p>
             <p>📧 tc-spirit@church.com</p>
           </div>
           <div className="footer-links">
@@ -26,8 +23,8 @@ export default function Footer() {
           <div className="footer-social">
             <h3>온라인 채널</h3>
             <div className="social-btns">
-              {settings.youtubeLink && <a href={settings.youtubeLink} target="_blank" rel="noreferrer">유튜브</a>}
-              {settings.kakaoLink && <a href={settings.kakaoLink} target="_blank" rel="noreferrer">카카오톡</a>}
+              {settings?.youtubeLink && <a href={settings.youtubeLink} target="_blank" rel="noreferrer">유튜브</a>}
+              {settings?.kakaoLink && <a href={settings.kakaoLink} target="_blank" rel="noreferrer">카카오톡</a>}
             </div>
           </div>
         </div>

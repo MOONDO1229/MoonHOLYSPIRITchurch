@@ -1,9 +1,6 @@
 import './globals.css';
 import './church.css';
-import Header from '@/components/Header';
-import BottomNav from '@/components/BottomNav';
-import PopupOverlay from '@/components/PopupOverlay';
-import Footer from '@/components/Footer';
+import LayoutWrapper from '@/components/LayoutWrapper';
 import { getSettings } from '@/lib/db';
 
 export const metadata = {
@@ -14,7 +11,7 @@ export const metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5, // 주보 확대를 위해 스케일 제한 완화
+  maximumScale: 5,
   userScalable: true,
 };
 
@@ -34,13 +31,9 @@ export default function RootLayout({ children }) {
         `}} />
       </head>
       <body>
-        <PopupOverlay settings={settings} />
-        <Header settings={settings} />
-        <div id="app-wrapper" style={{ paddingBottom: '76px' }}>
+        <LayoutWrapper settings={settings}>
           {children}
-          <Footer />
-        </div>
-        <BottomNav />
+        </LayoutWrapper>
       </body>
     </html>
   );
