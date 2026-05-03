@@ -557,3 +557,73 @@
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+/* 예배 시간 안내 페이지 스타일 */
+.worship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.worship-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.worship-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.worship-card .card-header {
+  background: #f8fdfb;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.worship-card .card-header h3 {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin: 0;
+  font-weight: 800;
+}
+
+.worship-card .card-body {
+  padding: 20px;
+}
+
+.worship-card .info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.worship-card .info-row:last-child {
+  border-bottom: none;
+}
+
+.worship-card .label {
+  font-weight: 700;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.worship-card .value {
+  font-weight: 800;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .worship-grid {
+    grid-template-columns: 1fr;
+  }
+}
