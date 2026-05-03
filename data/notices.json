@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "2024년 상반기 새가족 등록 안내",
+    "category": "모집",
+    "content": "우리 교회에 처음 오신 분들을 진심으로 환영합니다. 등록을 원하시는 분은 사무실로 문의 바랍니다.",
+    "image": "/images/notice-1.jpg",
+    "file": "",
+    "date": "2024-05-01",
+    "start_date": "2024-05-01",
+    "end_date": "2024-12-31",
+    "is_pinned": true,
+    "show_on_main": true,
+    "status": "게시"
+  },
+  {
+    "id": 2,
+    "title": "여름 성경학교 교사 모집",
+    "category": "모집",
+    "content": "아이들을 사랑으로 섬길 교사들을 모집합니다.",
+    "image": "",
+    "file": "/files/teacher-form.pdf",
+    "date": "2024-05-15",
+    "start_date": "2024-05-15",
+    "end_date": "2024-06-30",
+    "is_pinned": false,
+    "show_on_main": true,
+    "status": "게시"
+  }
+]

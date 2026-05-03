@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "2024년 5월 첫째 주 주보",
+    "date": "2024-05-05",
+    "pdf_url": "/uploads/sample_bulletin.pdf",
+    "image_url": "https://images.unsplash.com/photo-1504052434139-44155d136d7a?auto=format&fit=crop&q=80&w=400",
+    "summary": {
+      "order": "입례송 - 찬송 - 기도 - 성경봉독 - 설교 - 광고 - 축도",
+      "notices": "1. 여름 성경학교 교사 모집\n2. 금요 철야 기도회 안내",
+      "missions": "단기 선교팀 모집 중",
+      "fellowship": "새가족 환영회 (주일 오후 2시)",
+      "offering": "농협 123-456-789 (성령교회)"
+    },
+    "show_on_main": true,
+    "status": "게시"
+  }
+]

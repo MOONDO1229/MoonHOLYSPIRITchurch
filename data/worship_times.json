@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "주일 1부 예배",
+    "type": "주일예배",
+    "day": "일요일",
+    "time": "07:30",
+    "location": "대예배실 (3층)",
+    "target": "전 성도",
+    "online_link": "https://youtube.com/live/placeholder1",
+    "note": "경건한 아침 예배",
+    "order": 1,
+    "is_visible": true
+  },
+  {
+    "id": 2,
+    "name": "주일 2부 예배",
+    "type": "주일예배",
+    "day": "일요일",
+    "time": "09:30",
+    "location": "대예배실 (3층)",
+    "target": "전 성도",
+    "online_link": "https://youtube.com/live/placeholder2",
+    "note": "찬양이 풍성한 예배",
+    "order": 2,
+    "is_visible": true
+  },
+  {
+    "id": 3,
+    "name": "주일 3부 예배",
+    "type": "주일예배",
+    "day": "일요일",
+    "time": "11:30",
+    "location": "대예배실 (3층)",
+    "target": "전 성도",
+    "online_link": "https://youtube.com/live/placeholder3",
+    "note": "대표 예배",
+    "order": 3,
+    "is_visible": true
+  },
+  {
+    "id": 4,
+    "name": "수요기도회",
+    "type": "평일예배",
+    "day": "수요일",
+    "time": "19:30",
+    "location": "소예배실 (2층)",
+    "target": "전 성도",
+    "online_link": "",
+    "note": "말씀과 기도의 시간",
+    "order": 4,
+    "is_visible": true
+  },
+  {
+    "id": 5,
+    "name": "금요성령집회",
+    "type": "평일예배",
+    "day": "금요일",
+    "time": "20:30",
+    "location": "대예배실 (3층)",
+    "target": "전 성도",
+    "online_link": "https://youtube.com/live/placeholder5",
+    "note": "뜨거운 찬양과 기도",
+    "order": 5,
+    "is_visible": true
+  },
+  {
+    "id": 6,
+    "name": "새벽기도회",
+    "type": "평일예배",
+    "day": "월-토",
+    "time": "05:30",
+    "location": "소예배실 (2층)",
+    "target": "전 성도",
+    "online_link": "",
+    "note": "하루를 여는 예배",
+    "order": 6,
+    "is_visible": true
+  }
+]

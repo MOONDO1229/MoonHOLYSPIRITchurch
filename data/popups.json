@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "title": "여름 성경학교 안내",
+    "pc_image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600",
+    "mobile_image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=400",
+    "link": "/news/2",
+    "start_date": "2024-05-01",
+    "end_date": "2024-08-31",
+    "show_on_pc": true,
+    "show_on_mobile": true,
+    "use_today_hide": true,
+    "status": "게시"
+  }
+]
