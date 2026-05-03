@@ -9,7 +9,7 @@ export default async function BulletinPage() {
 
   return (
     <main>
-      <PageHeader title="주보 안내" subtitle="매주 발행되는 은혜샘교회의 소식지입니다." />
+      <PageHeader title="주보 안내" subtitle="매주 발행되는 퇴촌성령교회의 소식지입니다." />
 
       <section className="container section">
         {latest && (
@@ -36,13 +36,16 @@ export default async function BulletinPage() {
           <div className="bulletin-grid">
             {bulletins.slice(1).map(item => (
               <div key={item.id} className="bulletin-item-card">
+                <div className="item-thumb">
+                  <img src={item.image_url} alt={item.title} />
+                </div>
                 <div className="item-info">
                   <h4>{item.title}</h4>
                   <p>{item.date}</p>
-                </div>
-                <div className="item-actions">
-                  <a href={item.pdf_url} download className="item-link"><Download size={20} /> PDF</a>
-                  <Link href={`/bulletin/${item.id}`} className="item-link"><FileText size={20} /> 요약</Link>
+                  <div className="item-actions">
+                    <a href={item.pdf_url} download className="item-link"><Download size={20} /> PDF 다운로드</a>
+                    <Link href={`/bulletin/${item.id}`} className="item-link"><FileText size={20} /> 요약보기</Link>
+                  </div>
                 </div>
               </div>
             ))}

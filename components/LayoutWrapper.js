@@ -21,7 +21,7 @@ export default function LayoutWrapper({ children, settings }) {
         {children}
         <Footer />
       </div>
-      <BottomNav />
+      <BottomNav settings={settings} />
     </>
   );
 }

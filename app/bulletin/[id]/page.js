@@ -4,10 +4,23 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export default async function BulletinDetailPage({ params }) {
-  const { id } = params;
-  const bulletin = (await getData('bulletins')).find(b => b.id === parseInt(id));
+  const { id } = await params;
+  const bulletinList = await getData('bulletins');
+  const bulletin = bulletinList.find(b => b.id === parseInt(id));
 
   if (!bulletin) notFound();
+
+  // summary가 문자열이거나 없을 경우를 대비한 파싱 로직
+  let summary = { order: '', notices: '', missions: '', fellowship: '' };
+  if (typeof bulletin.summary === 'object' && bulletin.summary !== null) {
+    summary = { ...summary, ...bulletin.summary };
+  } else if (typeof bulletin.summary === 'string') {
+    try {
+      summary = { ...summary, ...JSON.parse(bulletin.summary) };
+    } catch (e) {
+      console.error('Summary JSON parse error:', e);
+    }
+  }
 
   return (
     <main>
@@ -56,22 +69,22 @@ export default async function BulletinDetailPage({ params }) {
           <h2 className="section-subtitle">주보 요약 안내</h2>
           <div className="summary-card">
             <h3>📋 예배 순서</h3>
-            <p className="pre-wrap">{bulletin.summary.order}</p>
+            <p className="pre-wrap">{summary.order}</p>
           </div>
 
           <div className="summary-card">
             <h3>📢 교회 소식</h3>
-            <p className="pre-wrap">{bulletin.summary.notices}</p>
+            <p className="pre-wrap">{summary.notices}</p>
           </div>
 
           <div className="summary-grid">
             <div className="summary-card">
               <h3>⛪ 행사 및 모집</h3>
-              <p className="pre-wrap">{bulletin.summary.missions}</p>
+              <p className="pre-wrap">{summary.missions}</p>
             </div>
             <div className="summary-card">
               <h3>💞 교우 소식</h3>
-              <p className="pre-wrap">{bulletin.summary.fellowship}</p>
+              <p className="pre-wrap">{summary.fellowship}</p>
             </div>
           </div>
         </div>

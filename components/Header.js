@@ -20,7 +20,8 @@ export default function Header({ settings }) {
 
         {/* Desktop Nav */}
         <nav className="desktop-nav">
-          <Link href="/worship">예배와 말씀</Link>
+          <Link href="/worship">예배안내</Link>
+          <Link href="/sermon">설교말씀</Link>
           <Link href="/news">교회소식</Link>
           <Link href="/support">헌금 및 후원</Link>
           <Link href="/about">교회소개</Link>
@@ -40,7 +41,8 @@ export default function Header({ settings }) {
         <div className="mobile-menu-overlay">
           <nav className="mobile-menu-nav">
             <Link href="/" onClick={() => setIsOpen(false)}>홈으로</Link>
-            <Link href="/worship" onClick={() => setIsOpen(false)}>예배와 말씀</Link>
+            <Link href="/worship" onClick={() => setIsOpen(false)}>예배안내</Link>
+            <Link href="/sermon" onClick={() => setIsOpen(false)}>설교말씀</Link>
             <Link href="/news" onClick={() => setIsOpen(false)}>교회소식</Link>
             <Link href="/support" onClick={() => setIsOpen(false)}>헌금 및 후원</Link>
             <Link href="/about" onClick={() => setIsOpen(false)}>교회소개</Link>

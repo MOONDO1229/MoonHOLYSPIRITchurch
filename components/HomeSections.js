@@ -28,10 +28,10 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
               <span className="badge">최신 설교</span>
               <h3>{latestSermon.title}</h3>
               <p className="details">
-                {latestSermon.date} • {latestSermon.pastor} 목사<br/>
-                성경말씀: {latestSermon.scripture}
+                {latestSermon.date} • {latestSermon.preacher} 목사<br/>
+                성경말씀: {latestSermon.passage}
               </p>
-              <Link href={`/worship`} className="btn btn-primary">설교 목록 보기</Link>
+              <Link href={`/sermon`} className="btn btn-primary">설교 목록 보기</Link>
             </div>
           </div>
         ) : (
@@ -44,12 +44,12 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
         <div className="container section">
           <div className="section-header">
             <h2>이번주 주보</h2>
-            <Link href="/news" className="more-link">지난 주보 <ChevronRight size={20}/></Link>
+            <Link href="/bulletin" className="more-link">지난 주보 <ChevronRight size={20}/></Link>
           </div>
           {latestBulletin ? (
             <div className="bulletin-home-card">
               <div className="bulletin-thumb">
-                <img src={latestBulletin.thumbnail || latestBulletin.image} alt="주보 썸네일" />
+                <img src={latestBulletin.image_url} alt="주보 썸네일" />
               </div>
               <div className="bulletin-home-info">
                 <span className="badge">주간 소식</span>
@@ -57,7 +57,6 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
                 <p className="date">{latestBulletin.date} 발행</p>
                 <div className="btn-group">
                   <Link href={`/bulletin/${latestBulletin.id}`} className="btn btn-primary">주보 크게보기</Link>
-                  <Link href="/news" className="btn btn-outline">교회 소식</Link>
                 </div>
               </div>
             </div>
