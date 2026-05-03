@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { updateSettings } from '@/lib/actions';
-import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Layout, Globe, Calendar, Mail } from 'lucide-react';
+import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
