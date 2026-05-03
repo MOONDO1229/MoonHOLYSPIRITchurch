@@ -1,10 +1,14 @@
 'use client';
 import { useState, useRef } from 'react';
 import { updateSettings } from '@/lib/actions';
-import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Layout, Globe } from 'lucide-react';
+import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Layout, Globe, Calendar, Mail } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
-  const [settings, setSettings] = useState(initialSettings);
+  const [settings, setSettings] = useState({
+    ...initialSettings,
+    email: initialSettings?.email || '',
+    copyrightYear: initialSettings?.copyrightYear || '2026'
+  });
   const [isPreviewMobile, setIsPreviewMobile] = useState(false);
   const [activeTab, setActiveTab] = useState('basic'); // basic, history, popup, theme
   const fileInputRef = useRef({});
