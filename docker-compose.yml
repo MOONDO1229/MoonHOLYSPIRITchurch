@@ -1,0 +1,14 @@
+services:
+  church-cms:
+    build: .
+    container_name: church-cms
+    restart: always
+    ports:
+      - "80:3000"
+    volumes:
+      - church-data:/app/data
+      - church-uploads:/app/public/uploads
+
+volumes:
+  church-data:
+  church-uploads:

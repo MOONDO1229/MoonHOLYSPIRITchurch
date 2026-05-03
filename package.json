@@ -10,9 +10,10 @@
     "backup": "node scripts/backup.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.1",
+    "lucide-react": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "lucide-react": "latest"
+    "react-dom": "latest"
   }
 }
