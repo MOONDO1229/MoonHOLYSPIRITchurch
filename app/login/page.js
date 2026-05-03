@@ -19,30 +19,27 @@ export default function LoginPage() {
     const u = username.trim();
     const p = password.trim();
 
-    // 1. 프론트엔드 1차 검증
-    if (u === 'moonhk69' && p === 'moonhk690901') {
-      try {
-        // 2. 서버 세션 생성 API 호출
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          body: JSON.stringify({ username: u, password: p }),
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
-        if (res.ok) {
-          // 3. 성공 시 관리자 페이지로 강제 이동 (쿠키 반영을 위해 window.location 사용)
-          // router.push 대신 location.href를 사용하면 페이지가 새로고침되면서 쿠키가 확실히 적용됩니다.
-          window.location.href = '/admin';
-        } else {
-          setError('서버 인증에 실패했습니다. 다시 시도해 주세요.');
-          setLoading(false);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: u, password: p }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
+        window.location.href = '/admin';
+      } else {
+        // 서버에서 보내주는 구체적인 에러 메시지 표시
+        setError(data.message || '인증 실패 (알 수 없는 이유)');
+        if (data.debug) {
+          console.log('Debug Info:', data.debug);
         }
-      } catch (err) {
-        setError('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-        setLoading(false);
       }
-    } else {
-      setError('아이디 또는 비밀번호가 올바르지 않습니다.');
+    } catch (err) {
+      setError('네트워크 연결 오류: ' + err.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -108,7 +105,7 @@ export default function LoginPage() {
             {loading ? (
               <div className="loading-content">
                 <Loader2 className="animate-spin" size={24} />
-                <span>로그인 처리 중...</span>
+                <span>확인 중...</span>
               </div>
             ) : '로그인 하기'}
           </button>
@@ -204,6 +201,7 @@ export default function LoginPage() {
           margin-bottom: 25px;
           border-left: 5px solid #e74c3c;
           font-weight: 600;
+          word-break: break-all;
         }
 
         .btn-login {

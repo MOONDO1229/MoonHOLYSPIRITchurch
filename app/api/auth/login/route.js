@@ -2,44 +2,48 @@ import { cookies } from 'next/headers';
 
 export async function POST(request) {
   try {
-    const { username, password } = await request.json();
+    const text = await request.text();
+    console.log('Raw body:', text);
+    
+    let body;
+    try {
+      body = JSON.parse(text);
+    } catch (e) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        message: 'JSON 파싱 에러: ' + e.message,
+        received: text 
+      }), { status: 400 });
+    }
 
-    // 디버깅을 위해 입력값 정리
+    const { username, password } = body;
     const u = username?.trim();
     const p = password?.trim();
 
-    // 보안 환경 변수가 작동하지 않을 상황을 대비해 코드를 직접 비교 (긴급 조치)
-    // Vercel 환경 변수 설정 여부와 상관없이 무조건 동작하게 함
-    const IS_VALID = (u === 'moonhk69' && p === 'moonhk690901');
-
-    if (IS_VALID) {
-      // 쿠키 설정
+    // 하드코딩 인증
+    if (u === 'moonhk69' && p === 'moonhk690901') {
       cookies().set('admin_session', 'authenticated', {
         httpOnly: true,
         path: '/',
-        maxAge: 60 * 60 * 24 * 7, // 1주일
+        maxAge: 60 * 60 * 24 * 7,
         sameSite: 'lax',
         secure: true,
       });
       
-      return new Response(JSON.stringify({ success: true }), { 
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(JSON.stringify({ success: true }), { status: 200 });
     }
 
-    // 아이디/비번이 틀린 경우
-    return new Response(JSON.stringify({ success: false, message: '아이디 또는 비밀번호가 틀립니다.' }), { 
-      status: 401,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: '인증 정보 불일치',
+      debug: { sent_u: u, sent_p: p } 
+    }), { status: 401 });
 
   } catch (error) {
-    // 서버 내부 오류 (JSON 파싱 실패 등)
-    return new Response(JSON.stringify({ success: false, message: '서버 내부 오류가 발생했습니다.' }), { 
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: '서버 치명적 오류: ' + error.message 
+    }), { status: 500 });
   }
 }
 
