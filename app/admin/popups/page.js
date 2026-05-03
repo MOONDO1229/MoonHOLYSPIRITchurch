@@ -1,12 +1,12 @@
 import { getData } from '@/lib/db';
-import PopupList from '@/components/admin/PopupList';
+import PopupManager from '@/components/admin/PopupManager';
 
 export default function PopupsPage() {
   const popups = getData('popups');
   
   return (
     <div className="admin-page">
-      <PopupList initialPopups={popups} />
+      <PopupManager initialPopups={popups} />
     </div>
   );
 }

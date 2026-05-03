@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { updateSettings } from '@/lib/actions';
-import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell } from 'lucide-react';
+import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Layout, Globe } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState(initialSettings);
@@ -22,7 +22,6 @@ export default function SettingsForm({ initialSettings }) {
     }
   };
 
-  // 연혁 관련 함수
   const handleHistoryChange = (index, field, value) => {
     const newHistory = [...settings.history];
     newHistory[index][field] = value;
@@ -32,7 +31,7 @@ export default function SettingsForm({ initialSettings }) {
   const addHistory = () => {
     setSettings(prev => ({
       ...prev,
-      history: [...prev.history, { year: new Date().getFullYear().toString(), month: '01', content: '' }]
+      history: [{ year: new Date().getFullYear().toString(), month: '01', content: '' }, ...prev.history]
     }));
   };
 
@@ -41,7 +40,6 @@ export default function SettingsForm({ initialSettings }) {
     setSettings(prev => ({ ...prev, history: newHistory }));
   };
 
-  // 이미지 업로드 핸들러
   const handleImageUpload = async (e, fieldName) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -55,12 +53,36 @@ export default function SettingsForm({ initialSettings }) {
         body: formData,
       });
       const data = await res.json();
-      if (data.url) {
-        setSettings(prev => ({ ...prev, [fieldName]: data.url }));
-        alert('이미지가 업로드되었습니다.');
+      
+      if (data.success && data.url) {
+        // 함수형 업데이트를 사용하여 stale state 방지
+        setSettings(prev => {
+          let newSettings;
+          if (fieldName.includes('.')) {
+            const [parent, child] = fieldName.split('.');
+            newSettings = {
+              ...prev,
+              [parent]: { ...prev[parent], [child]: data.url }
+            };
+          } else {
+            newSettings = { ...prev, [fieldName]: data.url };
+          }
+          
+          // 상태 업데이트 직후 서버에 저장
+          updateSettings(newSettings).then(() => {
+            console.log('Settings auto-saved after image upload');
+          });
+          
+          return newSettings;
+        });
+        
+        alert('이미지가 업로드되고 즉시 저장되었습니다.');
+      } else {
+        alert('업로드 실패: ' + (data.message || '알 수 없는 오류'));
       }
     } catch (err) {
-      alert('이미지 업로드에 실패했습니다.');
+      console.error('Upload error:', err);
+      alert('이미지 업로드 중 오류가 발생했습니다.');
     }
   };
 
@@ -75,291 +97,282 @@ export default function SettingsForm({ initialSettings }) {
   };
 
   return (
-    <div className="settings-container">
+    <div className="settings-premium">
       <div className="admin-header">
-        <div>
-          <h1>사이트 디자인 및 정보 관리</h1>
-          <p className="subtitle">교회 정보, 디자인 테마, 팝업 등을 통합 관리합니다.</p>
+        <div className="header-info">
+          <h1>사이트 디자인 및 환경 설정</h1>
+          <p className="subtitle">교회 정보와 시각적 테마를 세밀하게 관리할 수 있습니다.</p>
         </div>
         <div className="header-actions">
           <button 
             className={`btn-preview ${isPreviewMobile ? 'active' : ''}`}
             onClick={() => setIsPreviewMobile(!isPreviewMobile)}
           >
-            {isPreviewMobile ? <Monitor size={20} /> : <Smartphone size={20} />}
-            {isPreviewMobile ? 'PC 보기' : '모바일 보기'}
+            {isPreviewMobile ? <Monitor size={18} /> : <Smartphone size={18} />}
+            {isPreviewMobile ? '데스크탑 모드' : '모바일 모드'}
           </button>
-          <button className="btn-primary" onClick={handleSubmit}><Save size={20} /> 전체 저장</button>
+          <button className="btn-primary" onClick={handleSubmit}>
+            <Save size={20} /> 모든 설정 저장
+          </button>
         </div>
       </div>
 
       <div className="settings-layout">
-        <div className="settings-form-area">
-          {/* 탭 메뉴 */}
-          <div className="admin-tabs">
-            <button className={activeTab === 'basic' ? 'active' : ''} onClick={() => setActiveTab('basic')}>기본 정보 & 사진</button>
-            <button className={activeTab === 'history' ? 'active' : ''} onClick={() => setActiveTab('history')}>교회 연혁</button>
-            <button className={activeTab === 'popup' ? 'active' : ''} onClick={() => setActiveTab('popup')}>팝업 포스터</button>
-            <button className={activeTab === 'theme' ? 'active' : ''} onClick={() => setActiveTab('theme')}>디자인 테마</button>
+        <div className="form-column">
+          <div className="tab-navigation">
+            <button className={activeTab === 'basic' ? 'active' : ''} onClick={() => setActiveTab('basic')}>
+              <Layout size={18} /> 기본 정보
+            </button>
+            <button className={activeTab === 'history' ? 'active' : ''} onClick={() => setActiveTab('history')}>
+              <Clock size={18} /> 교회 연혁
+            </button>
+            <button className={activeTab === 'theme' ? 'active' : ''} onClick={() => setActiveTab('theme')}>
+              <Palette size={18} /> 테마 & 디자인
+            </button>
           </div>
 
-          <div className="admin-card">
+          <div className="admin-card main-form-card">
             {activeTab === 'basic' && (
-              <div className="tab-content">
-                <h2 className="card-title">교회 프로필 및 사진</h2>
-                
-                <div className="image-upload-grid">
-                  <div className="image-field">
-                    <label>교회 로고 (상단 바)</label>
-                    <div className="image-preview-sm">
-                      {settings.logoImage ? <img src={settings.logoImage} alt="로고" /> : <div className="no-img"><ImageIcon size={24}/></div>}
+              <div className="tab-pane">
+                <h2 className="section-title">주요 사진 및 텍스트</h2>
+                <div className="image-field-grid">
+                  <div className="image-upload-card">
+                    <label>대표 로고</label>
+                    <div className="preview-box">
+                      {settings.logoImage ? <img src={settings.logoImage} /> : <ImageIcon size={32} color="#ddd" />}
                     </div>
-                    <input type="file" onChange={(e) => handleImageUpload(e, 'logoImage')} style={{display: 'none'}} ref={el => fileInputRef.current.logo = el} />
-                    <button className="btn-outline btn-sm" onClick={() => fileInputRef.current.logo.click()}>로고 변경</button>
+                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.logo.click()}>변경하기</button>
+                    <input type="file" ref={el => fileInputRef.current.logo = el} onChange={e => handleImageUpload(e, 'logoImage')} hidden />
                   </div>
-
-                  <div className="image-field">
-                    <label>목사님 프로필 사진</label>
-                    <div className="image-preview-sm">
-                      {settings.pastorImage ? <img src={settings.pastorImage} alt="목사님" /> : <div className="no-img"><ImageIcon size={24}/></div>}
+                  <div className="image-upload-card">
+                    <label>목사님 프로필</label>
+                    <div className="preview-box circle">
+                      {settings.pastorImage ? <img src={settings.pastorImage} /> : <User size={32} color="#ddd" />}
                     </div>
-                    <input type="file" onChange={(e) => handleImageUpload(e, 'pastorImage')} style={{display: 'none'}} ref={el => fileInputRef.current.pastor = el} />
-                    <button className="btn-outline btn-sm" onClick={() => fileInputRef.current.pastor.click()}>사진 변경</button>
+                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.pastor.click()}>변경하기</button>
+                    <input type="file" ref={el => fileInputRef.current.pastor = el} onChange={e => handleImageUpload(e, 'pastorImage')} hidden />
                   </div>
-
-                  <div className="image-field">
-                    <label>교회 전경 (메인 배경)</label>
-                    <div className="image-preview-sm">
-                      {settings.churchImage ? <img src={settings.churchImage} alt="전경" /> : <div className="no-img"><ImageIcon size={24}/></div>}
+                  <div className="image-upload-card">
+                    <label>메인 배경</label>
+                    <div className="preview-box">
+                      {settings.churchImage ? <img src={settings.churchImage} /> : <ImageIcon size={32} color="#ddd" />}
                     </div>
-                    <input type="file" onChange={(e) => handleImageUpload(e, 'churchImage')} style={{display: 'none'}} ref={el => fileInputRef.current.church = el} />
-                    <button className="btn-outline btn-sm" onClick={() => fileInputRef.current.church.click()}>배경 변경</button>
+                    <button className="btn-upload-sm" onClick={() => fileInputRef.current.church.click()}>변경하기</button>
+                    <input type="file" ref={el => fileInputRef.current.church = el} onChange={e => handleImageUpload(e, 'churchImage')} hidden />
                   </div>
                 </div>
 
-                <hr className="divider" />
+                <div className="input-group-row">
+                  <div className="input-field">
+                    <label>환영 인사 제목</label>
+                    <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
+                  </div>
+                </div>
+                <div className="input-field">
+                  <label>인사말 서브 텍스트</label>
+                  <input name="welcomeSubtitle" value={settings.welcomeSubtitle} onChange={handleChange} placeholder="교회의 슬로건이나 비전을 입력하세요" />
+                </div>
 
-                <div className="form-section">
-                  <label>메인 환영 문구</label>
-                  <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} />
-                </div>
-                <div className="form-section">
-                  <label>메인 보조 문구</label>
-                  <input name="welcomeSubtitle" value={settings.welcomeSubtitle} onChange={handleChange} />
-                </div>
-                <div className="form-row">
-                  <div className="form-section">
-                    <label>담임목사 성함</label>
+                <div className="input-group-row">
+                  <div className="input-field">
+                    <label><User size={16} /> 담임목사</label>
                     <input name="pastor" value={settings.pastor} onChange={handleChange} />
                   </div>
-                  <div className="form-section">
-                    <label>대표 전화번호</label>
+                  <div className="input-field">
+                    <label><Phone size={16} /> 연락처</label>
                     <input name="phone" value={settings.phone} onChange={handleChange} />
                   </div>
                 </div>
-                <div className="form-section">
-                  <label>교회 주소</label>
+                <div className="input-field">
+                  <label><MapPin size={16} /> 교회 주소</label>
                   <input name="address" value={settings.address} onChange={handleChange} />
                 </div>
               </div>
             )}
 
             {activeTab === 'history' && (
-              <div className="tab-content">
-                <div className="flex-between">
-                  <h2 className="card-title">교회 연혁 관리</h2>
-                  <button className="btn-outline btn-sm" onClick={addHistory}><Plus size={16}/> 연혁 추가</button>
+              <div className="tab-pane">
+                <div className="section-header">
+                  <h2 className="section-title">교회 연혁 내역</h2>
+                  <button className="btn-add-history" onClick={addHistory}><Plus size={18}/> 새 기록 추가</button>
                 </div>
-                <p className="guide">교회의 주요 발자취를 시간 순서대로 기록하세요.</p>
-                
-                <div className="history-editor">
+                <div className="history-list">
                   {settings.history.map((item, idx) => (
-                    <div key={idx} className="history-row">
-                      <input className="input-year" placeholder="년" value={item.year} onChange={(e) => handleHistoryChange(idx, 'year', e.target.value)} />
-                      <input className="input-month" placeholder="월" value={item.month} onChange={(e) => handleHistoryChange(idx, 'month', e.target.value)} />
-                      <input className="input-content" placeholder="내용을 입력하세요" value={item.content} onChange={(e) => handleHistoryChange(idx, 'content', e.target.value)} />
-                      <button className="btn-icon danger" onClick={() => removeHistory(idx)}><Trash2 size={16}/></button>
+                    <div key={idx} className="history-item-row">
+                      <div className="date-inputs">
+                        <input className="year" value={item.year} onChange={e => handleHistoryChange(idx, 'year', e.target.value)} placeholder="YYYY" />
+                        <span className="sep">.</span>
+                        <input className="month" value={item.month} onChange={e => handleHistoryChange(idx, 'month', e.target.value)} placeholder="MM" />
+                      </div>
+                      <input className="content" value={item.content} onChange={e => handleHistoryChange(idx, 'content', e.target.value)} placeholder="내용을 입력하세요" />
+                      <button className="btn-del" onClick={() => removeHistory(idx)}><Trash2 size={18}/></button>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {activeTab === 'popup' && (
-              <div className="tab-content">
-                <h2 className="card-title">팝업 포스터 관리</h2>
-                <div className="form-section">
-                  <label className="checkbox-label">
-                    <input type="checkbox" name="popup.enabled" checked={settings.popup.enabled} onChange={handleChange} />
-                    팝업 활성화 (체크 시 홈페이지 접속 시 노출)
-                  </label>
+            {activeTab === 'theme' && (
+              <div className="tab-pane">
+                <h2 className="section-title">브랜드 테마 컬러</h2>
+                <div className="theme-config-row">
+                  <div className="color-config-card">
+                    <label>메인 색상 (Primary)</label>
+                    <div className="color-control">
+                      <input type="color" name="theme.primaryColor" value={settings.theme.primaryColor} onChange={handleChange} />
+                      <input type="text" value={settings.theme.primaryColor} onChange={handleChange} name="theme.primaryColor" />
+                    </div>
+                    <p className="help-text">헤더, 버튼, 강조 텍스트에 사용됩니다.</p>
+                  </div>
+                  <div className="color-config-card">
+                    <label>포인트 색상 (Secondary)</label>
+                    <div className="color-control">
+                      <input type="color" name="theme.secondaryColor" value={settings.theme.secondaryColor} onChange={handleChange} />
+                      <input type="text" value={settings.theme.secondaryColor} onChange={handleChange} name="theme.secondaryColor" />
+                    </div>
+                    <p className="help-text">알림, 배지, 특수 버튼에 사용됩니다.</p>
+                  </div>
                 </div>
                 
-                <div className="form-section">
-                  <label>포스터 이미지 업로드</label>
-                  <div className="poster-upload-area">
-                    {settings.popup.imageUrl ? (
-                      <div className="poster-preview">
-                        <img src={settings.popup.imageUrl} alt="팝업 포스터" />
-                        <button className="btn-change-img" onClick={() => fileInputRef.current.popup.click()}>이미지 교체</button>
-                      </div>
-                    ) : (
-                      <div className="upload-placeholder" onClick={() => fileInputRef.current.popup.click()}>
-                        <Bell size={40} />
-                        <p>팝업 포스터를 업로드하세요</p>
-                      </div>
-                    )}
-                    <input type="file" onChange={(e) => handleImageUpload(e, 'popup.imageUrl')} style={{display: 'none'}} ref={el => fileInputRef.current.popup = el} />
-                  </div>
-                </div>
-
-                <div className="form-section">
-                  <label>클릭 시 이동할 링크 (선택사항)</label>
-                  <input name="popup.linkUrl" value={settings.popup.linkUrl} onChange={handleChange} placeholder="https://..." />
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'theme' && (
-              <div className="tab-content">
-                <h2 className="card-title">디자인 테마 설정</h2>
-                <div className="form-row">
-                  <div className="form-section">
-                    <label>메인 브랜드 색상 (Primary)</label>
-                    <div className="color-picker-wrap">
-                      <input type="color" name="theme.primaryColor" value={settings.theme.primaryColor} onChange={handleChange} />
-                      <input type="text" name="theme.primaryColor" value={settings.theme.primaryColor} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div className="form-section">
-                    <label>강조 색상 (Secondary)</label>
-                    <div className="color-picker-wrap">
-                      <input type="color" name="theme.secondaryColor" value={settings.theme.secondaryColor} onChange={handleChange} />
-                      <input type="text" name="theme.secondaryColor" value={settings.theme.secondaryColor} onChange={handleChange} />
-                    </div>
-                  </div>
-                </div>
-                <div className="theme-guide">
-                  <p>💡 색상을 변경하면 홈페이지의 버튼, 헤더, 배경 등에 즉시 반영됩니다.</p>
+                <div className="theme-tip">
+                  <Globe size={20} />
+                  <p>색상을 변경하면 홈페이지 전체에 즉시 반영됩니다. 교회의 상징색을 선택해 보세요.</p>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* 실시간 미리보기 (Wix 스타일) */}
-        <div className="preview-area">
-          <div className={`preview-frame ${isPreviewMobile ? 'mobile' : 'pc'}`}>
-            <div className="preview-header">실시간 디자인 미리보기</div>
-            <div className="preview-content">
-              <div className="mock-site">
-                <header className="mock-nav" style={{backgroundColor: '#fff', borderBottom: `2px solid ${settings.theme.primaryColor}`}}>
-                  {settings.logoImage ? <img src={settings.logoImage} className="mock-logo" /> : <span>{settings.welcomeTitle}</span>}
-                </header>
-                <div className="mock-hero" style={{
+        {/* Live Preview Area */}
+        <div className="preview-column">
+          <div className={`mockup-container ${isPreviewMobile ? 'mobile' : 'desktop'}`}>
+            <div className="mockup-header">
+              <div className="dots"><span></span><span></span><span></span></div>
+              <div className="address-bar">https://sh-church.org</div>
+            </div>
+            <div className="mockup-viewport">
+              <div className="live-site-preview">
+                <nav className="nav-mock" style={{ borderBottom: `3px solid ${settings.theme.primaryColor}` }}>
+                  {settings.logoImage ? <img src={settings.logoImage} height="20" /> : <span style={{fontWeight:900, color: settings.theme.primaryColor}}>{settings.welcomeTitle?.substring(0,6)}</span>}
+                  <div className="menu-dots"><span></span><span></span><span></span></div>
+                </nav>
+                <div className="hero-mock" style={{ 
                   background: settings.churchImage ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${settings.churchImage}) center/cover` : settings.theme.primaryColor,
                   color: 'white'
                 }}>
-                  <h1>{settings.welcomeTitle}</h1>
-                  <p>{settings.welcomeSubtitle}</p>
-                  <button style={{backgroundColor: settings.theme.secondaryColor, border: 'none', padding: '10px 20px', borderRadius: '5px', color: 'white', fontWeight: 'bold', marginTop: '10px'}}>상세보기</button>
+                  <h1 style={{fontSize: isPreviewMobile ? '1.2rem' : '1.8rem'}}>{settings.welcomeTitle || '성령교회에 오신 것을 환영합니다'}</h1>
+                  <p style={{fontSize: isPreviewMobile ? '0.8rem' : '1rem', opacity: 0.8}}>{settings.welcomeSubtitle}</p>
+                  <button style={{ background: settings.theme.secondaryColor, border:'none', color:'white', padding: '8px 16px', borderRadius: '4px', marginTop:'10px', fontWeight:700 }}>자세히 보기</button>
                 </div>
-                <div className="mock-section">
-                  <div className="mock-pastor">
-                    <div className="mock-avatar">
-                      {settings.pastorImage ? <img src={settings.pastorImage} /> : <div className="no-avatar" />}
+                <div className="content-mock">
+                  <div className="pastor-card-mock">
+                    <div className="avatar-mock" style={{ background: '#eee', borderRadius: '50%', overflow:'hidden' }}>
+                      {settings.pastorImage && <img src={settings.pastorImage} style={{width:'100%', height:'100%', objectFit:'cover'}} />}
                     </div>
-                    <div className="mock-msg">
-                      <h4 style={{color: settings.theme.primaryColor}}>{settings.pastor}</h4>
-                      <p>예수님의 사랑으로 여러분을 환영합니다.</p>
+                    <div className="msg-mock">
+                      <div className="name" style={{ color: settings.theme.primaryColor, fontWeight: 800 }}>{settings.pastor} 목사</div>
+                      <div className="text" style={{ fontSize: '0.8rem', color: '#666' }}>예수님의 사랑으로 축복합니다.</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="preview-label">실시간 웹사이트 미리보기</div>
         </div>
       </div>
 
       <style jsx>{`
-        .settings-container { width: 100%; }
-        .admin-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
-        .admin-header h1 { margin: 0; font-size: 28px; color: #1b4d3e; }
-        .subtitle { color: #666; margin-top: 5px; }
-        .header-actions { display: flex; gap: 12px; }
+        .settings-premium { max-width: 1300px; margin: 0 auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 35px; }
+        .header-info h1 { margin: 0; font-size: 2.2rem; fontWeight: 900; color: #1b4d3e; letter-spacing: -0.02em; }
+        .subtitle { color: #64748b; margin-top: 8px; font-size: 1.1rem; }
         
-        .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 0; }
-        .admin-tabs button { 
-          padding: 12px 20px; background: none; border: none; font-size: 16px; font-weight: 600; color: #666; cursor: pointer;
-          border-bottom: 3px solid transparent; transition: all 0.2s;
+        .header-actions { display: flex; gap: 15px; }
+        .btn-preview { 
+          display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #e2e8f0; 
+          padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; color: #64748b;
+          transition: all 0.2s;
         }
-        .admin-tabs button:hover { color: #1b4d3e; }
-        .admin-tabs button.active { color: #1b4d3e; border-bottom-color: #1b4d3e; }
+        .btn-preview.active { background: #f1f5f9; color: #1b4d3e; border-color: #1b4d3e; }
+        .btn-primary { 
+          background: #1b4d3e; color: white; padding: 12px 28px; border-radius: 12px; 
+          font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+          box-shadow: 0 10px 20px rgba(27,77,62,0.15); transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(27,77,62,0.25); }
 
-        .settings-layout { display: grid; grid-template-columns: 1fr 420px; gap: 30px; }
-        .admin-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        .card-title { font-size: 20px; margin: 0 0 20px 0; color: #2c3e50; font-weight: 800; }
+        .settings-layout { display: grid; grid-template-columns: 1fr 450px; gap: 40px; align-items: start; }
         
-        .image-upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .image-field { text-align: center; }
-        .image-field label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #555; }
-        .image-preview-sm { 
-          width: 100%; aspect-ratio: 1; background: #f8f9fa; border-radius: 12px; margin-bottom: 10px; 
-          border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden;
+        .tab-navigation { display: flex; gap: 8px; margin-bottom: 15px; }
+        .tab-navigation button { 
+          padding: 12px 24px; background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+          font-weight: 700; cursor: pointer; color: #94a3b8; display: flex; align-items: center; gap: 8px;
+          transition: all 0.2s;
         }
-        .image-preview-sm img { width: 100%; height: 100%; object-fit: cover; }
-        .no-img { color: #ccc; }
+        .tab-navigation button.active { background: #1b4d3e; color: white; border-color: #1b4d3e; }
+        
+        .main-form-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
+        .section-title { font-size: 1.4rem; font-weight: 800; color: #1e293b; margin-bottom: 30px; border-left: 5px solid #1b4d3e; padding-left: 15px; }
+        
+        .image-field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .image-upload-card { text-align: center; background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #f1f5f9; }
+        .image-upload-card label { display: block; font-weight: 800; color: #475569; margin-bottom: 15px; font-size: 0.95rem; }
+        .preview-box { width: 100%; aspect-ratio: 1; background: white; border-radius: 12px; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; }
+        .preview-box.circle { border-radius: 50%; }
+        .preview-box img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-upload-sm { background: white; border: 1px solid #e2e8f0; padding: 6px 12px; borderRadius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; color: #64748b; }
+        .btn-upload-sm:hover { color: #1b4d3e; border-color: #1b4d3e; }
 
-        .form-section { margin-bottom: 20px; }
-        .form-section label { display: block; font-weight: 700; margin-bottom: 8px; color: #34495e; font-size: 15px; }
-        .form-section input, .form-section textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; font-family: inherit; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .divider { border: 0; border-top: 1px solid #f0f2f5; margin: 30px 0; }
+        .input-field { margin-bottom: 24px; }
+        .input-field label { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #475569; margin-bottom: 10px; font-size: 1rem; }
+        .input-field input { width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 1.05rem; transition: all 0.2s; }
+        .input-field input:focus { border-color: #1b4d3e; outline: none; box-shadow: 0 0 0 4px rgba(27,77,62,0.05); }
+        .input-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .history-item-row { display: flex; gap: 15px; align-items: center; background: #f8fafc; padding: 15px; border-radius: 16px; margin-bottom: 12px; border: 1px solid #f1f5f9; }
+        .date-inputs { display: flex; align-items: center; background: white; padding: 8px 12px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .date-inputs input { border: none; font-weight: 800; text-align: center; width: 50px; font-size: 1rem; }
+        .date-inputs input:focus { outline: none; color: #1b4d3e; }
+        .date-inputs .month { width: 30px; }
+        .date-inputs .sep { color: #cbd5e1; margin: 0 4px; }
+        .history-item-row .content { flex: 1; border: none; background: transparent; font-size: 1.05rem; font-weight: 500; }
+        .btn-del { color: #94a3b8; background: none; border: none; cursor: pointer; }
+        .btn-del:hover { color: #ef4444; }
+        .btn-add-history { background: #f1f5f9; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-add-history:hover { background: #e2e8f0; color: #1b4d3e; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+
+        .theme-config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .color-config-card { background: #f8fafc; padding: 25px; border-radius: 20px; border: 1px solid #f1f5f9; }
+        .color-config-card label { display: block; font-weight: 800; color: #1e293b; margin-bottom: 15px; }
+        .color-control { display: flex; gap: 12px; align-items: center; }
+        .color-control input[type="color"] { width: 60px; height: 60px; border-radius: 12px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; background: none; padding: 0; }
+        .color-control input[type="text"] { flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-family: monospace; font-weight: 700; text-transform: uppercase; }
+        .help-text { font-size: 0.85rem; color: #94a3b8; margin-top: 12px; }
+        .theme-tip { margin-top: 30px; padding: 20px; background: #f0f7f4; border-radius: 16px; display: flex; gap: 15px; align-items: center; color: #1b4d3e; font-weight: 600; }
+
+        .mockup-container { background: #1e293b; padding: 12px; border-radius: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); position: sticky; top: 30px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .mockup-container.mobile { width: 320px; height: 640px; margin: 0 auto; }
+        .mockup-container.desktop { width: 100%; height: 500px; }
+        .mockup-header { padding: 10px 15px; display: flex; align-items: center; gap: 15px; }
+        .dots { display: flex; gap: 5px; }
+        .dots span { width: 8px; height: 8px; background: #334155; borderRadius: 50%; }
+        .address-bar { flex: 1; background: #334155; padding: 6px 15px; border-radius: 8px; color: #94a3b8; font-size: 0.75rem; text-align: center; font-family: monospace; }
+        .mockup-viewport { background: white; border-radius: 18px; height: calc(100% - 45px); overflow-y: auto; overflow-x: hidden; }
+        .preview-label { text-align: center; color: #94a3b8; font-weight: 700; margin-top: 20px; font-size: 0.9rem; }
         
-        .history-editor { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .history-row { display: flex; gap: 10px; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; }
-        .input-year { width: 80px !important; text-align: center; font-weight: bold; }
-        .input-month { width: 60px !important; text-align: center; }
-        .input-content { flex: 1 !important; }
-        
-        .poster-upload-area { margin-top: 10px; }
-        .poster-preview { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; }
-        .poster-preview img { width: 100%; display: block; }
-        .btn-change-img { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 15px; border-radius: 20px; border: none; cursor: pointer; }
-        .upload-placeholder { 
-          height: 200px; border: 2px dashed #ddd; border-radius: 12px; display: flex; flex-direction: column; 
-          align-items: center; justify-content: center; color: #999; cursor: pointer; transition: 0.2s;
-        }
-        .upload-placeholder:hover { background: #f8f9fa; border-color: #1b4d3e; color: #1b4d3e; }
-        
-        .color-picker-wrap { display: flex; gap: 10px; align-items: center; }
-        .color-picker-wrap input[type="color"] { width: 50px; height: 50px; padding: 0; border: none; cursor: pointer; background: none; }
-        
-        .preview-area { position: sticky; top: 20px; }
-        .preview-frame { background: #333; border-radius: 25px; padding: 15px; border: 8px solid #444; transition: all 0.3s; overflow: hidden; }
-        .preview-frame.mobile { width: 375px; height: 667px; margin: 0 auto; }
-        .preview-frame.pc { width: 100%; height: 600px; border-radius: 12px; border-width: 4px; }
-        .preview-header { color: #888; font-size: 12px; text-align: center; margin-bottom: 10px; font-weight: 700; }
-        .preview-content { background: white; height: calc(100% - 25px); border-radius: 15px; overflow-y: auto; position: relative; }
-        
-        .mock-nav { padding: 10px 15px; display: flex; align-items: center; height: 40px; font-weight: bold; font-size: 14px; }
-        .mock-logo { height: 24px; }
-        .mock-hero { padding: 40px 20px; text-align: center; }
-        .mock-hero h1 { font-size: 22px; margin-bottom: 10px; }
-        .mock-hero p { font-size: 14px; opacity: 0.9; }
-        .mock-section { padding: 20px; }
-        .mock-pastor { display: flex; gap: 15px; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 10px; }
-        .mock-avatar { width: 50px; height: 50px; border-radius: 50%; background: #eee; overflow: hidden; }
-        .mock-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .mock-msg h4 { margin: 0 0 5px 0; font-size: 15px; }
-        .mock-msg p { margin: 0; font-size: 13px; color: #666; }
-        
-        .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .checkbox-label input { width: 20px !important; height: 20px !important; }
+        .nav-mock { padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .menu-dots { display: flex; gap: 3px; }
+        .menu-dots span { width: 4px; height: 4px; background: #ddd; border-radius: 50%; }
+        .hero-mock { padding: 40px 20px; text-align: center; }
+        .content-mock { padding: 20px; }
+        .pastor-card-mock { display: flex; gap: 12px; align-items: center; background: #f8fafc; padding: 12px; border-radius: 12px; }
+        .avatar-mock { width: 45px; height: 45px; flex-shrink: 0; }
         
         @media (max-width: 1200px) {
           .settings-layout { grid-template-columns: 1fr; }
-          .preview-area { display: none; }
+          .preview-column { display: none; }
         }
       `}</style>
     </div>
