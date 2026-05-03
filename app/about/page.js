@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { getSettings } from '@/lib/db';
-import { Users, Heart, Anchor, ShieldCheck } from 'lucide-react';
+import { Users, Heart, Anchor, ShieldCheck, Clock } from 'lucide-react';
 
 export default function AboutPage() {
   const settings = getSettings();
@@ -13,7 +13,11 @@ export default function AboutPage() {
       <section className="container section">
         <div className="pastor-intro">
           <div className="pastor-image">
-            <div className="image-placeholder">퇴촌성령교회<br/>{settings.pastor}</div>
+            {settings.pastorImage ? (
+              <img src={settings.pastorImage} alt={settings.pastor} className="img-full" />
+            ) : (
+              <div className="image-placeholder">퇴촌성령교회<br/>{settings.pastor}</div>
+            )}
           </div>
           <div className="pastor-content">
             <span className="badge">목사님 인사말</span>
@@ -29,8 +33,37 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 교회 비전 */}
+      {/* 교회 연혁 섹션 */}
       <section className="bg-offset">
+        <div className="container section">
+          <div className="section-header center">
+            <div className="icon-badge"><Clock size={32} color="var(--primary-color)" /></div>
+            <h2>교회 연혁</h2>
+            <p>퇴촌성령교회가 걸어온 믿음의 발자취입니다.</p>
+          </div>
+          
+          <div className="history-timeline">
+            {settings.history && settings.history.length > 0 ? (
+              settings.history.sort((a, b) => b.year - a.year).map((item, idx) => (
+                <div key={idx} className="timeline-item">
+                  <div className="time">
+                    <span className="year">{item.year}</span>
+                    <span className="month">{item.month}월</span>
+                  </div>
+                  <div className="content">
+                    <p>{item.content}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="no-data" style={{textAlign: 'center', color: '#999'}}>등록된 연혁이 없습니다.</p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 교회 비전 */}
+      <section>
         <div className="container section">
           <div className="section-header center">
             <h2>교회 핵심 가치</h2>
@@ -61,8 +94,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-
     </main>
   );
 }

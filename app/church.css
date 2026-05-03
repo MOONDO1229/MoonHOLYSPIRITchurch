@@ -50,26 +50,22 @@
 .mobile-menu-nav a { font-size: var(--font-xl); font-weight: 700; padding: var(--spacing-md); border-bottom: 1px solid var(--border-color); text-decoration: none; color: inherit; }
 
 /* Hero */
-.hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=1200') center/cover; height: 500px; display: flex; align-items: center; color: var(--white); text-align: center; }
-.hero-inner { width: 100%; }
-.badge { display: inline-block; background: var(--secondary-color); padding: 4px 16px; border-radius: 20px; font-weight: 700; margin-bottom: var(--spacing-md); }
-.hero-title { font-size: 3rem; color: var(--white); margin-bottom: var(--spacing-sm); font-weight: 800; }
-.hero-desc { font-size: 1.5rem; margin-bottom: var(--spacing-xl); opacity: 0.9; }
+.hero-section { height: 500px; display: flex; align-items: center; color: var(--white); text-align: center; background-size: cover; background-position: center; }
+.hero-content { width: 100%; }
+.hero-badge { display: inline-block; background: var(--secondary-color); padding: 4px 16px; border-radius: 20px; font-weight: 700; margin-bottom: var(--spacing-md); }
+.hero-content h1 { font-size: 3rem; color: var(--white); margin-bottom: var(--spacing-sm); font-weight: 800; }
+.hero-subtitle { font-size: 1.5rem; margin-bottom: var(--spacing-xl); opacity: 0.9; }
 .hero-btns { display: flex; justify-content: center; gap: var(--spacing-md); }
+.btn-hero-primary { background: var(--secondary-color); color: white; padding: 15px 35px; border-radius: 10px; font-weight: 800; font-size: 1.2rem; text-decoration: none; }
+.btn-hero-secondary { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 15px 35px; border-radius: 10px; font-weight: 800; font-size: 1.2rem; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); }
 
 /* Quick Menu */
-.quick-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-md); }
-.menu-card { display: flex; flex-direction: column; align-items: center; background: var(--white); padding: var(--spacing-lg); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); text-decoration: none; color: inherit; transition: transform 0.2s; }
-.menu-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-.icon-wrap { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: var(--spacing-sm); }
-.menu-label { font-weight: 800; font-size: var(--font-large); }
-
-/* Live / Welcome CTA */
-.live-cta { background-color: var(--primary-dark); color: var(--white); padding: 40px 0; }
-.live-inner { display: flex; justify-content: space-between; align-items: center; }
-.live-content h3 { color: var(--white); margin-bottom: 8px; font-size: 2rem; font-weight: 800; }
-.live-content p { font-size: 1.2rem; opacity: 0.9; }
-.live-btn { height: 60px; padding: 0 32px; font-size: 1.2rem; }
+.quick-menu-container { margin-top: -50px; position: relative; z-index: 10; }
+.quick-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-md); background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md); }
+.quick-item { display: flex; flex-direction: column; align-items: center; padding: 20px; text-decoration: none; color: var(--text-color); transition: 0.2s; }
+.quick-item:hover { transform: translateY(-5px); color: var(--primary-color); }
+.qi-icon { font-size: 32px; margin-bottom: 10px; }
+.quick-item span { font-weight: 800; font-size: 1.1rem; }
 
 /* Home Specific Sections */
 .sermon-home-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); }
@@ -83,7 +79,6 @@
 .bulletin-thumb img { width: 100%; height: auto; display: block; }
 .bulletin-home-info h3 { font-size: 1.8rem; margin-bottom: 8px; }
 .bulletin-home-info .date { font-size: 1.1rem; color: #888; margin-bottom: 25px; }
-.btn-group { display: flex; gap: 15px; }
 
 .notice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 .notice-card-simple { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; text-decoration: none; color: inherit; transition: all 0.2s; }
@@ -93,11 +88,94 @@
 .notice-meta .date { color: #aaa; }
 .notice-card-simple .title { font-size: 1.2rem; margin: 0; line-height: 1.4; color: #2c3e50; }
 
+/* About Page Styles */
+.pastor-intro { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
+.pastor-image { background: #e9ecef; border-radius: 20px; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid #ddd; overflow: hidden; }
+.pastor-image img { width: 100%; height: 100%; object-fit: cover; }
+.pastor-content h2 { font-size: 2rem; color: var(--primary-color); margin: 15px 0 25px 0; font-weight: 800; }
+.pastor-content .message p { font-size: 1.15rem; line-height: 1.8; color: #444; margin-bottom: 20px; }
+.pastor-name { font-size: 1.3rem; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+
+.history-timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 100px; }
+.history-timeline::before { content: ''; position: absolute; left: 140px; top: 0; bottom: 0; width: 2px; background: #eee; }
+.timeline-item { position: relative; margin-bottom: 40px; display: flex; gap: 60px; }
+.timeline-item .time { min-width: 80px; text-align: right; }
+.timeline-item .year { display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary-color); }
+.timeline-item .month { display: block; font-size: 1.1rem; color: #888; font-weight: 600; }
+.timeline-item .content { background: white; padding: 20px 30px; border-radius: 12px; box-shadow: var(--shadow-sm); flex: 1; border: 1px solid #f0f0f0; }
+.timeline-item .content p { font-size: 1.2rem; margin: 0; font-weight: 500; }
+.timeline-item::after { content: ''; position: absolute; left: 136px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); border: 2px solid white; box-shadow: 0 0 0 4px rgba(27, 77, 62, 0.1); }
+
+.vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+.vision-card { background: #fff; padding: 40px 30px; border-radius: 16px; text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.3s; border: 1px solid #eee; }
+.vision-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+.v-icon { background: var(--primary-color); color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; }
+.vision-card h3 { margin-bottom: 15px; color: #2c3e50; font-weight: 800; }
+.vision-card p { color: #666; line-height: 1.6; }
+
+/* Popup Overlay */
+.popup-overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.popup-wrapper {
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: popupFade 0.3s ease-out;
+}
+@keyframes popupFade {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.popup-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.popup-footer {
+  display: flex;
+  background: #333;
+  height: 50px;
+}
+.popup-footer button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn-hide {
+  border-right: 1px solid rgba(255,255,255,0.1) !important;
+}
+.btn-close {
+  color: #ff6b6b !important;
+}
+
 /* Sections Common */
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.section-header.center { text-align: center; flex-direction: column; }
 .section-header h2 { font-size: 2.2rem; color: #1b4d3e; font-weight: 800; }
 .more-link { display: flex; align-items: center; color: #888; font-weight: 700; text-decoration: none; font-size: 1.1rem; }
 .more-link:hover { color: var(--primary-color); }
+
+/* Bottom Contact Bar */
+.bottom-info-bar { background: #f1f3f5; padding: 20px 0; border-top: 1px solid #dee2e6; }
+.bib-inner { display: flex; justify-content: center; gap: 40px; }
+.bib-item { display: flex; align-items: center; gap: 10px; color: #495057; font-weight: 600; }
 
 /* Footer */
 .footer { background: #1a1a1a; color: white; padding: 80px 0 40px; margin-top: 80px; }
@@ -113,26 +191,26 @@
 .social-btns a { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; font-size: 1rem; color: #fff; text-decoration: none; font-weight: 600; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 1rem; opacity: 0.5; }
 
-/* Admin */
-.admin-layout { display: flex; min-height: 100vh; background: #f4f7f6; }
-.admin-sidebar { width: 280px; background: #1b4d3e; color: white; padding: 30px 20px; }
-.admin-main { flex: 1; padding: 50px; overflow-y: auto; }
-
 /* Responsive */
 @media (max-width: 1024px) {
   .desktop-nav { display: none; }
   .mobile-toggle { display: flex; }
   .sermon-home-wrap { grid-template-columns: 1fr; }
   .bulletin-home-card { grid-template-columns: 1fr; text-align: center; }
-  .btn-group { justify-content: center; }
+  .bib-inner { flex-direction: column; align-items: center; gap: 10px; }
 }
 
 @media (max-width: 768px) {
-  .hero-title { font-size: 2rem; }
-  .hero-desc { font-size: 1.1rem; }
+  .hero-content h1 { font-size: 2rem; }
+  .hero-subtitle { font-size: 1.1rem; }
   .quick-menu-grid { grid-template-columns: repeat(2, 1fr); }
   .section-header h2 { font-size: 1.6rem; }
   .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-  .live-inner { flex-direction: column; text-align: center; gap: 20px; }
-  .live-content h3 { font-size: 1.5rem; }
+  .pastor-intro { grid-template-columns: 1fr; gap: 30px; }
+  .pastor-content h2 { font-size: 1.5rem; }
+  .history-timeline { padding-left: 0; }
+  .history-timeline::before { left: 20px; }
+  .timeline-item { gap: 30px; padding-left: 40px; }
+  .timeline-item .time { min-width: 60px; text-align: left; }
+  .timeline-item::after { left: 16px; }
 }

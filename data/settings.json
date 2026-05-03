@@ -1,15 +1,31 @@
 [
   {
     "welcomeTitle": "퇴촌성령교회",
-    "welcomeSubtitle": "",
+    "welcomeSubtitle": "성령의 능력으로 세상을 변화시키는 교회",
     "phone": "031-766-8847",
     "address": "경기도 광주시 퇴촌면 광동로52번길 27",
     "pastor": "문학균 담임목사",
+    "pastorImage": "",
+    "churchImage": "",
+    "logoImage": "",
     "youtubeLink": "https://www.youtube.com/@moonhk-sermon/featured",
     "kakaoLink": "",
     "mapLink": "https://map.naver.com/v5/search/경기도 광주시 퇴촌면 광동로52번길 27",
     "offeringAccount": "농협 351-1075-3818-33 (예금주: 성령교회)",
     "offeringInfo": "송금자: 이름헌금종류 (예: 홍길동십일조)",
-    "parkingInfo": "교회 주차장 이용 가능"
+    "parkingInfo": "교회 주차장 이용 가능",
+    "history": [
+      {"year": "1994", "month": "12", "content": "퇴촌성령교회 설립"}
+    ],
+    "popup": {
+      "enabled": false,
+      "imageUrl": "",
+      "linkUrl": "",
+      "hideForToday": true
+    },
+    "theme": {
+      "primaryColor": "#1b4d3e",
+      "secondaryColor": "#c9a55c"
+    }
   }
 ]
