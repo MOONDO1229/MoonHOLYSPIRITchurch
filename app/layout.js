@@ -1,7 +1,7 @@
 import './globals.css';
 import './church.css';
 import LayoutWrapper from '@/components/LayoutWrapper';
-import { getSettings } from '@/lib/db';
+import { getSettings, getActivePopups } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -20,6 +20,7 @@ export const viewport = {
 
 export default async function RootLayout({ children }) {
   const settings = await getSettings();
+  const activePopups = await getActivePopups();
   const theme = settings.theme || { primaryColor: '#1b4d3e', secondaryColor: '#c9a55c' };
 
   return (
@@ -34,7 +35,7 @@ export default async function RootLayout({ children }) {
         `}} />
       </head>
       <body>
-        <LayoutWrapper settings={settings}>
+        <LayoutWrapper settings={settings} popups={activePopups}>
           {children}
         </LayoutWrapper>
       </body>

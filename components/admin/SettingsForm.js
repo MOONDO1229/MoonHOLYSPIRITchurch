@@ -203,6 +203,14 @@ export default function SettingsForm({ initialSettings }) {
                     <label><MapPin size={16} /> 교회 주소</label>
                     <input name="address" value={settings.address} onChange={handleChange} />
                   </div>
+                  <div className="input-field">
+                    <label><Mail size={16} /> 교회 이메일</label>
+                    <input name="email" value={settings.email} onChange={handleChange} placeholder="예: church@example.com" />
+                  </div>
+                  <div className="input-field">
+                    <label><Calendar size={16} /> 하단 저작권 표시 연도</label>
+                    <input name="copyrightYear" value={settings.copyrightYear} onChange={handleChange} placeholder="예: 2026" />
+                  </div>
                 </div>
               </div>
             )}

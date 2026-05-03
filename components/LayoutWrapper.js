@@ -5,7 +5,7 @@ import BottomNav from '@/components/BottomNav';
 import Footer from '@/components/Footer';
 import PopupOverlay from '@/components/PopupOverlay';
 
-export default function LayoutWrapper({ children, settings }) {
+export default function LayoutWrapper({ children, settings, popups }) {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith('/admin') || pathname?.startsWith('/login');
 
@@ -15,7 +15,7 @@ export default function LayoutWrapper({ children, settings }) {
 
   return (
     <>
-      <PopupOverlay settings={settings} />
+      <PopupOverlay popups={popups} />
       <Header settings={settings} />
       <div id="app-wrapper">
         {children}

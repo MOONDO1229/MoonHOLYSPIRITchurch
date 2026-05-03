@@ -71,7 +71,7 @@ export default async function Home() {
           </div>
           <div className="bib-item">
             <Mail size={20} />
-            <span>tc-spirit@church.com</span>
+            <span>{settings.email || 'tc-spirit@church.com'}</span>
           </div>
         </div>
       </section>
