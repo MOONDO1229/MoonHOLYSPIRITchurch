@@ -1,13 +1,15 @@
 [
   {
-    "welcomeTitle": "퇴촌성령교회에 오신 것을 환영합니다",
-    "welcomeSubtitle": "어르신들을 위한 쉽고 편한 교회 홈페이지입니다.",
-    "phone": "02-123-4567",
-    "address": "서울특별시 OO구 OO동 123-45",
-    "youtubeLink": "https://www.youtube.com/@holy-spirit-church",
-    "kakaoLink": "https://pf.kakao.com/_placeholder",
-    "mapLink": "https://naver.me/placeholder",
-    "offeringAccount": "농협 123-456-789 (예금주: 퇴촌성령교회)",
-    "parkingInfo": "교회 지하 주차장 이용 가능 (무료)"
+    "welcomeTitle": "퇴촌성령교회",
+    "welcomeSubtitle": "",
+    "phone": "031-766-8847",
+    "address": "경기도 광주시 퇴촌면 광동로52번길 27",
+    "pastor": "문학균 담임목사",
+    "youtubeLink": "https://www.youtube.com/@moonhk-sermon/featured",
+    "kakaoLink": "",
+    "mapLink": "https://map.naver.com/v5/search/경기도 광주시 퇴촌면 광동로52번길 27",
+    "offeringAccount": "농협 351-1075-3818-33 (예금주: 성령교회)",
+    "offeringInfo": "송금자: 이름헌금종류 (예: 홍길동십일조)",
+    "parkingInfo": "교회 주차장 이용 가능"
   }
 ]

@@ -61,17 +61,18 @@ export default function SettingsForm({ initialSettings }) {
                 maxLength={60}
                 rows={3}
               />
+              <p className="guide">문구가 필요 없으면 비워두세요.</p>
             </div>
 
             <h2 className="card-title" style={{ marginTop: '30px' }}>교회 기본 정보</h2>
             <div className="form-row">
               <div className="form-section">
-                <label>대표 전화번호</label>
-                <input name="phone" value={settings.phone} onChange={handleChange} />
+                <label>담임목사 성함</label>
+                <input name="pastor" value={settings.pastor} onChange={handleChange} placeholder="예: 홍길동 담임목사" />
               </div>
               <div className="form-section">
-                <label>카카오톡 채널 링크</label>
-                <input name="kakaoLink" value={settings.kakaoLink} onChange={handleChange} />
+                <label>대표 전화번호</label>
+                <input name="phone" value={settings.phone} onChange={handleChange} />
               </div>
             </div>
             <div className="form-section">
@@ -79,14 +80,18 @@ export default function SettingsForm({ initialSettings }) {
               <input name="address" value={settings.address} onChange={handleChange} />
             </div>
 
-            <h2 className="card-title" style={{ marginTop: '30px' }}>온라인 사역 링크</h2>
+            <h2 className="card-title" style={{ marginTop: '30px' }}>온라인 사역 및 헌금</h2>
             <div className="form-section">
               <label>유튜브 채널 링크</label>
               <input name="youtubeLink" value={settings.youtubeLink} onChange={handleChange} />
             </div>
             <div className="form-section">
-              <label>헌금 계좌 안내</label>
+              <label>헌금 계좌 (은행명 계좌번호)</label>
               <input name="offeringAccount" value={settings.offeringAccount} onChange={handleChange} />
+            </div>
+            <div className="form-section">
+              <label>헌금 송금 안내 문구</label>
+              <input name="offeringInfo" value={settings.offeringInfo} onChange={handleChange} placeholder='예: 송금자 "이름헌금종류"' />
             </div>
           </form>
         </div>
@@ -100,11 +105,12 @@ export default function SettingsForm({ initialSettings }) {
               <div className="mock-site">
                 <div className="mock-hero">
                   <h1>{settings.welcomeTitle}</h1>
-                  <p>{settings.welcomeSubtitle}</p>
+                  {settings.welcomeSubtitle && <p>{settings.welcomeSubtitle}</p>}
                 </div>
                 <div className="mock-info">
-                  <p style={{ fontSize: '20px', fontWeight: 'bold' }}>📞 {settings.phone}</p>
-                  <p style={{ marginTop: '10px' }}>📍 {settings.address}</p>
+                  <p style={{ fontWeight: 'bold' }}>{settings.pastor}</p>
+                  <p>📞 {settings.phone}</p>
+                  <p>📍 {settings.address}</p>
                 </div>
               </div>
             </div>
