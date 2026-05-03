@@ -3,14 +3,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, Search, Type } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ settings }) {
   const [isOpen, setIsOpen] = useState(false);
+  const churchName = settings?.welcomeTitle?.split('에')[0] || '퇴촌성령교회';
 
   return (
     <header className="header">
       <div className="container header-inner">
         <Link href="/" className="logo">
-          <span className="logo-text">은혜샘교회</span>
+          <span className="logo-text">{churchName}</span>
         </Link>
 
         {/* Desktop Nav */}

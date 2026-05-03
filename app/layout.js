@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
 import PopupOverlay from '@/components/PopupOverlay';
 import Footer from '@/components/Footer';
-import { getActivePopups } from '@/lib/db';
+import { getActivePopups, getSettings } from '@/lib/db';
 
 export const metadata = {
   title: '퇴촌성령교회 - 어르신 친화형 홈페이지',
@@ -20,12 +20,13 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   const activePopups = getActivePopups();
+  const settings = getSettings();
 
   return (
     <html lang="ko">
       <body>
         <PopupOverlay popups={activePopups} />
-        <Header />
+        <Header settings={settings} />
         <div id="app-wrapper" style={{ paddingBottom: '76px' }}>
           {children}
           <Footer />

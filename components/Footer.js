@@ -2,16 +2,17 @@ import { getSettings } from '@/lib/db';
 
 export default function Footer() {
   const settings = getSettings();
+  const churchName = settings?.welcomeTitle?.split('에')[0] || '퇴촌성령교회';
 
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
           <div className="footer-info">
-            <h2 className="footer-logo">은혜샘교회</h2>
+            <h2 className="footer-logo">{churchName}</h2>
             <p>📍 {settings.address}</p>
             <p>📞 {settings.phone}</p>
-            <p>📧 holy-spirit@church.com</p>
+            <p>📧 tc-spirit@church.com</p>
           </div>
           <div className="footer-links">
             <h3>바로가기</h3>
@@ -31,7 +32,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2024 은혜샘교회. All rights reserved.</p>
+          <p>© 2024 {churchName}. All rights reserved.</p>
         </div>
       </div>
     </footer>

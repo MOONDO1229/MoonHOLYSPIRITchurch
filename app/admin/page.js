@@ -1,4 +1,5 @@
 import { CheckCircle, AlertCircle, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AdminDashboard() {
   return (
@@ -33,10 +34,18 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <h2 style={{ marginTop: '40px' }}>빠른 등록</h2>
       <div className="quick-actions">
-        <button className="action-btn"><Plus /> 공지사항 등록</button>
-        <button className="action-btn"><Plus /> 주보 등록</button>
-        <button className="action-btn"><Plus /> 설교 등록</button>
-        <button className="action-btn"><Plus /> 행사 등록</button>
+        <Link href="/admin/notices/new" className="action-btn-link">
+          <button className="action-btn"><Plus /> 공지사항 등록</button>
+        </Link>
+        <Link href="/admin/bulletins" className="action-btn-link">
+          <button className="action-btn"><Plus /> 주보 등록</button>
+        </Link>
+        <Link href="/admin/sermons" className="action-btn-link">
+          <button className="action-btn"><Plus /> 설교 등록</button>
+        </Link>
+        <Link href="/admin/settings" className="action-btn-link">
+          <button className="action-btn"><Plus /> 사이트 정보 수정</button>
+        </Link>
       </div>
 
       {/* Recent History */}
