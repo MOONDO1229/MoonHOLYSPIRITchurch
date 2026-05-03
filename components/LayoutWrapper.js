@@ -17,11 +17,10 @@ export default function LayoutWrapper({ children, settings }) {
     <>
       <PopupOverlay settings={settings} />
       <Header settings={settings} />
-      <div id="app-wrapper" style={{ paddingBottom: '76px' }}>
+      <div id="app-wrapper">
         {children}
-        <Footer />
+        <Footer settings={settings} />
       </div>
-      <BottomNav settings={settings} />
     </>
   );
 }

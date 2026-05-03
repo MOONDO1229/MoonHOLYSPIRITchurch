@@ -1,7 +1,7 @@
 import { getSettings, getLatestSermon, getNotices, getLatestBulletin } from '@/lib/db';
 import HomeSections from '@/components/HomeSections';
 import Link from 'next/link';
-import { Play, Calendar, ChevronRight, MapPin, Phone } from 'lucide-react';
+import { Play, Calendar, ChevronRight, MapPin, Phone, Mail } from 'lucide-react';
 
 export default async function Home() {
   const settings = await getSettings();
@@ -63,11 +63,15 @@ export default async function Home() {
         <div className="container bib-inner">
           <div className="bib-item">
             <MapPin size={20} />
-            <span>{settings.address}</span>
+            <span>{settings.address || '경기도 광주시 퇴촌면 광동로52번길 27'}</span>
           </div>
           <div className="bib-item">
             <Phone size={20} />
-            <span>{settings.phone}</span>
+            <span>{settings.phone || '031 766 8847'}</span>
+          </div>
+          <div className="bib-item">
+            <Mail size={20} />
+            <span>tc-spirit@church.com</span>
           </div>
         </div>
       </section>

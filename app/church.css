@@ -181,7 +181,7 @@
 .footer { background: #1a1a1a; color: white; padding: 80px 0 40px; margin-top: 80px; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
 .footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 25px; color: #fff; }
-.footer-info p { opacity: 0.7; margin-bottom: 12px; font-size: 1.1rem; }
+.footer-info p { opacity: 0.7; margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
 .footer-links h3, .footer-social h3 { font-size: 1.3rem; margin-bottom: 25px; color: var(--secondary-color); font-weight: 700; }
 .footer-links ul { list-style: none; padding: 0; }
 .footer-links ul li { margin-bottom: 12px; }

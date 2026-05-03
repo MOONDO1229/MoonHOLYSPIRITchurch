@@ -1,3 +1,5 @@
+import { MapPin, Phone, Mail } from 'lucide-react';
+
 export default function Footer({ settings }) {
   const churchName = settings?.welcomeTitle?.split('에')[0] || '퇴촌성령교회';
 
@@ -7,9 +9,9 @@ export default function Footer({ settings }) {
         <div className="footer-grid">
           <div className="footer-info">
             <h2 className="footer-logo">{churchName}</h2>
-            <p>📍 {settings?.address}</p>
-            <p>📞 {settings?.phone}</p>
-            <p>📧 tc-spirit@church.com</p>
+            <p><MapPin size={18} /> {settings?.address || '경기도 광주시 퇴촌면 광동로52번길 27'}</p>
+            <p><Phone size={18} /> {settings?.phone || '031 766 8847'}</p>
+            <p><Mail size={18} /> tc-spirit@church.com</p>
           </div>
           <div className="footer-links">
             <h3>바로가기</h3>
@@ -29,7 +31,7 @@ export default function Footer({ settings }) {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2024 {churchName}. All rights reserved.</p>
+          <p>© 2026 {churchName}. All rights reserved.</p>
         </div>
       </div>
     </footer>
