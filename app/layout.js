@@ -7,8 +7,8 @@ import Footer from '@/components/Footer';
 import { getActivePopups } from '@/lib/db';
 
 export const metadata = {
-  title: '은혜샘교회 - 어르신 친화형 교회 CMS',
-  description: '어르신들이 쉽고 편하게 이용할 수 있는 은혜샘교회 홈페이지입니다.',
+  title: '퇴촌성령교회 - 어르신 친화형 홈페이지',
+  description: '어르신들이 쉽고 편하게 이용하실 수 있는 퇴촌성령교회 홈페이지입니다.',
 };
 
 export const viewport = {
