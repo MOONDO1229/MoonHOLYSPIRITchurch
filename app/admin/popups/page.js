@@ -1,8 +1,8 @@
 import { getData } from '@/lib/db';
 import PopupManager from '@/components/admin/PopupManager';
 
-export default function PopupsPage() {
-  const popups = getData('popups');
+export default async function PopupsPage() {
+  const popups = await getData('popups');
   
   return (
     <div className="admin-page">

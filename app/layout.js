@@ -15,8 +15,8 @@ export const viewport = {
   userScalable: true,
 };
 
-export default function RootLayout({ children }) {
-  const settings = getSettings();
+export default async function RootLayout({ children }) {
+  const settings = await getSettings();
   const theme = settings.theme || { primaryColor: '#1b4d3e', secondaryColor: '#c9a55c' };
 
   return (

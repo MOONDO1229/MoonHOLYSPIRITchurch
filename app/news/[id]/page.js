@@ -3,9 +3,9 @@ import { ChevronLeft, Download, Calendar, FileText, ImageIcon } from 'lucide-rea
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default function NewsDetailPage({ params }) {
+export default async function NewsDetailPage({ params }) {
   const { id } = params;
-  const item = getData('notices').find(n => n.id === parseInt(id));
+  const item = (await getData('notices')).find(n => n.id === parseInt(id));
 
   if (!item) notFound();
 

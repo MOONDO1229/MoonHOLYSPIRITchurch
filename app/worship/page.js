@@ -2,8 +2,8 @@ import PageHeader from '@/components/PageHeader';
 import { getWorshipTimes } from '@/lib/db';
 import { Play } from 'lucide-react';
 
-export default function WorshipPage() {
-  const worshipTimes = getWorshipTimes();
+export default async function WorshipPage() {
+  const worshipTimes = await getWorshipTimes();
 
   return (
     <main>

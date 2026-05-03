@@ -2,8 +2,8 @@ import PageHeader from '@/components/PageHeader';
 import { getSettings } from '@/lib/db';
 import { Users, Heart, Anchor, ShieldCheck, Clock } from 'lucide-react';
 
-export default function AboutPage() {
-  const settings = getSettings();
+export default async function AboutPage() {
+  const settings = await getSettings();
 
   return (
     <main>

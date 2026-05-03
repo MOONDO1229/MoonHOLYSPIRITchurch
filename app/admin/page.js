@@ -19,11 +19,11 @@ import {
 import Link from 'next/link';
 import { getLatestSermon, getLatestBulletin, getAllNotices, getSettings } from '@/lib/db';
 
-export default function AdminDashboard() {
-  const latestSermon = getLatestSermon();
-  const latestBulletin = getLatestBulletin();
-  const allNotices = getAllNotices().slice(0, 5);
-  const settings = getSettings();
+export default async function AdminDashboard() {
+  const latestSermon = await getLatestSermon();
+  const latestBulletin = await getLatestBulletin();
+  const allNotices = (await getAllNotices()).slice(0, 5);
+  const settings = await getSettings();
 
   const today = new Date();
   const lastSunday = new Date(today);

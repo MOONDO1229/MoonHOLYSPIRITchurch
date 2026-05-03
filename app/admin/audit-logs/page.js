@@ -1,8 +1,8 @@
 import { getData } from '@/lib/db';
 import { History, User, Tag, Activity, Clock, Search, Filter } from 'lucide-react';
 
-export default function AuditLogsPage() {
-  const logs = getData('audit_logs') || [];
+export default async function AuditLogsPage() {
+  const logs = (await getData('audit_logs')) || [];
   
   // Sort by date descending
   const sortedLogs = [...logs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));

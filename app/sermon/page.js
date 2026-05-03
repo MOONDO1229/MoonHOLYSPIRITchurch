@@ -3,8 +3,8 @@ import { getData } from '@/lib/db';
 import { Play, Youtube, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
 
-export default function SermonPage() {
-  const sermons = getData('sermons').filter(s => s.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
+export default async function SermonPage() {
+  const sermons = (await getData('sermons')).filter(s => s.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
   const latest = sermons[0];
 
   const getYoutubeId = (url) => {

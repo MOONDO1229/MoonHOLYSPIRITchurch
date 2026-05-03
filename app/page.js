@@ -3,11 +3,11 @@ import HomeSections from '@/components/HomeSections';
 import Link from 'next/link';
 import { Play, Calendar, ChevronRight, MapPin, Phone } from 'lucide-react';
 
-export default function Home() {
-  const settings = getSettings();
-  const latestSermon = getLatestSermon();
-  const notices = getNotices().slice(0, 3);
-  const latestBulletin = getLatestBulletin();
+export default async function Home() {
+  const settings = await getSettings();
+  const latestSermon = await getLatestSermon();
+  const notices = (await getNotices()).slice(0, 3);
+  const latestBulletin = await getLatestBulletin();
 
   return (
     <main>

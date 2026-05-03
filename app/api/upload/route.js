@@ -1,10 +1,12 @@
-import { writeFile, mkdir } from 'fs/promises';
 import { NextResponse } from 'next/server';
-import path from 'path';
-import { existsSync } from 'fs';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(request) {
   try {
+    if (!supabase) {
+      return NextResponse.json({ success: false, message: 'DB 연결이 설정되지 않았습니다.' }, { status: 500 });
+    }
+
     const data = await request.formData();
     const file = data.get('file');
 
@@ -17,52 +19,63 @@ export async function POST(request) {
 
     // 1. Validation
     const originalName = file.name || 'unnamed_file';
-    const ext = path.extname(originalName).toLowerCase();
+    const ext = originalName.substring(originalName.lastIndexOf('.')).toLowerCase();
     const fileSizeMB = buffer.length / (1024 * 1024);
 
     const ALLOWED_IMAGE_EXTS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.ico'];
     const ALLOWED_DOC_EXTS = ['.pdf'];
 
     if (ALLOWED_IMAGE_EXTS.includes(ext)) {
-      if (fileSizeMB > 10) { // 이미지 제한을 10MB로 완화
+      if (fileSizeMB > 10) {
         return NextResponse.json({ success: false, message: '이미지 파일은 10MB 이하만 업로드 가능합니다.' }, { status: 400 });
       }
     } else if (ALLOWED_DOC_EXTS.includes(ext)) {
-      if (fileSizeMB > 30) { // PDF 제한을 30MB로 완화
+      if (fileSizeMB > 30) {
         return NextResponse.json({ success: false, message: 'PDF 파일은 30MB 이하만 업로드 가능합니다.' }, { status: 400 });
       }
     } else {
       return NextResponse.json({ success: false, message: '허용되지 않는 파일 형식입니다. (이미지 또는 PDF만 가능)' }, { status: 400 });
     }
 
-    // 2. Sanitize filename
-    // 한글 파일명을 지원하며 확장자는 유지
+    // 2. 파일명 생성
     const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.')).replace(/[^\w\s\uac00-\ud7af]/gi, '_').replace(/\s+/g, '_');
     const filename = `${Date.now()}_${nameWithoutExt}${ext}`;
-    
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    
-    // Ensure directory exists using promises
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
+
+    // 3. Supabase Storage에 업로드
+    const contentType = ALLOWED_IMAGE_EXTS.includes(ext)
+      ? `image/${ext.replace('.', '').replace('jpg', 'jpeg')}`
+      : 'application/pdf';
+
+    const { data: uploadData, error } = await supabase.storage
+      .from('uploads')
+      .upload(filename, buffer, {
+        contentType,
+        upsert: false
+      });
+
+    if (error) {
+      console.error('Supabase Storage Error:', error);
+      return NextResponse.json({ success: false, message: '업로드 실패: ' + error.message }, { status: 500 });
     }
 
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
-    
-    console.log(`File uploaded successfully: ${filename}`);
+    // 4. Public URL 생성
+    const { data: urlData } = supabase.storage
+      .from('uploads')
+      .getPublicUrl(filename);
 
-    return NextResponse.json({ 
-      success: true, 
-      url: `/uploads/${filename}`,
+    console.log(`File uploaded to Supabase Storage: ${filename}`);
+
+    return NextResponse.json({
+      success: true,
+      url: urlData.publicUrl,
       name: originalName
     });
 
   } catch (error) {
     console.error('Upload Error:', error);
-    return NextResponse.json({ 
-      success: false, 
-      message: '업로드 중 오류가 발생했습니다: ' + error.message 
+    return NextResponse.json({
+      success: false,
+      message: '업로드 중 오류가 발생했습니다: ' + error.message
     }, { status: 500 });
   }
 }

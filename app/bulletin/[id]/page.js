@@ -3,9 +3,9 @@ import { ChevronLeft, Download, Maximize2 } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default function BulletinDetailPage({ params }) {
+export default async function BulletinDetailPage({ params }) {
   const { id } = params;
-  const bulletin = getData('bulletins').find(b => b.id === parseInt(id));
+  const bulletin = (await getData('bulletins')).find(b => b.id === parseInt(id));
 
   if (!bulletin) notFound();
 

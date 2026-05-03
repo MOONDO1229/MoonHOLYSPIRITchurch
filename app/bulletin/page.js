@@ -3,8 +3,8 @@ import { getData } from '@/lib/db';
 import { Download, FileText, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-export default function BulletinPage() {
-  const bulletins = getData('bulletins').filter(b => b.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
+export default async function BulletinPage() {
+  const bulletins = (await getData('bulletins')).filter(b => b.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
   const latest = bulletins[0];
 
   return (

@@ -1,8 +1,8 @@
 import { getAllNotices } from '@/lib/db';
 import NoticeManager from '@/components/admin/NoticeManager';
 
-export default function AdminNoticesPage() {
-  const notices = getAllNotices();
+export default async function AdminNoticesPage() {
+  const notices = await getAllNotices();
   
   return (
     <div className="admin-page">

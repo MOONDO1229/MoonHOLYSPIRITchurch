@@ -3,8 +3,8 @@ import { getNotices } from '@/lib/db';
 import Link from 'next/link';
 import { ChevronRight, Calendar, User, Tag } from 'lucide-react';
 
-export default function NewsPage() {
-  const notices = getNotices();
+export default async function NewsPage() {
+  const notices = await getNotices();
 
   return (
     <main>

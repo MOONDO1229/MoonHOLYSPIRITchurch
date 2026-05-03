@@ -2,8 +2,8 @@ import PageHeader from '@/components/PageHeader';
 import { Heart, Copy, CreditCard, Info } from 'lucide-react';
 import { getSettings } from '@/lib/db';
 
-export default function SupportPage() {
-  const settings = getSettings();
+export default async function SupportPage() {
+  const settings = await getSettings();
   const accountInfo = settings.offeringAccount || "농협 351-1075-3818-33 (예금주: 성령교회)";
 
   return (
