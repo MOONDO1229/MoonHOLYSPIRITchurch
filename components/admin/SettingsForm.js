@@ -7,11 +7,25 @@ export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
     ...initialSettings,
     email: initialSettings?.email || '',
-    copyrightYear: initialSettings?.copyrightYear || '2026'
+    copyrightYear: initialSettings?.copyrightYear || '2026',
+    pastorTitle: initialSettings?.pastorTitle || '예수님의 사랑으로 여러분을 환영합니다',
+    pastorGreeting: initialSettings?.pastorGreeting || '',
+    visions: initialSettings?.visions || [
+      { title: "말씀 중심", content: "", icon: "Anchor" },
+      { title: "사랑의 교제", content: "", icon: "Heart" },
+      { title: "다음 세대", content: "", icon: "Users" },
+      { title: "지역 섬김", content: "", icon: "ShieldCheck" }
+    ]
   });
   const [isPreviewMobile, setIsPreviewMobile] = useState(false);
-  const [activeTab, setActiveTab] = useState('basic'); // basic, history, popup, theme
+  const [activeTab, setActiveTab] = useState('basic'); // basic, intro, theme
   const fileInputRef = useRef({});
+
+  const handleVisionChange = (index, field, value) => {
+    const newVisions = [...settings.visions];
+    newVisions[index][field] = value;
+    setSettings(prev => ({ ...prev, visions: newVisions }));
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -135,8 +149,8 @@ export default function SettingsForm({ initialSettings }) {
             <button className={activeTab === 'basic' ? 'active' : ''} onClick={() => setActiveTab('basic')}>
               <Layout size={18} /> 기본 정보
             </button>
-            <button className={activeTab === 'history' ? 'active' : ''} onClick={() => setActiveTab('history')}>
-              <Clock size={18} /> 교회 연혁
+            <button className={activeTab === 'intro' ? 'active' : ''} onClick={() => setActiveTab('intro')}>
+              <Users size={18} /> 교회 소개
             </button>
             <button className={activeTab === 'theme' ? 'active' : ''} onClick={() => setActiveTab('theme')}>
               <Palette size={18} /> 테마 & 디자인
@@ -219,24 +233,74 @@ export default function SettingsForm({ initialSettings }) {
               </div>
             )}
 
-            {activeTab === 'history' && (
+            {activeTab === 'intro' && (
               <div className="tab-pane">
-                <div className="section-header">
-                  <h2 className="section-title">교회 연혁 내역</h2>
-                  <button className="btn-add-history" onClick={addHistory}><Plus size={18}/> 새 기록 추가</button>
+                <div className="form-section-group">
+                  <h2 className="section-title">목사님 인사말 설정</h2>
+                  <div className="input-field">
+                    <label><User size={16} /> 인사말 제목</label>
+                    <input 
+                      name="pastorTitle" 
+                      value={settings.pastorTitle} 
+                      onChange={handleChange} 
+                      placeholder='예: "예수님의 사랑으로 여러분을 환영합니다"'
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label><Mail size={16} /> 인사말 본문</label>
+                    <textarea 
+                      name="pastorGreeting" 
+                      value={settings.pastorGreeting} 
+                      onChange={handleChange} 
+                      rows={8}
+                      placeholder="성도님들께 전할 인사말 내용을 입력하세요."
+                      className="form-textarea"
+                    />
+                  </div>
                 </div>
-                <div className="history-list">
-                  {settings.history.map((item, idx) => (
-                    <div key={idx} className="history-item-row">
-                      <div className="date-inputs">
-                        <input className="year" value={item.year} onChange={e => handleHistoryChange(idx, 'year', e.target.value)} placeholder="YYYY" />
-                        <span className="sep">.</span>
-                        <input className="month" value={item.month} onChange={e => handleHistoryChange(idx, 'month', e.target.value)} placeholder="MM" />
+
+                <div className="form-section-group" style={{marginTop: '40px'}}>
+                  <h2 className="section-title">교회 핵심 가치 (4가지 비전)</h2>
+                  <div className="vision-edit-grid">
+                    {settings.visions.map((vision, idx) => (
+                      <div key={idx} className="vision-edit-card">
+                        <div className="vision-card-header">
+                          <span className="vision-number">0{idx + 1}</span>
+                          <input 
+                            value={vision.title} 
+                            onChange={e => handleVisionChange(idx, 'title', e.target.value)} 
+                            placeholder="가치 제목"
+                          />
+                        </div>
+                        <textarea 
+                          value={vision.content} 
+                          onChange={e => handleVisionChange(idx, 'content', e.target.value)} 
+                          placeholder="가치 설명 (한 줄 내외)"
+                          rows={2}
+                        />
                       </div>
-                      <input className="content" value={item.content} onChange={e => handleHistoryChange(idx, 'content', e.target.value)} placeholder="내용을 입력하세요" />
-                      <button className="btn-del" onClick={() => removeHistory(idx)}><Trash2 size={18}/></button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+
+                <div className="form-section-group" style={{marginTop: '40px'}}>
+                  <div className="section-header">
+                    <h2 className="section-title">교회 연혁 내역</h2>
+                    <button className="btn-add-history" onClick={addHistory}><Plus size={18}/> 새 기록 추가</button>
+                  </div>
+                  <div className="history-list">
+                    {settings.history.map((item, idx) => (
+                      <div key={idx} className="history-item-row">
+                        <div className="date-inputs">
+                          <input className="year" value={item.year} onChange={e => handleHistoryChange(idx, 'year', e.target.value)} placeholder="YYYY" />
+                          <span className="sep">.</span>
+                          <input className="month" value={item.month} onChange={e => handleHistoryChange(idx, 'month', e.target.value)} placeholder="MM" />
+                        </div>
+                        <input className="content" value={item.content} onChange={e => handleHistoryChange(idx, 'content', e.target.value)} placeholder="내용을 입력하세요" />
+                        <button className="btn-del" onClick={() => removeHistory(idx)}><Trash2 size={18}/></button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}

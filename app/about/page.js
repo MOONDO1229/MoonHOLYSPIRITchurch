@@ -21,12 +21,20 @@ export default async function AboutPage() {
           </div>
           <div className="pastor-content">
             <span className="badge">목사님 인사말</span>
-            <h2>"예수님의 사랑으로 여러분을 환영합니다"</h2>
+            <h2>{settings.pastorTitle || '"예수님의 사랑으로 여러분을 환영합니다"'}</h2>
             <div className="message">
-              <p>안녕하십니까? 퇴촌성령교회 홈페이지를 방문해주신 여러분을 진심으로 환영합니다.</p>
-              <p>우리 교회는 하나님의 말씀 위에 든든히 서서 성령의 능력으로 세상을 변화시키고자 노력하는 교회입니다. </p>
-              <p>지친 영혼이 쉼을 얻고, 주님의 사랑 안에서 새로운 소망을 발견하는 복된 자리가 되기를 기도합니다.</p>
-              <p>함께 예배하며 주님의 은혜를 나누는 귀한 만남이 있기를 기대합니다.</p>
+              {settings.pastorGreeting ? (
+                settings.pastorGreeting.split('\n').map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))
+              ) : (
+                <>
+                  <p>안녕하십니까? 퇴촌성령교회 홈페이지를 방문해주신 여러분을 진심으로 환영합니다.</p>
+                  <p>우리 교회는 하나님의 말씀 위에 든든히 서서 성령의 능력으로 세상을 변화시키고자 노력하는 교회입니다. </p>
+                  <p>지친 영혼이 쉼을 얻고, 주님의 사랑 안에서 새로운 소망을 발견하는 복된 자리가 되기를 기도합니다.</p>
+                  <p>함께 예배하며 주님의 은혜를 나누는 귀한 만남이 있기를 기대합니다.</p>
+                </>
+              )}
             </div>
             <p className="pastor-name"><strong>{settings.pastor}</strong> 올림</p>
           </div>
@@ -44,7 +52,7 @@ export default async function AboutPage() {
           
           <div className="history-timeline">
             {settings.history && settings.history.length > 0 ? (
-              settings.history.sort((a, b) => b.year - a.year).map((item, idx) => (
+              [...settings.history].sort((a, b) => b.year - a.year).map((item, idx) => (
                 <div key={idx} className="timeline-item">
                   <div className="time">
                     <span className="year">{item.year}</span>
@@ -71,26 +79,41 @@ export default async function AboutPage() {
           </div>
           
           <div className="vision-grid">
-            <div className="vision-card">
-              <div className="v-icon"><Anchor /></div>
-              <h3>말씀 중심</h3>
-              <p>변치 않는 하나님의 말씀을 삶의 유일한 기준으로 삼습니다.</p>
-            </div>
-            <div className="vision-card">
-              <div className="v-icon"><Heart /></div>
-              <h3>사랑의 교제</h3>
-              <p>예수님의 사랑으로 서로를 아끼고 돌보는 가족 같은 공동체입니다.</p>
-            </div>
-            <div className="vision-card">
-              <div className="v-icon"><Users /></div>
-              <h3>다음 세대</h3>
-              <p>미래의 주역인 아이들을 신앙 안에서 바르게 양육합니다.</p>
-            </div>
-            <div className="vision-card">
-              <div className="v-icon"><ShieldCheck /></div>
-              <h3>지역 섬김</h3>
-              <p>퇴촌 지역 사회에 빛과 소금이 되어 이웃을 섬깁니다.</p>
-            </div>
+            {(settings.visions || []).map((vision, idx) => {
+              const icons = { Anchor, Heart, Users, ShieldCheck };
+              const IconComp = icons[vision.icon] || Anchor;
+              return (
+                <div key={idx} className="vision-card">
+                  <div className="v-icon"><IconComp /></div>
+                  <h3>{vision.title}</h3>
+                  <p>{vision.content}</p>
+                </div>
+              );
+            })}
+            {(!settings.visions || settings.visions.length === 0) && (
+              <>
+                <div className="vision-card">
+                  <div className="v-icon"><Anchor /></div>
+                  <h3>말씀 중심</h3>
+                  <p>변치 않는 하나님의 말씀을 삶의 유일한 기준으로 삼습니다.</p>
+                </div>
+                <div className="vision-card">
+                  <div className="v-icon"><Heart /></div>
+                  <h3>사랑의 교제</h3>
+                  <p>예수님의 사랑으로 서로를 아끼고 돌보는 가족 같은 공동체입니다.</p>
+                </div>
+                <div className="vision-card">
+                  <div className="v-icon"><Users /></div>
+                  <h3>다음 세대</h3>
+                  <p>미래의 주역인 아이들을 신앙 안에서 바르게 양육합니다.</p>
+                </div>
+                <div className="vision-card">
+                  <div className="v-icon"><ShieldCheck /></div>
+                  <h3>지역 섬김</h3>
+                  <p>퇴촌 지역 사회에 빛과 소금이 되어 이웃을 섬깁니다.</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
