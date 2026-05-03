@@ -30,6 +30,7 @@ export default function AdminLayout({ children }) {
   const navItems = [
     { href: '/admin', icon: LayoutDashboard, label: '대시보드' },
     { href: '/admin/settings', icon: Settings, label: '사이트 설정' },
+    { href: '/admin/popups', icon: Image, label: '팝업 포스터 관리' },
   ];
 
   const contentItems = [
@@ -40,7 +41,6 @@ export default function AdminLayout({ children }) {
   ];
 
   const systemItems = [
-    { href: '/admin/popups', icon: Image, label: '팝업 포스터 관리' },
     { href: '/admin/audit-logs', icon: History, label: '수정 이력 확인' },
   ];
 

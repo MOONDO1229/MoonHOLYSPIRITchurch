@@ -5,7 +5,7 @@ export default async function AuditLogsPage() {
   const logs = (await getData('audit_logs')) || [];
   
   // Sort by date descending
-  const sortedLogs = [...logs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const sortedLogs = [...logs].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   return (
     <div className="audit-logs-premium">
@@ -38,48 +38,46 @@ export default async function AuditLogsPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th width="200">일시</th>
-              <th width="150">작업자</th>
-              <th width="120">카테고리</th>
+              <th width="180">일시</th>
+              <th width="150">대상</th>
               <th width="100">작업</th>
-              <th>상세 내용</th>
+              <th>상세 정보</th>
             </tr>
           </thead>
           <tbody>
             {sortedLogs.length > 0 ? sortedLogs.map((log, idx) => (
-              <tr key={idx}>
+              <tr key={log.id || idx}>
                 <td className="timestamp">
                   <div className="time-wrap">
                     <Clock size={14} />
-                    {new Date(log.timestamp).toLocaleString('ko-KR', {
+                    {new Date(log.created_at).toLocaleString('ko-KR', {
                       month: '2-digit',
                       day: '2-digit',
                       hour: '2-digit',
-                      minute: '2-digit'
+                      minute: '2-digit',
+                      second: '2-digit'
                     })}
                   </div>
                 </td>
                 <td>
-                  <div className="user-info">
-                    <div className="avatar-mini"><User size={12} /></div>
-                    {log.user || '관리자'}
-                  </div>
+                  <span className="cat-badge" style={{ background: 'rgba(255,255,255,0.05)', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                    {log.target}
+                  </span>
                 </td>
-                <td><span className="cat-badge">{log.type}</span></td>
                 <td>
                   <span className={`action-badge ${log.action}`}>
                     {log.action === 'create' ? '신규등록' : log.action === 'update' ? '정보수정' : log.action === 'delete' ? '영구삭제' : log.action}
                   </span>
                 </td>
                 <td className="detail-td">
-                  <div className="detail-content">
-                    {log.details?.title || log.id || '-'}
+                  <div className="detail-content" style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+                    {log.details?.after?.title || log.details?.after?.name || (log.action === 'delete' ? '데이터 삭제됨' : '상세 정보 없음')}
                   </div>
                 </td>
               </tr>
             )) : (
               <tr>
-                <td colSpan="5" className="no-data">
+                <td colSpan="4" className="no-data">
                   <div className="empty-state">
                     <Activity size={48} />
                     <p>기록된 수정 이력이 없습니다.</p>

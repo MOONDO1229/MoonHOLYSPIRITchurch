@@ -37,9 +37,9 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: '허용되지 않는 파일 형식입니다. (이미지 또는 PDF만 가능)' }, { status: 400 });
     }
 
-    // 2. 파일명 생성
-    const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.')).replace(/[^\w\s\uac00-\ud7af]/gi, '_').replace(/\s+/g, '_');
-    const filename = `${Date.now()}_${nameWithoutExt}${ext}`;
+    // 2. 파일명 생성 (ASCII 안전하게 변경)
+    const randomStr = Math.random().toString(36).substring(2, 8);
+    const filename = `${Date.now()}_${randomStr}${ext}`;
 
     // 3. Supabase Storage에 업로드
     const contentType = ALLOWED_IMAGE_EXTS.includes(ext)
