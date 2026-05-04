@@ -8,52 +8,70 @@ export default function Header({ settings }) {
   const churchName = '퇴촌성령교회';
 
   return (
-    <header className="header">
-      <div className="container header-inner">
-        <Link href="/" className="logo">
-          {settings.logoImage ? (
-            <img src={settings.logoImage} alt={churchName} className="header-logo-img" />
-          ) : (
-            <span className="logo-text">{churchName}</span>
-          )}
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm py-4 border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        {/* Logo Area */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="bg-brand-brown p-2.5 rounded-xl group-hover:bg-brand-brown/90 transition-all duration-300 shadow-md">
+            <i className="ph ph-cross text-white text-2xl"></i>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-xl leading-tight text-brand-dark tracking-tight">{churchName}</span>
+            <span className="text-[10px] text-brand-muted tracking-widest uppercase font-medium">기독교대한성결교회</span>
+          </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="desktop-nav">
-          <Link href="/worship">예배안내</Link>
-          <Link href="/sermon">설교말씀</Link>
-          <Link href="/news">교회소식</Link>
-          <Link href="/support">헌금 및 후원</Link>
-          <Link href="/about">교회소개</Link>
-          <Link href="/location">오시는 길</Link>
-        </nav>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-brand-text">
+          <Link href="/worship" className="nav-link hover:text-brand-brown transition-colors py-1">예배안내</Link>
+          <Link href="/sermon" className="nav-link hover:text-brand-brown transition-colors py-1">설교말씀</Link>
+          <Link href="/news" className="nav-link hover:text-brand-brown transition-colors py-1">교회소식</Link>
+          <Link href="/support" className="nav-link hover:text-brand-brown transition-colors py-1">헌금 및 후원</Link>
+          <Link href="/about" className="nav-link hover:text-brand-brown transition-colors py-1">교회소개</Link>
+          <Link href="/location" className="nav-link hover:text-brand-brown transition-colors py-1">오시는 길</Link>
+        </div>
 
-        <div className="header-actions">
-          <button className="icon-btn" title="검색"><Search size={24} /></button>
-          <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={32} /> : <Menu size={32} />}
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <button aria-label="검색" className="p-2 text-brand-text hover:text-brand-gold transition-colors">
+            <i className="ph ph-magnifying-glass text-2xl"></i>
+          </button>
+          <button className="md:hidden p-2 text-brand-text" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <i className="ph ph-x text-2xl"></i> : <i className="ph ph-list text-2xl"></i>}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="mobile-menu-overlay">
-          <nav className="mobile-menu-nav">
-            <Link href="/" onClick={() => setIsOpen(false)}>홈으로</Link>
-            <Link href="/worship" onClick={() => setIsOpen(false)}>예배안내</Link>
-            <Link href="/sermon" onClick={() => setIsOpen(false)}>설교말씀</Link>
-            <Link href="/news" onClick={() => setIsOpen(false)}>교회소식</Link>
-            <Link href="/support" onClick={() => setIsOpen(false)}>헌금 및 후원</Link>
-            <Link href="/about" onClick={() => setIsOpen(false)}>교회소개</Link>
-            <Link href="/location" onClick={() => setIsOpen(false)}>오시는 길</Link>
-          </nav>
+        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl p-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+          <Link href="/worship" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">예배안내</Link>
+          <Link href="/sermon" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">설교말씀</Link>
+          <Link href="/news" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">교회소식</Link>
+          <Link href="/support" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">헌금 및 후원</Link>
+          <Link href="/about" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">교회소개</Link>
+          <Link href="/location" onClick={() => setIsOpen(false)} className="text-lg font-bold p-2 border-b border-gray-50">오시는 길</Link>
         </div>
       )}
 
       <style jsx>{`
-        .header-logo-img { height: 45px; width: auto; object-fit: contain; }
+        .nav-link {
+          position: relative;
+        }
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -2px;
+          left: 0;
+          background-color: var(--brand-brown);
+          transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+          width: 100%;
+        }
       `}</style>
-    </header>
+    </nav>
   );
 }

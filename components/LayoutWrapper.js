@@ -15,7 +15,7 @@ export default function LayoutWrapper({ children, settings, popups }) {
 
   return (
     <>
-      <PopupOverlay popups={popups} />
+      {pathname === '/' && <PopupOverlay popups={popups} />}
       <Header settings={settings} />
       <div id="app-wrapper">
         {children}

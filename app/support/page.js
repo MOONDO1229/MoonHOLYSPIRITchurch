@@ -1,10 +1,11 @@
 import PageHeader from '@/components/PageHeader';
-import { Heart, Copy, CreditCard, Info } from 'lucide-react';
+import { Heart, CreditCard, Info } from 'lucide-react';
 import { getSettings } from '@/lib/db';
+import CopyButton from '@/components/CopyButton';
 
 export default async function SupportPage() {
   const settings = await getSettings();
-  const accountInfo = settings.offeringAccount || "농협 351-1075-3818-33 (예금주: 성령교회)";
+  const accountNum = "351-1075-3818-33";
 
   return (
     <main>
@@ -18,8 +19,9 @@ export default async function SupportPage() {
             
             <div className="bank-info">
               <span className="bank-label">농협 (NH)</span>
-              <div className="account-number">
-                <span>351-1075-3818-33</span>
+              <div className="account-number" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.4rem', fontWeight: '800' }}>{accountNum}</span>
+                <CopyButton text={accountNum} />
               </div>
               <p className="account-holder">예금주: 성령교회</p>
             </div>

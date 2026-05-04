@@ -9,6 +9,9 @@ export const fetchCache = 'force-no-store';
 export const metadata = {
   title: '퇴촌성령교회',
   description: '성령의 능력으로 세상을 변화시키는 퇴촌성령교회 홈페이지입니다.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export const viewport = {
@@ -26,6 +29,8 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="ko">
       <head>
+        <script src="https://unpkg.com/@phosphor-icons/web" async></script>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
             --primary-color: ${theme.primaryColor};

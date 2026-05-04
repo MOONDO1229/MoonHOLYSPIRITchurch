@@ -1,11 +1,11 @@
-import { getData } from '@/lib/db';
+import { getNoticeById } from '@/lib/db';
 import { ChevronLeft, Download, Calendar, FileText, ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export default async function NewsDetailPage({ params }) {
-  const { id } = params;
-  const item = (await getData('notices')).find(n => n.id === parseInt(id));
+  const { id } = await params;
+  const item = await getNoticeById(id);
 
   if (!item) notFound();
 

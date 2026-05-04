@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { getSettings } from '@/lib/db';
-import { Users, Heart, Anchor, ShieldCheck, Clock } from 'lucide-react';
+import { Users, Heart, Anchor, ShieldCheck, Clock, Cross, Star, Home, Globe, Sparkles, BookOpen } from 'lucide-react';
 
 export default async function AboutPage() {
   const settings = await getSettings();
@@ -80,7 +80,7 @@ export default async function AboutPage() {
           
           <div className="vision-grid">
             {(settings.visions || []).map((vision, idx) => {
-              const icons = { Anchor, Heart, Users, ShieldCheck };
+              const icons = { Anchor, Heart, Users, ShieldCheck, Cross, Star, Home, Globe, Sparkles, BookOpen };
               const IconComp = icons[vision.icon] || Anchor;
               return (
                 <div key={idx} className="vision-card">
@@ -93,7 +93,7 @@ export default async function AboutPage() {
             {(!settings.visions || settings.visions.length === 0) && (
               <>
                 <div className="vision-card">
-                  <div className="v-icon"><Anchor /></div>
+                  <div className="v-icon"><BookOpen /></div>
                   <h3>말씀 중심</h3>
                   <p>변치 않는 하나님의 말씀을 삶의 유일한 기준으로 삼습니다.</p>
                 </div>
@@ -108,7 +108,7 @@ export default async function AboutPage() {
                   <p>미래의 주역인 아이들을 신앙 안에서 바르게 양육합니다.</p>
                 </div>
                 <div className="vision-card">
-                  <div className="v-icon"><ShieldCheck /></div>
+                  <div className="v-icon"><Cross /></div>
                   <h3>지역 섬김</h3>
                   <p>퇴촌 지역 사회에 빛과 소금이 되어 이웃을 섬깁니다.</p>
                 </div>

@@ -252,8 +252,9 @@ export default function SettingsForm({ initialSettings }) {
                       name="pastorGreeting" 
                       value={settings.pastorGreeting} 
                       onChange={handleChange} 
-                      rows={8}
-                      placeholder="성도님들께 전할 인사말 내용을 입력하세요."
+                      rows={12}
+                      style={{ fontSize: '1.1rem', lineHeight: '1.7', padding: '20px' }}
+                      placeholder="성도님들께 전할 인사말 내용을 입력하세요. (고령의 성도님들을 위해 문장을 짧고 명확하게 쓰는 것이 좋습니다.)"
                       className="form-textarea"
                     />
                   </div>
@@ -261,22 +262,44 @@ export default function SettingsForm({ initialSettings }) {
 
                 <div className="form-section-group" style={{marginTop: '40px'}}>
                   <h2 className="section-title">교회 핵심 가치 (4가지 비전)</h2>
+                  <p className="section-desc">교회가 지향하는 핵심 가치들을 수정할 수 있습니다.</p>
                   <div className="vision-edit-grid">
                     {settings.visions.map((vision, idx) => (
-                      <div key={idx} className="vision-edit-card">
-                        <div className="vision-card-header">
-                          <span className="vision-number">0{idx + 1}</span>
+                      <div key={idx} className="vision-edit-card" style={{ padding: '25px', borderRadius: '20px' }}>
+                        <div className="vision-card-header" style={{ marginBottom: '20px' }}>
+                          <span className="vision-number" style={{ background: '#1b4d3e', color: 'white', padding: '5px 12px', borderRadius: '8px', fontSize: '0.9rem' }}>비전 0{idx + 1}</span>
                           <input 
                             value={vision.title} 
                             onChange={e => handleVisionChange(idx, 'title', e.target.value)} 
-                            placeholder="가치 제목"
+                            placeholder="가치 제목 (예: 말씀 중심)"
+                            style={{ fontWeight: '800', fontSize: '1.2rem', border: 'none', borderBottom: '2px solid #eee', flex: 1, padding: '5px 10px' }}
                           />
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                          <label style={{ fontSize: '0.9rem', fontWeight: '700', color: '#64748b', display: 'block', marginBottom: '8px' }}>아이콘 선택</label>
+                          <select 
+                            value={vision.icon} 
+                            onChange={e => handleVisionChange(idx, 'icon', e.target.value)}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
+                          >
+                            <option value="Anchor">닻 (기둥)</option>
+                            <option value="Heart">하트 (사랑)</option>
+                            <option value="Users">사람들 (공동체)</option>
+                            <option value="ShieldCheck">방패 (믿음)</option>
+                            <option value="Cross">십자가 (복음)</option>
+                            <option value="Star">별 (비전)</option>
+                            <option value="Home">집 (쉼터)</option>
+                            <option value="Globe">지구 (선교)</option>
+                            <option value="Sparkles">반짝임 (은혜)</option>
+                            <option value="BookOpen">성경 (말씀)</option>
+                          </select>
                         </div>
                         <textarea 
                           value={vision.content} 
                           onChange={e => handleVisionChange(idx, 'content', e.target.value)} 
-                          placeholder="가치 설명 (한 줄 내외)"
-                          rows={2}
+                          placeholder="가치 설명 (한 줄 내외로 작성하세요)"
+                          rows={3}
+                          style={{ fontSize: '1.05rem', padding: '12px' }}
                         />
                       </div>
                     ))}
