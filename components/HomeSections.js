@@ -32,14 +32,14 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
               </div>
             )}
           </div>
-          <div className="sermon-home-info flex-1 p-10 lg:p-16 flex flex-col justify-center bg-white">
-            <span className="inline-block px-3 py-1 rounded-md bg-brand-gold/10 text-brand-gold text-sm font-bold mb-4">최근 설교</span>
-            <h3 className="text-3xl font-black text-brand-dark mb-4 leading-snug">{latestSermon?.title || '설교 말씀 준비 중입니다'}</h3>
-            <div className="details text-brand-muted text-lg space-y-1 mb-8">
+          <div className="sermon-home-info flex-1 p-6 md:p-10 lg:p-16 flex flex-col justify-center bg-white">
+            <span className="inline-block px-3 py-1 rounded-md bg-brand-gold/10 text-brand-gold text-xs md:text-sm font-bold mb-4 w-fit">최근 설교</span>
+            <h3 className="text-2xl md:text-3xl font-black text-brand-dark mb-4 leading-snug">{latestSermon?.title || '설교 말씀 준비 중입니다'}</h3>
+            <div className="details text-brand-muted text-base md:text-lg space-y-1 mb-6 md:mb-8">
               <p className="flex items-center gap-2"><i className="ph ph-calendar-blank"></i> {latestSermon?.date}</p>
               <p className="flex items-center gap-2"><i className="ph ph-book-open"></i> {latestSermon?.passage}</p>
             </div>
-            <Link href="/sermon" className="inline-flex items-center justify-center px-8 py-3 bg-brand-brown text-white rounded-full font-bold hover:bg-brand-dark transition-colors shadow-md">
+            <Link href="/sermon" className="inline-flex items-center justify-center px-6 py-2.5 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-sm md:text-base hover:bg-brand-dark transition-colors shadow-md w-fit">
               설교 영상 보기
             </Link>
           </div>
@@ -69,15 +69,15 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
               </div>
             )}
           </div>
-          <div className="bulletin-home-info flex-1">
-            <h3 className="text-3xl font-black text-[#2A4B41] mb-2">{latestBulletin?.title || '주보 업데이트 예정'}</h3>
-            <p className="text-xl text-brand-muted mb-8 font-medium">{latestBulletin?.date}</p>
-            <div className="flex gap-3">
-              <Link href={`/bulletin/${latestBulletin?.id}`} className="px-8 py-3 bg-[#EBF3F0] text-[#2A4B41] rounded-full font-bold hover:bg-[#D9EAE4] transition-colors">
+          <div className="bulletin-home-info flex-1 text-center md:text-left">
+            <h3 className="text-2xl md:text-3xl font-black text-[#2A4B41] mb-2">{latestBulletin?.title || '주보 업데이트 예정'}</h3>
+            <p className="text-lg md:text-xl text-brand-muted mb-6 md:mb-8 font-medium">{latestBulletin?.date}</p>
+            <div className="flex justify-center md:justify-start gap-3">
+              <Link href={`/bulletin/${latestBulletin?.id}`} className="px-6 py-2.5 md:px-8 md:py-3 bg-[#EBF3F0] text-[#2A4B41] rounded-full font-bold text-sm md:text-base hover:bg-[#D9EAE4] transition-colors">
                 자세히 보기
               </Link>
               {latestBulletin?.pdf_url && (
-                <a href={latestBulletin.pdf_url} target="_blank" className="px-8 py-3 bg-brand-brown text-white rounded-full font-bold hover:bg-brand-dark transition-colors shadow-md">
+                <a href={latestBulletin.pdf_url} target="_blank" className="px-6 py-2.5 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-sm md:text-base hover:bg-brand-dark transition-colors shadow-md">
                   PDF 다운로드
                 </a>
               )}
