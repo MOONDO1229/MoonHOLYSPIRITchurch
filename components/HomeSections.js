@@ -125,13 +125,13 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
           </div>
           <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
         </Link>
-        <Link href="/bulletin" className="flex-1 max-w-md group p-6 bg-brand-gold text-white rounded-3xl flex items-center justify-between hover:bg-[#b88a4a] transition-all shadow-lg">
+        <Link href="/bulletin" className="flex-1 max-w-md group p-6 bg-[#b88a4a] text-white rounded-3xl flex items-center justify-between hover:bg-[#a67b42] transition-all shadow-lg">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
               <BookOpen className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm opacity-80">전체 주보 보기</p>
+              <p className="text-sm opacity-90">전체 주보 보기</p>
               <h4 className="text-xl font-bold">주보 목록</h4>
             </div>
           </div>
