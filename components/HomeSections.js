@@ -10,7 +10,11 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
         <div className="flex flex-col items-center mb-10 gap-4 text-center">
           <div className="w-full">
             <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight mb-2">최신 설교 말씀</h2>
-            <p className="text-base md:text-lg text-brand-muted">성령의 감동이 있는 주일 설교 말씀입니다</p>
+            <p className="text-base md:text-lg text-brand-muted mb-4">성령의 감동이 있는 주일 설교 말씀입니다</p>
+            <Link href="/sermon" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
+              전체말씀 보기
+              <i className="ph ph-arrow-right"></i>
+            </Link>
           </div>
         </div>
         
@@ -47,7 +51,11 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
         <div className="flex flex-col items-center mb-10 gap-4 text-center">
           <div className="w-full">
             <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight mb-2">이번주 주보</h2>
-            <p className="text-base md:text-lg text-brand-muted">이번 주 성령교회 소식과 예배 순서입니다</p>
+            <p className="text-base md:text-lg text-brand-muted mb-4">이번 주 성령교회 소식과 예배 순서입니다</p>
+            <Link href="/bulletin" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
+              주보 목록 보기
+              <i className="ph ph-arrow-right"></i>
+            </Link>
           </div>
         </div>
         
@@ -104,39 +112,11 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Link href="/news" className="group flex items-center gap-2 px-8 py-3 bg-white border border-brand-gold/30 text-brand-gold rounded-full font-bold text-lg hover:bg-brand-gold hover:text-white transition-all shadow-sm">
+          <Link href="/news" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
             소식 전체보기
             <i className="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
           </Link>
         </div>
-      </section>
-
-      {/* Quick Access to Sermon/Bulletin List */}
-      <section className="flex flex-col md:flex-row gap-6 justify-center">
-        <Link href="/sermon" className="flex-1 max-w-md group p-6 bg-brand-brown text-white rounded-3xl flex items-center justify-between hover:bg-brand-dark transition-all shadow-lg">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-              <Video className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm opacity-80">전체 말씀 보기</p>
-              <h4 className="text-xl font-bold">설교 말씀</h4>
-            </div>
-          </div>
-          <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-        </Link>
-        <Link href="/bulletin" className="flex-1 max-w-md group p-6 bg-[#b88a4a] text-white rounded-3xl flex items-center justify-between hover:bg-[#a67b42] transition-all shadow-lg">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm opacity-90">전체 주보 보기</p>
-              <h4 className="text-xl font-bold">주보 목록</h4>
-            </div>
-          </div>
-          <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-        </Link>
       </section>
     </div>
   );
