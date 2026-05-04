@@ -40,10 +40,10 @@ export default async function Home() {
             {settings.welcomeSubtitle || '성령의 능력으로 세상을 변화시키는 교회'}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/worship" className="w-full sm:w-auto px-10 py-4 bg-[#003629] hover:bg-[#00281e] text-white text-lg font-semibold rounded-full transition-all shadow-lg hover:shadow-2xl hover:scale-105">
+            <Link href="/worship" className="w-full sm:w-auto px-6 py-3 md:px-10 md:py-4 bg-[#003629] hover:bg-[#00281e] text-white text-base md:text-lg font-semibold rounded-full transition-all shadow-lg hover:shadow-2xl hover:scale-105">
               예배 안내
             </Link>
-            <Link href="/about" className="w-full sm:w-auto px-10 py-4 bg-white/10 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white text-lg font-semibold rounded-full transition-all shadow-lg hover:shadow-2xl hover:scale-105">
+            <Link href="/about" className="w-full sm:w-auto px-6 py-3 md:px-10 md:py-4 bg-white/10 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white text-base md:text-lg font-semibold rounded-full transition-all shadow-lg hover:shadow-2xl hover:scale-105">
               교회 소개
             </Link>
           </div>

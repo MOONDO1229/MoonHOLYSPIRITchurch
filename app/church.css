@@ -1019,9 +1019,12 @@ body {
     margin: 0 !important;
   }
 
-  .quick-card { padding: 16px 8px !important; }
-  .icon-bg { width: 52px !important; height: 52px !important; font-size: 24px !important; margin-bottom: 12px !important; }
-  .card-title { font-size: 0.95rem !important; }
+  .hero-section-container h1 { font-size: 2.25rem !important; margin-bottom: 16px !important; }
+  .hero-section-container p { font-size: 1.1rem !important; }
+
+  .quick-card { padding: 12px 4px !important; }
+  .icon-bg { width: 44px !important; height: 44px !important; font-size: 20px !important; margin-bottom: 8px !important; margin-left: auto !important; margin-right: auto !important; }
+  .card-title { font-size: 0.85rem !important; letter-spacing: -0.02em !important; }
 
   .sermon-home-wrap { flex-direction: column !important; width: 100% !important; border-radius: 24px !important; }
   .video-embed-container { aspect-ratio: 16 / 9 !important; width: 100% !important; }
