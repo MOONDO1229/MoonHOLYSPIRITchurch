@@ -227,14 +227,9 @@ body {
   
   /* Hero Section Mobile Refinement */
   .hero-section-container { 
-    min-height: 520px !important; 
-    padding-top: 140px !important; 
-    padding-bottom: 100px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    text-align: center !important;
-    align-items: center !important;
+    min-height: 480px !important; 
+    padding-top: 120px !important; 
+    padding-bottom: 80px !important;
   }
 
   .hero-section-container .bg-cover {

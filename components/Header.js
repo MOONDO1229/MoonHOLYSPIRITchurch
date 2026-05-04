@@ -9,13 +9,13 @@ export default function Header({ settings }) {
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm py-4 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between md:justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo Area */}
-        <Link href="/" className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <div className="bg-brand-brown p-2.5 rounded-xl group-hover:bg-brand-brown/90 transition-all duration-300 shadow-md">
             <i className="ph ph-cross text-white text-2xl"></i>
           </div>
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="flex flex-col">
             <span className="font-bold text-xl leading-tight text-brand-dark tracking-tight">{churchName}</span>
             <span className="text-[10px] text-brand-muted tracking-widest uppercase font-medium">기독교대한성결교회</span>
           </div>
