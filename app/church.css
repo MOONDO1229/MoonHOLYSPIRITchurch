@@ -179,13 +179,24 @@ body {
 .slide-in-from-top-4 { transform: translateY(-16px); animation: slideInTop 0.3s forwards; }
 @keyframes slideInTop { to { transform: translateY(0); opacity: 1; } }
 
-/* Quick Menu Grid System */
+/* Quick Menu Grid System - Force 4 columns on desktop */
 .quick-menu-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
-  gap: 20px !important;
+  gap: 24px !important;
   width: 100% !important;
-  flex: none !important;
+  background: white !important;
+  border-radius: 24px !important;
+  padding: 32px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Ensure desktop is always 4 columns regardless of other rules */
+@media (min-width: 1025px) {
+  .quick-menu-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    display: grid !important;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -196,26 +207,48 @@ body {
 }
 
 @media (max-width: 767px) {
-  .px-6 { padding-left: 16px; padding-right: 16px; }
-  .py-32 { padding-top: 48px; padding-bottom: 48px; }
-  .py-24 { padding-top: 32px; padding-bottom: 32px; }
-  .space-y-32 > * + * { margin-top: 4rem; }
-  .text-5xl { font-size: 1.875rem; }
-  .text-7xl { font-size: 2.5rem; }
-  
-  /* Hero Height Fix */
-  .hero-section-container { 
-    min-height: 300px !important; 
-    padding-top: 60px !important; 
-    padding-bottom: 60px !important;
+  /* Increase padding globally for mobile to prevent 'crowded' feel */
+  .px-6, .px-4, .p-4, .container, .section-container, .max-w-6xl, .max-w-4xl, .max-w-7xl { 
+    padding-left: 24px !important; 
+    padding-right: 24px !important; 
   }
   
+  /* Ensure titles specifically have padding if they are outside padded containers */
+  h2.text-4xl, h2.text-2xl, .section-header h2 {
+    padding-left: 4px; /* Additional nudge if needed */
+  }
+
+  .py-32 { padding-top: 56px !important; padding-bottom: 56px !important; }
+  .py-24 { padding-top: 40px !important; padding-bottom: 40px !important; }
+  .space-y-32 > * + * { margin-top: 5rem !important; }
+  .text-4xl { font-size: 1.75rem !important; }
+  .text-5xl { font-size: 2.25rem !important; }
+  .text-7xl { font-size: 2.75rem !important; }
+  
+  /* Hero Section Mobile Refinement */
+  .hero-section-container { 
+    min-height: 520px !important; 
+    padding-top: 140px !important; 
+    padding-bottom: 100px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .hero-section-container .bg-cover {
+    background-position: center 20% !important; /* Adjust to show more of the top/center */
+  }
+
   /* Quick Menu Mobile Fix */
-  .quick-menu-container { margin-top: -32px; margin-bottom: 32px; }
+  .quick-menu-container { margin-top: -32px !important; margin-bottom: 48px !important; }
   .quick-menu-grid { 
     grid-template-columns: repeat(2, 1fr) !important;
     padding: 16px !important;
+    gap: 12px !important;
   }
+
   .quick-card {
     width: 100% !important;
     margin: 0 !important;
@@ -271,20 +304,21 @@ body {
 
 /* Quick Menu */
 .quick-menu-container { margin-top: -64px; position: relative; z-index: 20; margin-bottom: 96px; }
-.quick-menu-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: white; border-radius: 24px; padding: 16px; box-shadow: var(--shadow-md); }
 
 .quick-card {
   display: flex;
   flex-direction: column;
-  items-center: center;
+  align-items: center;
   justify-content: center;
-  width: calc(25% - 12px);
-  padding: 24px;
+  width: 100%;
+  padding: 24px 12px;
   border-radius: 24px;
   border: 1px solid #f9f9f9;
   background: white;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .quick-card:hover {

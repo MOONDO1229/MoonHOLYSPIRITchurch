@@ -7,9 +7,9 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
     <div className="max-w-6xl mx-auto px-6 space-y-32 mb-32">
       {/* Latest Sermon Section */}
       <section className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-        <div className="flex justify-between items-end mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 text-center md:text-left gap-4">
           <div>
-            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">말씀의 은혜</h2>
+            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">최신 설교 말씀</h2>
             <p className="text-lg text-brand-muted">성령의 감동이 있는 주일 설교 말씀입니다</p>
           </div>
           <Link href="/sermon" className="group flex items-center gap-2 text-brand-gold font-bold text-lg hover:text-brand-brown transition-colors">
@@ -48,9 +48,9 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
 
       {/* Bulletin Section */}
       <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-        <div className="flex justify-between items-end mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 text-center md:text-left gap-4">
           <div>
-            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">교회 주보</h2>
+            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">이번주 주보</h2>
             <p className="text-lg text-brand-muted">이번 주 성령교회 소식과 예배 순서입니다</p>
           </div>
           <Link href="/bulletin" className="group flex items-center gap-2 text-brand-gold font-bold text-lg hover:text-brand-brown transition-colors">
@@ -88,9 +88,9 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
 
       {/* News & Notices Section */}
       <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-        <div className="flex justify-between items-end mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 text-center md:text-left gap-4">
           <div>
-            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">성령 소식</h2>
+            <h2 className="text-4xl font-extrabold text-brand-dark tracking-tight mb-2">교회 소식</h2>
             <p className="text-lg text-brand-muted">하나님의 사랑을 전하는 교회의 발자취입니다</p>
           </div>
           <Link href="/news" className="group flex items-center gap-2 text-brand-gold font-bold text-lg hover:text-brand-brown transition-colors">
