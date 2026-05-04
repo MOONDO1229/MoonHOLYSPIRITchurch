@@ -32,14 +32,14 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
               </div>
             )}
           </div>
-          <div className="sermon-home-info flex-1 p-6 md:p-10 lg:p-16 flex flex-col justify-center bg-white">
-            <span className="inline-block px-3 py-1 rounded-md bg-brand-gold/10 text-brand-gold text-xs md:text-sm font-bold mb-4 w-fit">최근 설교</span>
-            <h3 className="text-2xl md:text-3xl font-black text-brand-dark mb-4 leading-snug">{latestSermon?.title || '설교 말씀 준비 중입니다'}</h3>
-            <div className="details text-brand-muted text-base md:text-lg space-y-1 mb-6 md:mb-8">
-              <p className="flex items-center gap-2"><i className="ph ph-calendar-blank"></i> {latestSermon?.date}</p>
-              <p className="flex items-center gap-2"><i className="ph ph-book-open"></i> {latestSermon?.passage}</p>
+          <div className="sermon-home-info flex-1 p-5 md:p-10 lg:p-16 flex flex-col items-center md:items-start justify-center bg-white text-center md:text-left">
+            <span className="inline-block px-3 py-1 rounded-md bg-brand-gold/10 text-brand-gold text-[10px] md:text-sm font-bold mb-3 md:mb-4 w-fit">최근 설교</span>
+            <h3 className="text-xl md:text-3xl font-black text-brand-dark mb-3 md:mb-4 leading-snug">{latestSermon?.title || '설교 말씀 준비 중입니다'}</h3>
+            <div className="details text-brand-muted text-sm md:text-lg space-y-1 mb-5 md:mb-8">
+              <p className="flex items-center justify-center md:justify-start gap-2"><i className="ph ph-calendar-blank"></i> {latestSermon?.date}</p>
+              <p className="flex items-center justify-center md:justify-start gap-2"><i className="ph ph-book-open"></i> {latestSermon?.passage}</p>
             </div>
-            <Link href="/sermon" className="inline-flex items-center justify-center px-6 py-2.5 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-sm md:text-base hover:bg-brand-dark transition-colors shadow-md w-fit">
+            <Link href="/sermon" className="inline-flex items-center justify-center px-6 py-2 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-xs md:text-base hover:bg-brand-dark transition-colors shadow-md w-fit">
               설교 영상 보기
             </Link>
           </div>

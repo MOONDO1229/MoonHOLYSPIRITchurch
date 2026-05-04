@@ -1026,16 +1026,18 @@ body {
   .icon-bg { width: 44px !important; height: 44px !important; font-size: 20px !important; margin-bottom: 8px !important; margin-left: auto !important; margin-right: auto !important; }
   .card-title { font-size: 0.85rem !important; letter-spacing: -0.02em !important; }
 
-  .sermon-home-wrap { flex-direction: column !important; width: 100% !important; border-radius: 24px !important; }
+  .sermon-home-wrap { flex-direction: column !important; width: 100% !important; border-radius: 20px !important; }
   .video-embed-container { aspect-ratio: 16 / 9 !important; width: 100% !important; }
-  .sermon-home-info { padding: 24px 20px !important; }
-  .sermon-home-info h3 { font-size: 1.5rem !important; margin-bottom: 12px !important; }
-  .sermon-home-info .details { font-size: 0.95rem !important; margin-bottom: 24px !important; }
+  .sermon-home-info { padding: 20px 16px !important; align-items: center !important; text-align: center !important; }
+  .sermon-home-info h3 { font-size: 1.25rem !important; margin-bottom: 10px !important; }
+  .sermon-home-info .details { font-size: 0.85rem !important; margin-bottom: 20px !important; }
   
-  .bulletin-home-card { flex-direction: column !important; gap: 20px !important; width: 100% !important; padding: 24px 20px !important; border-radius: 24px !important; }
-  .bulletin-thumb { width: 100% !important; max-width: 280px !important; margin: 0 auto !important; }
-  .bulletin-home-info h3 { font-size: 1.5rem !important; }
-  .bulletin-home-info .date { font-size: 1rem !important; margin-bottom: 20px !important; }
+  .bulletin-home-card { flex-direction: column !important; gap: 16px !important; width: 100% !important; padding: 20px 16px !important; border-radius: 20px !important; }
+  .bulletin-thumb { width: 100% !important; max-width: 240px !important; margin: 0 auto !important; }
+  .bulletin-home-info { text-align: center !important; }
+  .bulletin-home-info h3 { font-size: 1.25rem !important; }
+  .bulletin-home-info .date { font-size: 0.9rem !important; margin-bottom: 16px !important; }
+  .bulletin-home-info .flex { justify-content: center !important; }
   
   /* Horizontal Scroll Prevention */
   main, section, div { max-width: 100vw; overflow-x: hidden; }
