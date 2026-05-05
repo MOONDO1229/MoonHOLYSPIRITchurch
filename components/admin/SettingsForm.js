@@ -4,32 +4,41 @@ import { updateSettings } from '@/lib/actions';
 import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
+export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
-    ...initialSettings,
     churchName: initialSettings?.churchName || '성령교회',
     denomination: initialSettings?.denomination || '기독교대한성결교회',
     footerSlogan: initialSettings?.footerSlogan || '',
     email: initialSettings?.email || '',
+    phone: initialSettings?.phone || '031-766-8847',
+    address: initialSettings?.address || '경기도 광주시 퇴촌면 광동로52번길 27',
     copyrightYear: initialSettings?.copyrightYear || '2026',
     welcomeBadge: initialSettings?.welcomeBadge || '성령교회에 오신 것을 환영합니다',
     pastorTitle: initialSettings?.pastorTitle || '예수님의 사랑으로 여러분을 환영합니다',
     pastorGreeting: initialSettings?.pastorGreeting || '',
     visions: initialSettings?.visions || [
-      { title: "말씀 중심", content: "", icon: "Anchor" },
+      { title: "말씀 중심", content: "", icon: "BookOpen" },
       { title: "사랑의 교제", content: "", icon: "Heart" },
       { title: "다음 세대", content: "", icon: "Users" },
-      { title: "지역 섬김", content: "", icon: "ShieldCheck" }
+      { title: "지역 섬김", content: "", icon: "Cross" }
     ],
-    offering: initialSettings?.offering || {
-      bank: "농협",
-      account: "351-1188-7505-13",
-      holder: "성령교회",
-      info: "교회 통장으로 직접 송금하실 수 있습니다.",
-      types: "십일조 / 감사헌금 / 주일헌금 / 선교헌금 / 건축헌금 등"
+    offering: {
+      bank: initialSettings?.offering?.bank || "농협",
+      account: initialSettings?.offering?.account || "351-1188-7505-13",
+      holder: initialSettings?.offering?.holder || "성령교회",
+      info: initialSettings?.offering?.info || "교회 통장으로 직접 송금하실 수 있습니다.",
+      types: initialSettings?.offering?.types || "십일조 / 감사헌금 / 주일헌금 / 선교헌금 / 건축헌금 등"
     },
-    location: initialSettings?.location || {
-      guide: "교회 내 주차장이 마련되어 있습니다. 광동 사거리에서 퇴촌면사무소 방면으로 오시면 됩니다."
-    }
+    location: {
+      guide: initialSettings?.location?.guide || "교회 내 주차장이 마련되어 있습니다. 광동 사거리에서 퇴촌면사무소 방면으로 오시면 됩니다."
+    },
+    theme: {
+      primaryColor: initialSettings?.theme?.primaryColor || "#1b4d3e",
+      secondaryColor: initialSettings?.theme?.secondaryColor || "#c9a55c"
+    },
+    churchImage: initialSettings?.churchImage || "",
+    logoImage: initialSettings?.logoImage || "",
+    history: initialSettings?.history || []
   });
   const [isPreviewMobile, setIsPreviewMobile] = useState(false);
   const [activeTab, setActiveTab] = useState('basic'); // basic, intro, support, theme
