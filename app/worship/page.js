@@ -1,33 +1,113 @@
-import PageHeader from '@/components/PageHeader';
 import { getWorshipTimes } from '@/lib/db';
-import { Play } from 'lucide-react';
+import { Clock, MapPin } from 'lucide-react';
 
 export default async function WorshipPage() {
   const worshipTimes = await getWorshipTimes();
 
+  const getBadgeInfo = (name) => {
+    if (name.includes('주일') || name.includes('오전') || name.includes('오후')) {
+      return { label: 'SUNDAY', class: 'sunday' };
+    }
+    if (name.includes('어린이') || name.includes('꿈땅')) {
+      return { label: 'YOUTH', class: 'youth' };
+    }
+    return { label: 'WEEKDAY', class: 'weekday' };
+  };
+
+  const formatTime = (time) => {
+    // 오전 9시 -> 오전 9:00 등으로 통일감이 필요한 경우 처리 (현재는 그대로 유지하되 스타일로 보정)
+    return time;
+  };
+
   return (
-    <main>
-      <PageHeader title="예배 시간 안내" subtitle="신령과 진정으로 드리는 성령교회의 예배입니다." />
-      
-      <section className="container section">
-        <div className="worship-grid">
-          {worshipTimes.map(time => (
-            <div key={time.id} className="worship-card">
-              <div className="card-header">
-                <h3>{time.name}</h3>
-              </div>
-              <div className="card-body">
-                <div className="info-row">
-                  <span className="label">시간</span>
-                  <span className="value">{time.time}</span>
+    <main className="bg-[#fafafa] min-h-screen">
+      {/* 상단 페이지 소개 영역 */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-white">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full opacity-[0.03] pointer-events-none">
+          <div className="absolute top-10 left-10 w-64 h-64 rounded-full bg-brand-gold blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-dark blur-3xl"></div>
+        </div>
+
+        <div className="container relative z-10 text-center">
+          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-brand-gold bg-brand-gold/10 rounded-full animate-in fade-in slide-in-from-bottom-2">
+            WORSHIP TIMES
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-3 duration-700">
+            예배 시간 안내
+          </h1>
+          <div className="w-16 h-1 bg-brand-gold mx-auto mb-8 rounded-full"></div>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-brand-muted leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            신령과 진정으로 드리는 성령교회의 예배에 <br className="md:hidden" />
+            당신을 정중히 초대합니다.
+          </p>
+        </div>
+      </section>
+
+      {/* 예배 카드 그리드 영역 */}
+      <section className="py-24 md:py-32">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 worship-grid-v2">
+            {worshipTimes.map((time, idx) => {
+              const badge = getBadgeInfo(time.name);
+              return (
+                <div 
+                  key={time.id} 
+                  className="worship-time-card animate-in fade-in slide-in-from-bottom-4"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="name-row">
+                    <h3>{time.name}</h3>
+                    <span className={`worship-badge-v2 ${badge.class}`}>
+                      {badge.label}
+                    </span>
+                  </div>
+                  
+                  <div className="worship-card-divider"></div>
+                  
+                  <div className="worship-info-stack">
+                    <div className="worship-info-item">
+                      <div className="icon-box">
+                        <Clock size={20} strokeWidth={2} />
+                      </div>
+                      <div className="text-group">
+                        <span className="label">Time</span>
+                        <span className="value">{formatTime(time.time)}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="worship-info-item">
+                      <div className="icon-box">
+                        <MapPin size={20} strokeWidth={2} />
+                      </div>
+                      <div className="text-group">
+                        <span className="label">Location</span>
+                        <span className="value">{time.place}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="info-row">
-                  <span className="label">장소</span>
-                  <span className="value">{time.place}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
+          
+          {/* 하단 추가 안내 */}
+          <div className="mt-24 p-12 bg-white rounded-[32px] border border-gray-100 text-center animate-in fade-in slide-in-from-bottom-8">
+            <p className="text-brand-muted font-medium mb-2">예배 참여 안내</p>
+            <p className="text-brand-dark text-xl font-bold mb-6">
+              모든 예배는 유튜브를 통해 실시간 온라인으로도 참여하실 수 있습니다.
+            </p>
+            <a 
+              href="https://www.youtube.com/@moon-holyspiritchurch" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-4 bg-brand-dark text-white rounded-2xl font-bold hover:bg-black transition-all hover:shadow-xl group"
+            >
+              성령교회 유튜브 채널 바로가기
+              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
     </main>

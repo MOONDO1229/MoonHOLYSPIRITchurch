@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 export default function Footer({ settings }) {
   const currentYear = new Date().getFullYear();
-  const churchName = '성령교회';
+  const churchName = settings?.churchName || '성령교회';
+  const slogan = settings?.footerSlogan || '성령의 능력으로 세상을 변화시키고\n예수 그리스도의 사랑을 실천하는 믿음의 공동체';
 
   return (
     <footer className="footer pt-24 pb-12 bg-transparent text-brand-dark overflow-hidden">
@@ -15,9 +16,8 @@ export default function Footer({ settings }) {
               </div>
               <span className="text-2xl font-black tracking-tighter text-brand-dark">{churchName}</span>
             </div>
-            <p className="text-brand-dark font-bold leading-relaxed text-lg">
-              성령의 능력으로 세상을 변화시키고<br />
-              예수 그리스도의 사랑을 실천하는 믿음의 공동체
+            <p className="text-brand-dark font-bold leading-relaxed text-lg whitespace-pre-line">
+              {slogan}
             </p>
           </div>
 

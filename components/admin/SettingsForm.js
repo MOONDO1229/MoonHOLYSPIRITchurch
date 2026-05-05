@@ -6,6 +6,9 @@ import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLi
 export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
     ...initialSettings,
+    churchName: initialSettings?.churchName || '성령교회',
+    denomination: initialSettings?.denomination || '기독교대한성결교회',
+    footerSlogan: initialSettings?.footerSlogan || '',
     email: initialSettings?.email || '',
     copyrightYear: initialSettings?.copyrightYear || '2026',
     welcomeBadge: initialSettings?.welcomeBadge || '성령교회에 오신 것을 환영합니다',
@@ -16,10 +19,20 @@ export default function SettingsForm({ initialSettings }) {
       { title: "사랑의 교제", content: "", icon: "Heart" },
       { title: "다음 세대", content: "", icon: "Users" },
       { title: "지역 섬김", content: "", icon: "ShieldCheck" }
-    ]
+    ],
+    offering: initialSettings?.offering || {
+      bank: "농협",
+      account: "351-1188-7505-13",
+      holder: "성령교회",
+      info: "교회 통장으로 직접 송금하실 수 있습니다.",
+      types: "십일조 / 감사헌금 / 주일헌금 / 선교헌금 / 건축헌금 등"
+    },
+    location: initialSettings?.location || {
+      guide: "교회 내 주차장이 마련되어 있습니다. 광동 사거리에서 퇴촌면사무소 방면으로 오시면 됩니다."
+    }
   });
   const [isPreviewMobile, setIsPreviewMobile] = useState(false);
-  const [activeTab, setActiveTab] = useState('basic'); // basic, intro, theme
+  const [activeTab, setActiveTab] = useState('basic'); // basic, intro, support, theme
   const fileInputRef = useRef({});
 
   const handleVisionChange = (index, field, value) => {
@@ -31,11 +44,14 @@ export default function SettingsForm({ initialSettings }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      setSettings(prev => ({
-        ...prev,
-        [parent]: { ...prev[parent], [child]: type === 'checkbox' ? checked : value }
-      }));
+      const parts = name.split('.');
+      if (parts.length === 2) {
+        const [parent, child] = parts;
+        setSettings(prev => ({
+          ...prev,
+          [parent]: { ...prev[parent], [child]: type === 'checkbox' ? checked : value }
+        }));
+      }
     } else {
       setSettings(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
     }
@@ -75,7 +91,6 @@ export default function SettingsForm({ initialSettings }) {
       const data = await res.json();
       
       if (data.success && data.url) {
-        // 함수형 업데이트를 사용하여 stale state 방지
         const updatedSettings = await new Promise((resolve) => {
           setSettings(prev => {
             let newSettings;
@@ -93,7 +108,6 @@ export default function SettingsForm({ initialSettings }) {
           });
         });
         
-        // 상태 업데이트 직후 서버에 저장
         await updateSettings(updatedSettings);
         alert('이미지가 성공적으로 업로드되고 저장되었습니다.');
       } else {
@@ -153,6 +167,9 @@ export default function SettingsForm({ initialSettings }) {
             <button className={activeTab === 'intro' ? 'active' : ''} onClick={() => setActiveTab('intro')}>
               <Users size={18} /> 교회 소개
             </button>
+            <button className={activeTab === 'support' ? 'active' : ''} onClick={() => setActiveTab('support')}>
+              <Heart size={18} /> 운영 정보
+            </button>
             <button className={activeTab === 'theme' ? 'active' : ''} onClick={() => setActiveTab('theme')}>
               <Palette size={18} /> 테마 & 디자인
             </button>
@@ -196,17 +213,35 @@ export default function SettingsForm({ initialSettings }) {
                   <h2 className="section-title">교회 기본 정보</h2>
                   <div className="input-group-row">
                     <div className="input-field">
-                      <label>홈페이지 상단 배지 (Badge)</label>
-                      <input name="welcomeBadge" value={settings.welcomeBadge} onChange={handleChange} placeholder="예: 성령교회에 오신 것을 환영합니다" />
+                      <label>교회 명칭</label>
+                      <input name="churchName" value={settings.churchName} onChange={handleChange} placeholder="예: 성령교회" />
                     </div>
                     <div className="input-field">
-                      <label>홈페이지 대제목 (H1)</label>
-                      <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
+                      <label>소속 교단명</label>
+                      <input name="denomination" value={settings.denomination} onChange={handleChange} placeholder="예: 기독교대한성결교회" />
                     </div>
+                  </div>
+                  <div className="input-field">
+                    <label>홈페이지 상단 배지 (Badge)</label>
+                    <input name="welcomeBadge" value={settings.welcomeBadge} onChange={handleChange} placeholder="예: 성령교회에 오신 것을 환영합니다" />
+                  </div>
+                  <div className="input-field">
+                    <label>홈페이지 대제목 (H1)</label>
+                    <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
                   </div>
                   <div className="input-field">
                     <label>홈페이지 소제목 (Subtitle)</label>
                     <input name="welcomeSubtitle" value={settings.welcomeSubtitle} onChange={handleChange} placeholder="교회의 슬로건이나 비전을 입력하세요" />
+                  </div>
+                  <div className="input-field">
+                    <label>푸터(하단) 슬로건</label>
+                    <textarea 
+                      name="footerSlogan" 
+                      value={settings.footerSlogan} 
+                      onChange={handleChange} 
+                      rows={2}
+                      placeholder="교회 하단에 표시될 짧은 소개 문구를 입력하세요."
+                    />
                   </div>
                 </div>
 
@@ -226,13 +261,15 @@ export default function SettingsForm({ initialSettings }) {
                     <label><MapPin size={16} /> 교회 주소</label>
                     <input name="address" value={settings.address} onChange={handleChange} />
                   </div>
-                  <div className="input-field">
-                    <label><Mail size={16} /> 교회 이메일</label>
-                    <input name="email" value={settings.email} onChange={handleChange} placeholder="예: church@example.com" />
-                  </div>
-                  <div className="input-field">
-                    <label><Calendar size={16} /> 하단 저작권 표시 연도</label>
-                    <input name="copyrightYear" value={settings.copyrightYear} onChange={handleChange} placeholder="예: 2026" />
+                  <div className="input-group-row">
+                    <div className="input-field">
+                      <label><Mail size={16} /> 교회 이메일</label>
+                      <input name="email" value={settings.email} onChange={handleChange} placeholder="예: church@example.com" />
+                    </div>
+                    <div className="input-field">
+                      <label><Calendar size={16} /> 하단 저작권 연도</label>
+                      <input name="copyrightYear" value={settings.copyrightYear} onChange={handleChange} placeholder="예: 2026" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -328,6 +365,70 @@ export default function SettingsForm({ initialSettings }) {
                         <button className="btn-del" onClick={() => removeHistory(idx)}><Trash2 size={18}/></button>
                       </div>
                     ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'support' && (
+              <div className="tab-pane">
+                <div className="form-section-group">
+                  <h2 className="section-title">헌금 및 후원 계좌 설정</h2>
+                  <p className="section-desc">성도님들께 안내될 헌금 계좌 정보를 관리합니다.</p>
+                  <div className="input-group-row">
+                    <div className="input-field">
+                      <label>은행명</label>
+                      <input name="offering.bank" value={settings.offering.bank} onChange={handleChange} placeholder="예: 농협" />
+                    </div>
+                    <div className="input-field">
+                      <label>예금주</label>
+                      <input name="offering.holder" value={settings.offering.holder} onChange={handleChange} placeholder="예: 성령교회" />
+                    </div>
+                  </div>
+                  <div className="input-field">
+                    <label>계좌번호</label>
+                    <input name="offering.account" value={settings.offering.account} onChange={handleChange} placeholder="예: 351-1188-7505-13" />
+                  </div>
+                  <div className="input-field">
+                    <label>송금 안내 문구</label>
+                    <input name="offering.info" value={settings.offering.info} onChange={handleChange} placeholder="예: 교회 통장으로 직접 송금하실 수 있습니다." />
+                  </div>
+                  <div className="input-field">
+                    <label>헌금 종류 안내 (상세)</label>
+                    <textarea 
+                      name="offering.types" 
+                      value={settings.offering.types} 
+                      onChange={handleChange} 
+                      rows={3}
+                      placeholder="예: 십일조 / 감사헌금 / 주일헌금 / 선교헌금 / 건축헌금 등"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-section-group" style={{marginTop: '40px'}}>
+                  <h2 className="section-title">교통 및 주차 안내</h2>
+                  <p className="section-desc">오시는 길 페이지 하단에 표시될 안내 문구입니다.</p>
+                  <div className="input-field">
+                    <label>주차/교통 상세 안내</label>
+                    <textarea 
+                      name="location.guide" 
+                      value={settings.location.guide} 
+                      onChange={handleChange} 
+                      rows={4}
+                      placeholder="주차장 위치나 대중교통 이용 방법을 상세히 적어주세요."
+                    />
+                  </div>
+                </div>
+
+                <div className="form-section-group" style={{marginTop: '40px'}}>
+                  <h2 className="section-title">온라인 채널 링크</h2>
+                  <div className="input-field">
+                    <label><Globe size={16} /> 유튜브 채널 URL</label>
+                    <input name="youtubeLink" value={settings.youtubeLink} onChange={handleChange} placeholder="https://youtube.com/..." />
+                  </div>
+                  <div className="input-field">
+                    <label><Mail size={16} /> 카카오톡 채널 URL</label>
+                    <input name="kakaoLink" value={settings.kakaoLink} onChange={handleChange} placeholder="https://pf.kakao.com/..." />
                   </div>
                 </div>
               </div>

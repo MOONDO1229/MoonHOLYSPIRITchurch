@@ -5,7 +5,8 @@ import { Menu, X, Search, Type } from 'lucide-react';
 
 export default function Header({ settings }) {
   const [isOpen, setIsOpen] = useState(false);
-  const churchName = '성령교회';
+  const churchName = settings?.churchName || '성령교회';
+  const denomination = settings?.denomination || '기독교대한성결교회';
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm py-4 border-b border-gray-100">
@@ -17,7 +18,7 @@ export default function Header({ settings }) {
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-xl leading-tight text-brand-dark tracking-tight">{churchName}</span>
-            <span className="text-[10px] text-brand-muted tracking-widest uppercase font-medium">기독교대한성결교회</span>
+            <span className="text-[10px] text-brand-muted tracking-widest uppercase font-medium">{denomination}</span>
           </div>
         </Link>
 
@@ -89,7 +90,7 @@ export default function Header({ settings }) {
             </nav>
  
             <div className="mt-auto pt-8 text-center bg-gray-50/50 p-6 rounded-[32px] border border-gray-100">
-              <p className="text-xs text-brand-muted font-bold tracking-widest uppercase mb-2">기독교대한성결교회</p>
+              <p className="text-xs text-brand-muted font-bold tracking-widest uppercase mb-2">{denomination}</p>
               <p className="text-2xl font-black text-brand-dark tracking-tighter">{churchName}</p>
             </div>
           </div>
