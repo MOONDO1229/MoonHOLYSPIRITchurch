@@ -30,7 +30,7 @@ export default function LocationClient({ settings }) {
 
         <div className="container relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-brand-gold bg-brand-gold/10 rounded-full animate-in fade-in slide-in-from-bottom-2">
-            LOCATION
+            오시는 길
           </span>
           <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-3 duration-700">
             오시는 길

@@ -15,7 +15,7 @@ export default async function AboutPage() {
 
         <div className="container relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-brand-gold bg-brand-gold/10 rounded-full animate-in fade-in slide-in-from-bottom-2">
-            ABOUT US
+            교회 소개
           </span>
           <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-3 duration-700">
             성령교회 소개
@@ -44,7 +44,7 @@ export default async function AboutPage() {
 
             {/* 오른쪽: 인사말 텍스트 */}
             <div className="pastor-quote-box animate-in fade-in slide-in-from-right-8 duration-1000">
-              <span className="text-brand-gold font-bold tracking-widest text-sm mb-4 block uppercase">GREETINGS</span>
+               <span className="text-brand-gold font-bold tracking-widest text-sm mb-4 block uppercase">인사말</span>
               <h3>{settings.pastorTitle || '"예수님의 사랑으로 여러분을 환영합니다"'}</h3>
               
               <div className="pastor-message space-y-6">

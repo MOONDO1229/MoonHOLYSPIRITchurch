@@ -6,12 +6,12 @@ export default async function WorshipPage() {
 
   const getBadgeInfo = (name) => {
     if (name.includes('주일') || name.includes('오전') || name.includes('오후')) {
-      return { label: 'SUNDAY', class: 'sunday' };
+      return { label: '주일예배', class: 'sunday' };
     }
     if (name.includes('어린이') || name.includes('꿈땅')) {
-      return { label: 'YOUTH', class: 'youth' };
+      return { label: '교회학교', class: 'youth' };
     }
-    return { label: 'WEEKDAY', class: 'weekday' };
+    return { label: '주중예배', class: 'weekday' };
   };
 
   const formatTime = (time) => {
@@ -30,7 +30,7 @@ export default async function WorshipPage() {
 
         <div className="container relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-brand-gold bg-brand-gold/10 rounded-full animate-in fade-in slide-in-from-bottom-2">
-            WORSHIP TIMES
+            예배 안내
           </span>
           <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-3 duration-700">
             예배 시간 안내
@@ -70,7 +70,7 @@ export default async function WorshipPage() {
                         <Clock size={20} strokeWidth={2} />
                       </div>
                       <div className="text-group">
-                        <span className="label">Time</span>
+                        <span className="label">시간</span>
                         <span className="value">{formatTime(time.time)}</span>
                       </div>
                     </div>
@@ -80,7 +80,7 @@ export default async function WorshipPage() {
                         <MapPin size={20} strokeWidth={2} />
                       </div>
                       <div className="text-group">
-                        <span className="label">Location</span>
+                        <span className="label">장소</span>
                         <span className="value">{time.place}</span>
                       </div>
                     </div>
