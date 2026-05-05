@@ -4,7 +4,6 @@ import { updateSettings } from '@/lib/actions';
 import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
-export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
     churchName: initialSettings?.churchName || '성령교회',
     denomination: initialSettings?.denomination || '기독교대한성결교회',
