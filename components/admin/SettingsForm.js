@@ -8,6 +8,7 @@ export default function SettingsForm({ initialSettings }) {
     ...initialSettings,
     email: initialSettings?.email || '',
     copyrightYear: initialSettings?.copyrightYear || '2026',
+    welcomeBadge: initialSettings?.welcomeBadge || '성령교회에 오신 것을 환영합니다',
     pastorTitle: initialSettings?.pastorTitle || '예수님의 사랑으로 여러분을 환영합니다',
     pastorGreeting: initialSettings?.pastorGreeting || '',
     visions: initialSettings?.visions || [
@@ -195,6 +196,10 @@ export default function SettingsForm({ initialSettings }) {
                   <h2 className="section-title">교회 기본 정보</h2>
                   <div className="input-group-row">
                     <div className="input-field">
+                      <label>홈페이지 상단 배지 (Badge)</label>
+                      <input name="welcomeBadge" value={settings.welcomeBadge} onChange={handleChange} placeholder="예: 성령교회에 오신 것을 환영합니다" />
+                    </div>
+                    <div className="input-field">
                       <label>홈페이지 대제목 (H1)</label>
                       <input name="welcomeTitle" value={settings.welcomeTitle} onChange={handleChange} placeholder="예: 하나님의 사랑이 가득한 성령교회" />
                     </div>
@@ -376,6 +381,17 @@ export default function SettingsForm({ initialSettings }) {
                   background: settings.churchImage ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${settings.churchImage}) center/cover` : settings.theme.primaryColor,
                   color: 'white'
                 }}>
+                  <div style={{
+                    display: 'inline-block',
+                    padding: '4px 10px',
+                    borderRadius: '50px',
+                    background: 'rgba(255,255,255,0.15)',
+                    fontSize: '0.65rem',
+                    marginBottom: '10px',
+                    border: '1px solid rgba(255,255,255,0.2)'
+                  }}>
+                    {settings.welcomeBadge || '성령교회에 오신 것을 환영합니다'}
+                  </div>
                   <h1 style={{fontSize: isPreviewMobile ? '1.2rem' : '1.8rem'}}>{settings.welcomeTitle || '성령교회에 오신 것을 환영합니다'}</h1>
                   <p style={{fontSize: isPreviewMobile ? '0.8rem' : '1rem', opacity: 0.8}}>{settings.welcomeSubtitle}</p>
                   <button style={{ background: settings.theme.secondaryColor, border:'none', color:'white', padding: '8px 16px', borderRadius: '4px', marginTop:'10px', fontWeight:700 }}>자세히 보기</button>

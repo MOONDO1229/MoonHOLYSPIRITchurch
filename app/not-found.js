@@ -104,7 +104,7 @@ export default function NotFound() {
           fontSize: '14px',
           color: '#94a3b8'
         }}>
-          © 퇴촌성령교회. All rights reserved.
+          © 성령교회. 모든 권리 보유.
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer({ settings }) {
   const currentYear = new Date().getFullYear();
-  const churchName = '퇴촌성령교회';
+  const churchName = '성령교회';
 
   return (
     <footer className="footer pt-24 pb-12 bg-transparent text-brand-dark overflow-hidden">
@@ -22,7 +22,7 @@ export default function Footer({ settings }) {
           </div>
 
           <div className="space-y-8">
-            <h3 className="text-brand-brown text-lg font-bold uppercase tracking-widest">Contact Us</h3>
+            <h3 className="text-brand-brown text-lg font-bold uppercase tracking-widest">교회 연락처</h3>
             <ul className="space-y-4 text-brand-dark font-bold text-lg">
               <li className="flex items-start gap-3">
                 <i className="ph ph-map-pin text-xl text-brand-brown mt-1"></i>
@@ -34,21 +34,21 @@ export default function Footer({ settings }) {
               </li>
               <li className="flex items-center gap-3">
                 <i className="ph ph-envelope-simple text-xl text-brand-brown"></i>
-                <span>{settings?.email || 'tc-spirit@church.com'}</span>
+                <span>{settings?.email || 'spirit-church@church.com'}</span>
               </li>
             </ul>
           </div>
 
           <div className="space-y-8">
-            <h3 className="text-brand-brown text-lg font-bold uppercase tracking-widest">Online Channel</h3>
+            <h3 className="text-brand-brown text-lg font-bold uppercase tracking-widest">온라인 채널</h3>
             <div className="flex flex-wrap gap-3">
               {settings?.youtubeLink && (
-                <a href={settings.youtubeLink} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-brand-brown/5 border border-brand-brown/10 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown transition-all group">
+                <a href={settings.youtubeLink} target="_blank" rel="noopener noreferrer" title="성령교회 유튜브 채널로 이동" className="w-12 h-12 rounded-full bg-brand-brown/5 border border-brand-brown/10 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown transition-all group">
                   <i className="ph-fill ph-youtube-logo text-2xl text-brand-brown group-hover:text-white group-hover:scale-110 transition-transform"></i>
                 </a>
               )}
               {settings?.kakaoLink && (
-                <a href={settings.kakaoLink} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-brand-brown/5 border border-brand-brown/10 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown transition-all group">
+                <a href={settings.kakaoLink} target="_blank" rel="noopener noreferrer" title="성령교회 카카오톡 채널로 이동" className="w-12 h-12 rounded-full bg-brand-brown/5 border border-brand-brown/10 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown transition-all group">
                   <i className="ph-fill ph-chat-circle-text text-2xl text-brand-brown group-hover:text-white group-hover:scale-110 transition-transform"></i>
                 </a>
               )}
@@ -57,7 +57,7 @@ export default function Footer({ settings }) {
         </div>
 
         <div className="pt-8 border-t border-brand-brown/10 flex flex-col md:flex-row justify-between items-center gap-4 text-brand-dark font-bold">
-          <p>© {settings?.copyrightYear || currentYear} {churchName}. All rights reserved.</p>
+          <p>© {settings?.copyrightYear || currentYear} {churchName}. 모든 권리 보유.</p>
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 -- ============================================
--- 퇴촌성령교회 CMS Supabase 테이블 초기화 SQL
+-- 성령교회 CMS Supabase 테이블 초기화 SQL
 -- Supabase Dashboard > SQL Editor 에서 실행
 -- ============================================
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 
 -- 설정 초기 데이터
 INSERT INTO settings (id, data) VALUES (1, '{
-  "welcomeTitle": "퇴촌성령교회",
+  "welcomeTitle": "성령교회",
   "welcomeSubtitle": "성령의 능력으로 세상을 변화시키는 교회",
   "phone": "031-766-8847",
   "address": "경기도 광주시 퇴촌면 광동로52번길 27",
@@ -120,7 +120,7 @@ INSERT INTO settings (id, data) VALUES (1, '{
   "offeringAccount": "농협 351-1075-3818-33 (예금주: 성령교회)",
   "offeringInfo": "송금자: 이름헌금종류 (예: 홍길동십일조)",
   "parkingInfo": "교회 주차장 이용 가능",
-  "history": [{"year": "1994", "month": "12", "content": "퇴촌성령교회 설립"}],
+  "history": [{"year": "1994", "month": "12", "content": "성령교회 설립"}],
   "popup": {"enabled": false, "imageUrl": "", "linkUrl": "", "hideForToday": true},
   "theme": {"primaryColor": "#1b4d3e", "secondaryColor": "#c9a55c"}
 }'::jsonb) ON CONFLICT (id) DO NOTHING;

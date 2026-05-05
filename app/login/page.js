@@ -88,6 +88,7 @@ export default function LoginPage() {
                 className="btn-show-password"
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
+                aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
               >
                 {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
               </button>

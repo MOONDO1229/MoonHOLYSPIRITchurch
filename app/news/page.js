@@ -8,7 +8,7 @@ export default async function NewsPage() {
 
   return (
     <main>
-      <PageHeader title="교회 소식" subtitle="퇴촌성령교회의 다양한 소식과 공지사항을 전해드립니다." />
+      <PageHeader title="교회 소식" subtitle="성령교회의 다양한 소식과 공지사항을 전해드립니다." />
 
       <section className="container section">
         <div className="news-list">

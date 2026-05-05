@@ -39,7 +39,12 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
               <p className="flex items-center justify-center md:justify-start gap-2"><i className="ph ph-calendar-blank"></i> {latestSermon?.date}</p>
               <p className="flex items-center justify-center md:justify-start gap-2"><i className="ph ph-book-open"></i> {latestSermon?.passage}</p>
             </div>
-            <Link href="/sermon" className="inline-flex items-center justify-center px-6 py-2 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-xs md:text-base hover:bg-brand-dark transition-colors shadow-md w-fit">
+            <Link href="/sermon" 
+              className="inline-flex items-center justify-center px-6 py-2 md:px-8 md:py-3 text-white rounded-full font-bold text-xs md:text-base transition-colors shadow-md w-fit"
+              style={{ backgroundColor: 'var(--primary-color)' }}
+              onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
+              onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+            >
               설교 영상 보기
             </Link>
           </div>
@@ -73,11 +78,22 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
             <h3 className="text-2xl md:text-3xl font-black text-[#2A4B41] mb-2">{latestBulletin?.title || '주보 업데이트 예정'}</h3>
             <p className="text-lg md:text-xl text-brand-muted mb-6 md:mb-8 font-medium">{latestBulletin?.date}</p>
             <div className="flex justify-center md:justify-start gap-3">
-              <Link href={`/bulletin/${latestBulletin?.id}`} className="px-6 py-2.5 md:px-8 md:py-3 bg-[#EBF3F0] text-[#2A4B41] rounded-full font-bold text-sm md:text-base hover:bg-[#D9EAE4] transition-colors">
-                자세히 보기
+              <Link href={`/bulletin/${latestBulletin?.id}`} 
+                className="px-6 py-2.5 md:px-8 md:py-3 rounded-full font-bold text-sm md:text-base transition-colors"
+                style={{ backgroundColor: 'var(--secondary-color)', color: 'white' }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
+                주보 크게 보기
               </Link>
               {latestBulletin?.pdf_url && (
-                <a href={latestBulletin.pdf_url} target="_blank" className="px-6 py-2.5 md:px-8 md:py-3 bg-brand-brown text-white rounded-full font-bold text-sm md:text-base hover:bg-brand-dark transition-colors shadow-md">
+                <a href={latestBulletin.pdf_url} 
+                  target="_blank" 
+                  className="px-6 py-2.5 md:px-8 md:py-3 text-white rounded-full font-bold text-sm md:text-base transition-colors shadow-md"
+                  style={{ backgroundColor: 'var(--primary-color)' }}
+                  onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
+                  onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                >
                   PDF 다운로드
                 </a>
               )}
@@ -99,7 +115,7 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
           {notices && notices.length > 0 ? notices.map((notice) => (
             <Link key={notice.id} href={`/news/${notice.id}`} className="notice-card-simple group">
               <div className="notice-meta flex justify-between items-center mb-4">
-                <span className="cat px-3 py-1 rounded-md bg-gray-100 text-gray-600 text-xs font-bold">{notice.category || '공지사항'}</span>
+                <span className="cat px-3 py-1 rounded-md bg-brand-gold text-white text-xs font-bold shadow-sm">{notice.category || '공지사항'}</span>
                 <span className="date text-gray-400 text-sm">{notice.date}</span>
               </div>
               <h4 className="title group-hover:text-brand-gold">{notice.title}</h4>
@@ -113,7 +129,7 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
 
         <div className="mt-12 flex justify-center">
           <Link href="/news" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
-            소식 전체보기
+            교회 소식 전체보기
             <i className="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
           </Link>
         </div>

@@ -7,7 +7,7 @@ export default async function WorshipPage() {
 
   return (
     <main>
-      <PageHeader title="예배 시간 안내" subtitle="신령과 진정으로 드리는 퇴촌성령교회의 예배입니다." />
+      <PageHeader title="예배 시간 안내" subtitle="신령과 진정으로 드리는 성령교회의 예배입니다." />
       
       <section className="container section">
         <div className="worship-grid">

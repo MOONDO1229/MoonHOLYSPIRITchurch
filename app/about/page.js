@@ -7,7 +7,7 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <PageHeader title="교회 소개" subtitle="퇴촌성령교회는 하나님의 사랑을 전하고 지역사회를 섬기는 공동체입니다." />
+      <PageHeader title="교회 소개" subtitle="성령교회는 하나님의 사랑을 전하고 지역사회를 섬기는 공동체입니다." />
 
       {/* 목사님 인사말 */}
       <section className="container section">
@@ -16,7 +16,7 @@ export default async function AboutPage() {
             {settings.pastorImage ? (
               <img src={settings.pastorImage} alt={settings.pastor} className="img-full" />
             ) : (
-              <div className="image-placeholder">퇴촌성령교회<br/>{settings.pastor}</div>
+              <div className="image-placeholder">성령교회<br/>{settings.pastor}</div>
             )}
           </div>
           <div className="pastor-content">
@@ -29,7 +29,7 @@ export default async function AboutPage() {
                 ))
               ) : (
                 <>
-                  <p>안녕하십니까? 퇴촌성령교회 홈페이지를 방문해주신 여러분을 진심으로 환영합니다.</p>
+                  <p>안녕하십니까? 성령교회 홈페이지를 방문해주신 여러분을 진심으로 환영합니다.</p>
                   <p>우리 교회는 하나님의 말씀 위에 든든히 서서 성령의 능력으로 세상을 변화시키고자 노력하는 교회입니다. </p>
                   <p>지친 영혼이 쉼을 얻고, 주님의 사랑 안에서 새로운 소망을 발견하는 복된 자리가 되기를 기도합니다.</p>
                   <p>함께 예배하며 주님의 은혜를 나누는 귀한 만남이 있기를 기대합니다.</p>
@@ -47,7 +47,7 @@ export default async function AboutPage() {
           <div className="section-header center">
             <div className="icon-badge"><Clock size={32} color="var(--primary-color)" /></div>
             <h2>교회 연혁</h2>
-            <p>퇴촌성령교회가 걸어온 믿음의 발자취입니다.</p>
+            <p>성령교회가 걸어온 믿음의 발자취입니다.</p>
           </div>
           
           <div className="history-timeline">
@@ -75,7 +75,7 @@ export default async function AboutPage() {
         <div className="container section">
           <div className="section-header center">
             <h2>교회 핵심 가치</h2>
-            <p>퇴촌성령교회가 지향하는 4가지 비전입니다.</p>
+            <p>성령교회가 지향하는 4가지 비전입니다.</p>
           </div>
           
           <div className="vision-grid">
@@ -110,7 +110,7 @@ export default async function AboutPage() {
                 <div className="vision-card">
                   <div className="v-icon"><Cross /></div>
                   <h3>지역 섬김</h3>
-                  <p>퇴촌 지역 사회에 빛과 소금이 되어 이웃을 섬깁니다.</p>
+                  <p>지역 사회에 빛과 소금이 되어 이웃을 섬깁니다.</p>
                 </div>
               </>
             )}

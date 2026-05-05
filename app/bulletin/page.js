@@ -9,7 +9,7 @@ export default async function BulletinPage() {
 
   return (
     <main>
-      <PageHeader title="주보 안내" subtitle="매주 발행되는 퇴촌성령교회의 소식지입니다." />
+      <PageHeader title="주보 안내" subtitle="매주 발행되는 성령교회의 소식지입니다." />
 
       <section className="container section">
         {latest && (

@@ -1,14 +1,17 @@
 'use client';
+import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import { MapPin, Phone, Car, Bus, Copy, ExternalLink } from 'lucide-react';
 
 export default function LocationPage() {
-  const address = "경기도 광주시 퇴촌면 광동로52번길 27 (퇴촌성령교회)";
+  const [copied, setCopied] = useState(false);
+  const address = "경기도 광주시 퇴촌면 광동로52번길 27 (성령교회)";
   const phone = "031-766-8847";
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(address);
-    alert('주소가 복사되었습니다.');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const encodedAddress = encodeURIComponent(address);
@@ -22,7 +25,7 @@ export default function LocationPage() {
 
   return (
     <main>
-      <PageHeader title="오시는 길" subtitle="퇴촌성령교회는 여러분을 항상 환영합니다." />
+      <PageHeader title="오시는 길" subtitle="성령교회는 여러분을 항상 환영합니다." />
 
       <section className="container section">
         <div className="location-grid">
@@ -40,9 +43,14 @@ export default function LocationPage() {
               ></iframe>
             </div>
             <div className="map-actions">
-              <button className="btn btn-outline" onClick={copyToClipboard}><Copy size={20} /> 주소 복사</button>
-              <a href={naverMapUrl} target="_blank" rel="noreferrer" className="btn btn-primary"><ExternalLink size={20} /> 네이버 지도</a>
-              <a href={kakaoMapUrl} target="_blank" rel="noreferrer" className="btn btn-primary"><ExternalLink size={20} /> 카카오 맵</a>
+              <button 
+                className={`btn ${copied ? 'btn-success' : 'btn-outline'}`} 
+                onClick={copyToClipboard}
+              >
+                <Copy size={20} /> {copied ? '주소가 복사되었습니다' : '주소 복사'}
+              </button>
+              <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" title="네이버 지도로 이동" aria-label="네이버 지도로 이동" className="btn btn-primary"><ExternalLink size={20} /> 네이버 지도</a>
+              <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" title="카카오 맵으로 이동" aria-label="카카오 맵으로 이동" className="btn btn-primary"><ExternalLink size={20} /> 카카오 맵</a>
             </div>
           </div>
 
