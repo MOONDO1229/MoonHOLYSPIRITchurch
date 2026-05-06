@@ -17,7 +17,7 @@ export default async function SermonPage() {
   return (
     <main className="bg-[#fcfbf9] min-h-screen pb-32">
       {/* 1. 페이지 헤더 영역: 정돈된 타이틀과 설명 */}
-      <section className="pt-24 pb-12 px-6 text-center max-w-4xl mx-auto animate-in fade-in duration-700">
+      <section className="sermon-page-header pt-24 pb-12 px-6 text-center max-w-4xl mx-auto animate-in fade-in duration-700">
         <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tight">설교 말씀</h1>
         <div className="w-16 h-1 bg-brand-gold mx-auto rounded-full"></div>
       </section>
@@ -25,8 +25,8 @@ export default async function SermonPage() {
       <div className="max-w-7xl mx-auto px-6">
         {/* 2. 대표 설교(최신 설교) 메인 카드 */}
         {latest && (
-          <div className="mb-24 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-            <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 flex flex-col">
+          <div className="sermon-featured-wrap mb-24 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+            <div className="sermon-featured-card bg-white rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 flex flex-col">
               {/* 대형 영상 영역 */}
               <div className="aspect-video w-full bg-black relative group">
                 <iframe 
@@ -40,7 +40,7 @@ export default async function SermonPage() {
               </div>
               
               {/* 정보 영역: 영상 아래 배치하여 안정감 확보 */}
-              <div className="p-10 md:p-24">
+              <div className="sermon-featured-body p-10 md:p-24">
                 <div className="max-w-4xl mx-auto">
                   <div className="flex items-center gap-3 mb-6">
                     <span className="px-4 py-1.5 rounded-full bg-brand-gold text-white text-xs font-bold uppercase tracking-widest shadow-sm">
@@ -56,7 +56,7 @@ export default async function SermonPage() {
                   </h2>
                 
                   {/* 메타 정보 리스트 - 제목의 왼쪽 라인에 맞춰 수직 정렬하여 안정감 향상 */}
-                  <div className="flex flex-col gap-10 py-14 border-y border-gray-100">
+                  <div className="sermon-meta-list flex flex-col gap-10 py-14 border-y border-gray-100">
                     <div className="flex items-center gap-6">
                       <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold flex-shrink-0">
                         <Calendar size={28} />
@@ -95,8 +95,8 @@ export default async function SermonPage() {
         )}
 
         {/* 3. 지난 설교 영상 영역 */}
-        <section className="pt-16 border-t border-gray-200 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <section className="sermon-archive-section pt-16 border-t border-gray-200 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
+          <div className="sermon-archive-header flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <h3 className="text-3xl md:text-4xl font-black text-brand-dark mb-4 tracking-tight">지난 설교 영상</h3>
               <p className="text-lg text-brand-muted font-medium">이전의 은혜로운 말씀들을 다시 보실 수 있습니다.</p>

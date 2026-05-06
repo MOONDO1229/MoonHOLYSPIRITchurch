@@ -45,7 +45,21 @@ CREATE TABLE IF NOT EXISTS sermons (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 4. 주보
+-- 4. 교회 행사
+CREATE TABLE IF NOT EXISTS events (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL DEFAULT '',
+  date TEXT DEFAULT '',
+  place TEXT DEFAULT '',
+  content TEXT DEFAULT '',
+  youtube_url TEXT DEFAULT '',
+  thumbnail TEXT DEFAULT '',
+  status TEXT DEFAULT '게시',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 5. 주보
 CREATE TABLE IF NOT EXISTS bulletins (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL DEFAULT '',

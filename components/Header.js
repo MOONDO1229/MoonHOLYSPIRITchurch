@@ -24,6 +24,7 @@ export default function Header({ settings }) {
         <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-brand-text">
           <Link href="/worship" className="nav-link transition-colors py-1">예배안내</Link>
           <Link href="/sermon" className="nav-link transition-colors py-1">설교말씀</Link>
+          <Link href="/event" className="nav-link transition-colors py-1">교회행사</Link>
           <Link href="/news" className="nav-link transition-colors py-1">교회소식</Link>
           <Link href="/support" className="nav-link transition-colors py-1">헌금 및 후원</Link>
           <Link href="/about" className="nav-link transition-colors py-1">교회소개</Link>
@@ -69,6 +70,10 @@ export default function Header({ settings }) {
               <Link href="/sermon" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-play-circle text-3xl" style={{ color: 'var(--primary-color)' }}></i>
                 설교말씀
+              </Link>
+              <Link href="/event" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
+                <i className="ph-fill ph-calendar-star text-3xl" style={{ color: 'var(--primary-color)' }}></i>
+                교회행사
               </Link>
               <Link href="/news" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-megaphone text-3xl" style={{ color: 'var(--primary-color)' }}></i>

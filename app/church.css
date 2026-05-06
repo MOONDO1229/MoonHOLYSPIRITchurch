@@ -2088,3 +2088,831 @@ body {
   .text-content { font-size: 1.1rem; }
   .file-attachment { padding: 24px; }
 }
+
+/* Spacing refinement pass */
+.page-header {
+  background: #fff;
+  padding: 112px 0 64px;
+  text-align: center;
+}
+
+.page-header .container {
+  max-width: 900px;
+}
+
+.page-header h1 {
+  font-size: 3.75rem;
+  font-weight: 900;
+  color: var(--brand-dark);
+  line-height: 1.18;
+  margin-bottom: 18px;
+  word-break: keep-all;
+}
+
+.page-header p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--brand-muted);
+  font-size: 1.15rem;
+  line-height: 1.75;
+  font-weight: 500;
+  word-break: keep-all;
+}
+
+.container.section {
+  padding-top: 72px;
+  padding-bottom: 104px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+  gap: 14px;
+}
+
+.section-header h2 {
+  line-height: 1.25;
+}
+
+.footer {
+  margin-top: 96px;
+}
+
+/* Sermon page rhythm */
+.sermon-page-header {
+  padding-top: 128px !important;
+  padding-bottom: 56px !important;
+}
+
+.sermon-page-header h1 {
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.sermon-featured-wrap {
+  margin-bottom: 104px !important;
+}
+
+.sermon-featured-card {
+  border-radius: 36px;
+}
+
+.sermon-featured-body {
+  padding: 64px 72px 72px !important;
+}
+
+.sermon-featured-body > div > .flex:first-child {
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.sermon-featured-body h2 {
+  margin-bottom: 52px !important;
+  line-height: 1.32;
+}
+
+.sermon-meta-list {
+  gap: 36px !important;
+  padding-top: 44px !important;
+  padding-bottom: 44px !important;
+}
+
+.sermon-meta-list > div {
+  align-items: flex-start;
+  gap: 22px !important;
+}
+
+.sermon-meta-list p {
+  line-height: 1.35;
+}
+
+.sermon-archive-section {
+  padding-top: 72px !important;
+}
+
+.sermon-archive-header {
+  margin-bottom: 52px !important;
+}
+
+/* Bulletin list and detail */
+.latest-bulletin-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 32px;
+  padding: 56px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 76px;
+}
+
+.latest-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.latest-header .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: var(--brand-light);
+  color: var(--brand-gold);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.latest-header h2 {
+  color: var(--brand-dark);
+  font-size: 2.3rem;
+  font-weight: 900;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.latest-header .date {
+  color: var(--brand-muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.bulletin-main-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.bulletin-main-actions .main-btn {
+  min-height: 60px;
+  padding-left: 32px;
+  padding-right: 32px;
+  gap: 12px;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.bulletin-list-section {
+  margin-top: 76px;
+}
+
+.section-title,
+.section-subtitle {
+  color: var(--brand-dark);
+  font-weight: 900;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 32px;
+}
+
+.bulletin-grid {
+  gap: 32px;
+}
+
+.bulletin-item-card {
+  border-radius: 24px;
+}
+
+.item-info {
+  padding: 28px;
+}
+
+.item-info h4 {
+  line-height: 1.4;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.item-info p {
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.item-actions {
+  gap: 12px;
+}
+
+.item-link {
+  gap: 8px;
+  padding: 13px 12px;
+  line-height: 1.35;
+}
+
+.detail-top-nav {
+  padding-top: 56px;
+  padding-bottom: 28px;
+}
+
+.btn-back {
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.bulletin-detail-section {
+  padding-bottom: 120px;
+}
+
+.bulletin-detail-header {
+  margin-bottom: 36px;
+}
+
+.bulletin-detail-header h1 {
+  color: var(--brand-dark);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.bulletin-detail-header .date {
+  color: var(--brand-muted);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.bulletin-viewer {
+  padding: 32px;
+  border-radius: 24px;
+  margin-bottom: 44px;
+}
+
+.viewer-hint {
+  margin-top: 20px;
+  gap: 8px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.bulletin-actions-bottom {
+  gap: 16px;
+  margin-bottom: 68px;
+}
+
+.summary-content {
+  margin-top: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-subtitle {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-card h3 {
+  color: var(--brand-dark);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+
+.summary-card p {
+  color: var(--brand-muted);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.no-image-placeholder {
+  background: white;
+  border: 1px dashed #d7dde6;
+  border-radius: 18px;
+  padding: 40px 24px;
+  color: var(--brand-muted);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.bg-brand-gold {
+  background-color: var(--brand-gold);
+}
+
+.sermon-featured-body .bg-brand-gold {
+  background-color: var(--brand-gold) !important;
+  color: #fff !important;
+}
+
+.sermon-featured-body .bg-brand-dark\/5 {
+  background-color: rgba(42, 35, 32, 0.05) !important;
+}
+
+.bg-brand-gold\/5 {
+  background-color: rgba(201, 155, 90, 0.05);
+}
+
+.bg-brand-gold\/10 {
+  background-color: rgba(201, 155, 90, 0.1);
+}
+
+.bg-brand-dark\/5 {
+  background-color: rgba(42, 35, 32, 0.05);
+}
+
+.border-brand-gold\/10 {
+  border-color: rgba(201, 155, 90, 0.1);
+}
+
+.border-brand-gold\/30 {
+  border-color: rgba(201, 155, 90, 0.3);
+}
+
+.hover\:border-brand-gold\/30:hover {
+  border-color: rgba(201, 155, 90, 0.3);
+}
+
+/* News archive/detail spacing */
+.news-filter-bar {
+  gap: 24px;
+}
+
+.news-item-row {
+  column-gap: 28px;
+  row-gap: 14px;
+}
+
+.news-item-row .news-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-item-row h4 {
+  margin-bottom: 0;
+  line-height: 1.35;
+}
+
+.news-item-row .excerpt {
+  line-height: 1.55;
+}
+
+.article-header .meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.text-content {
+  word-break: keep-all;
+}
+
+/* About, support, location rhythm */
+.pastor-message p + p {
+  margin-top: 24px;
+}
+
+.support-account-section {
+  padding-top: 72px;
+  padding-bottom: 56px;
+}
+
+.support-guide-section {
+  padding-top: 24px;
+  padding-bottom: 112px;
+}
+
+.support-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.support-guide-card p {
+  line-height: 1.75;
+}
+
+.location-action-grid {
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.location-detail-card .icon-label {
+  margin-bottom: 20px;
+}
+
+/* Login/admin entry spacing */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f5;
+  padding: 48px 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  background: white;
+  border-radius: 24px;
+  padding: 44px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-header .icon-circle,
+.icon-circle {
+  width: 72px;
+  height: 72px;
+  background: #1b4d3e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  box-shadow: 0 4px 15px rgba(27, 77, 62, 0.2);
+}
+
+.login-header h1 {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: var(--brand-dark);
+  margin-bottom: 14px;
+}
+
+.login-header p {
+  color: var(--brand-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.input-group {
+  margin-bottom: 28px;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--brand-dark);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.input-group input {
+  width: 100%;
+  min-height: 56px;
+  padding: 15px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  background: #fafafa;
+  font-size: 1.05rem;
+  transition: all 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #1b4d3e;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(27, 77, 62, 0.1);
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input-wrapper input {
+  padding-right: 56px;
+}
+
+.btn-show-password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  color: #95a5a6;
+}
+
+.btn-login {
+  width: 100%;
+  min-height: 60px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: #1b4d3e;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  box-shadow: 0 4px 15px rgba(27, 77, 62, 0.25);
+}
+
+.login-footer {
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.login-footer p {
+  color: #81909b;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 14px;
+  word-break: keep-all;
+}
+
+.login-footer a {
+  color: #1b4d3e;
+  font-weight: 900;
+}
+
+@media (max-width: 1024px) {
+  .page-header {
+    padding-top: 96px;
+    padding-bottom: 56px;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+  }
+
+  .latest-bulletin-card {
+    padding: 44px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding-top: 64px;
+    padding-bottom: 44px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    margin-bottom: 14px;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .container.section {
+    padding-top: 48px;
+    padding-bottom: 72px;
+  }
+
+  .footer {
+    margin-top: 72px;
+  }
+
+  .sermon-page-header {
+    padding-top: 64px !important;
+    padding-bottom: 34px !important;
+  }
+
+  .sermon-featured-wrap {
+    margin-bottom: 68px !important;
+  }
+
+  .sermon-featured-card {
+    border-radius: 28px;
+  }
+
+  .sermon-featured-body {
+    padding: 30px 24px 38px !important;
+  }
+
+  .sermon-featured-body > div > .flex:first-child {
+    margin-bottom: 22px;
+    gap: 8px;
+  }
+
+  .sermon-featured-body h2 {
+    margin-bottom: 34px !important;
+    line-height: 1.34;
+  }
+
+  .sermon-meta-list {
+    gap: 28px !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .sermon-meta-list > div {
+    gap: 16px !important;
+  }
+
+  .sermon-archive-section {
+    padding-top: 54px !important;
+  }
+
+  .sermon-archive-header {
+    margin-bottom: 34px !important;
+  }
+
+  .latest-bulletin-card {
+    padding: 30px 24px;
+    border-radius: 26px;
+    margin-bottom: 56px;
+  }
+
+  .latest-header {
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .latest-header h2 {
+    font-size: 1.55rem;
+  }
+
+  .bulletin-main-actions {
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .bulletin-main-actions .main-btn {
+    width: 100%;
+    min-height: 58px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .bulletin-list-section {
+    margin-top: 56px;
+  }
+
+  .section-title,
+  .section-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    margin-bottom: 24px;
+  }
+
+  .item-info {
+    padding: 24px;
+  }
+
+  .item-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-top-nav {
+    padding-top: 40px;
+    padding-bottom: 24px;
+  }
+
+  .bulletin-detail-header {
+    margin-bottom: 26px;
+  }
+
+  .bulletin-detail-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .bulletin-viewer {
+    padding: 18px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+  }
+
+  .viewer-hint {
+    align-items: flex-start;
+    margin-top: 16px;
+    font-size: 0.9rem;
+  }
+
+  .bulletin-actions-bottom {
+    margin-bottom: 52px;
+  }
+
+  .summary-content {
+    margin-top: 52px;
+    gap: 18px;
+  }
+
+  .summary-card {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .summary-card h3 {
+    margin-bottom: 12px;
+  }
+
+  .news-filter-bar {
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .news-item-row {
+    gap: 18px;
+    padding: 28px 24px;
+  }
+
+  .news-item-row .news-info {
+    padding-right: 0;
+    gap: 10px;
+  }
+
+  .article-header .meta {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pastor-quote-box {
+    padding: 44px 32px;
+    border-radius: 32px;
+  }
+
+  .pastor-quote-box h3 {
+    margin-bottom: 28px;
+  }
+
+  .value-grid {
+    gap: 28px;
+  }
+
+  .value-card {
+    padding: 44px 28px;
+    border-radius: 26px;
+  }
+
+  .support-account-section {
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .support-guide-section {
+    padding-top: 20px;
+    padding-bottom: 88px;
+  }
+
+  .support-guide-card {
+    padding: 36px 28px;
+  }
+
+  .support-guide-card h3 {
+    gap: 12px;
+    line-height: 1.35;
+    margin-bottom: 18px;
+  }
+
+  .location-detail-card {
+    padding: 36px 28px;
+  }
+
+  .location-action-grid {
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .login-container {
+    align-items: flex-start;
+    padding: 48px 20px;
+  }
+
+  .login-card {
+    padding: 34px 24px;
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bulletin-main-actions .main-btn {
+    gap: 8px;
+    font-size: 0.84rem;
+    white-space: nowrap;
+  }
+}

@@ -38,7 +38,7 @@ export default async function SupportPage() {
       </section>
 
       {/* 메인 계좌 정보 섹션 (상단 카드) */}
-      <section className="pb-12 px-6">
+      <section className="support-account-section px-6">
         <div className="container max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4">
             <h2 className="text-2xl md:text-3xl font-black text-brand-dark mb-4">계좌 이체 안내</h2>
@@ -77,7 +77,7 @@ export default async function SupportPage() {
       </section>
 
       {/* 하단 안내 섹션 (3개 카드) */}
-      <section className="pb-24 md:pb-32 px-6">
+      <section className="support-guide-section px-6">
         <div className="container max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* 헌금 방법 안내 */}

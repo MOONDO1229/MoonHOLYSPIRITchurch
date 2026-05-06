@@ -65,7 +65,7 @@ export default async function BulletinDetailPage({ params }) {
         </div>
 
         {/* 요약 내용은 하단에 배치 */}
-        <div className="summary-content" style={{ marginTop: '50px' }}>
+        <div className="summary-content">
           <h2 className="section-subtitle">주보 요약 안내</h2>
           <div className="summary-card">
             <h3>📋 예배 순서</h3>

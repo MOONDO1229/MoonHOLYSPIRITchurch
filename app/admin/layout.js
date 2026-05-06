@@ -12,7 +12,8 @@ import {
   Settings, 
   Home, 
   History, 
-  LogOut 
+  LogOut,
+  CalendarDays
 } from 'lucide-react';
 
 import { useState } from 'react';
@@ -39,6 +40,7 @@ export default function AdminLayout({ children }) {
     { href: '/admin/notices', icon: Bell, label: '공지사항 관리' },
     { href: '/admin/bulletins', icon: BookOpen, label: '주보 관리' },
     { href: '/admin/sermons', icon: Video, label: '설교 관리' },
+    { href: '/admin/events', icon: CalendarDays, label: '교회 행사 관리' },
     { href: '/admin/worship', icon: Clock, label: '예배시간 관리' },
   ];
 
