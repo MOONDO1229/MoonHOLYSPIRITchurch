@@ -37,7 +37,7 @@ export default async function AdminDashboard() {
     <div className="admin-dashboard-premium" style={{ maxWidth: '1400px', margin: '0 auto' }}>
       {/* Header with Glassmorphism Effect */}
       <div className="dashboard-header" style={{ 
-        marginBottom: '40px', 
+        marginBottom: '60px', 
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center',
@@ -85,8 +85,8 @@ export default async function AdminDashboard() {
       <div className="bento-grid" style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '24px', 
-        marginBottom: '40px' 
+        gap: '32px', 
+        marginBottom: '60px' 
       }}>
         <StatusCard 
           icon={<BookOpen size={24} />}
@@ -122,9 +122,9 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '30px', marginBottom: '40px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '40px', marginBottom: '80px' }}>
         {/* Recent Activity List */}
-        <div style={{ background: 'white', padding: '35px', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', border: '1px solid #f0f0f0' }}>
+        <div style={{ background: 'white', padding: '48px', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', border: '1px solid #f0f0f0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
             <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Bell size={24} color="#1b4d3e" /> 최근 게시물 현황
@@ -133,7 +133,7 @@ export default async function AdminDashboard() {
               전체보기 <ArrowUpRight size={18}/>
             </Link>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {allNotices.length > 0 ? allNotices.map((notice, idx) => (
               <div key={idx} className="notice-item" style={{ 
                 display: 'flex', 
@@ -180,7 +180,7 @@ export default async function AdminDashboard() {
         {/* Dynamic Quick Actions */}
         <div style={{ 
           background: 'linear-gradient(180deg, #1b4d3e 0%, #153a2f 100%)', 
-          padding: '35px', 
+          padding: '48px', 
           borderRadius: '24px', 
           color: 'white', 
           boxShadow: '0 20px 50px rgba(27,77,62,0.2)',

@@ -18,7 +18,7 @@ export default function NotFound() {
         maxWidth: '500px',
         width: '100%',
         backgroundColor: 'white',
-        padding: '40px',
+        padding: '64px',
         borderRadius: '24px',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         textAlign: 'center'
@@ -27,7 +27,7 @@ export default function NotFound() {
           fontSize: '80px',
           fontWeight: '900',
           color: '#1b4d3e',
-          marginBottom: '20px',
+          marginBottom: '32px',
           lineHeight: '1'
         }}>
           404
@@ -43,7 +43,7 @@ export default function NotFound() {
         <p style={{
           fontSize: '18px',
           color: '#64748b',
-          marginBottom: '32px',
+          marginBottom: '48px',
           lineHeight: '1.6',
           wordBreak: 'keep-all'
         }}>

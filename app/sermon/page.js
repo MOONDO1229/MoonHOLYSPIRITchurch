@@ -17,13 +17,9 @@ export default async function SermonPage() {
   return (
     <main className="bg-[#fcfbf9] min-h-screen pb-32">
       {/* 1. 페이지 헤더 영역: 정돈된 타이틀과 설명 */}
-      <section className="pt-24 pb-16 px-6 text-center max-w-4xl mx-auto animate-in fade-in duration-700">
+      <section className="pt-24 pb-12 px-6 text-center max-w-4xl mx-auto animate-in fade-in duration-700">
         <h1 className="text-4xl md:text-6xl font-black text-brand-dark mb-6 tracking-tight">설교 말씀</h1>
-        <div className="w-16 h-1 bg-brand-gold mx-auto mb-8 rounded-full"></div>
-        <p className="text-lg md:text-xl text-brand-muted leading-relaxed font-medium">
-          성령의 감동과 능력이 있는 성령교회 강단의 말씀입니다. <br className="hidden md:block" /> 
-          영의 양식이 되는 은혜로운 말씀을 통해 삶의 변화와 회복을 경험하시길 바랍니다.
-        </p>
+        <div className="w-16 h-1 bg-brand-gold mx-auto rounded-full"></div>
       </section>
 
       <div className="max-w-7xl mx-auto px-6">
@@ -44,56 +40,54 @@ export default async function SermonPage() {
               </div>
               
               {/* 정보 영역: 영상 아래 배치하여 안정감 확보 */}
-              <div className="p-8 md:p-16">
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <span className="px-4 py-1.5 rounded-full bg-brand-gold text-white text-xs font-bold uppercase tracking-widest shadow-sm">
-                    Latest Sermon
-                  </span>
-                  <span className="px-4 py-1.5 rounded-full bg-brand-dark/5 text-brand-muted text-xs font-bold uppercase tracking-widest">
-                    {latest.category || '주일예배'}
-                  </span>
-                </div>
+              <div className="p-10 md:p-24">
+                <div className="max-w-4xl mx-auto">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="px-4 py-1.5 rounded-full bg-brand-gold text-white text-xs font-bold uppercase tracking-widest shadow-sm">
+                      Latest Sermon
+                    </span>
+                    <span className="px-4 py-1.5 rounded-full bg-brand-dark/5 text-brand-muted text-xs font-bold uppercase tracking-widest">
+                      {latest.category || '주일예배'}
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-3xl md:text-5xl font-black text-brand-dark mb-16 leading-tight tracking-tighter">
+                    {latest.title}
+                  </h2>
                 
-                <h2 className="text-3xl md:text-5xl font-black text-brand-dark mb-10 leading-tight tracking-tighter">
-                  {latest.title}
-                </h2>
-                
-                {/* 메타 정보 그리드 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-10 border-y border-gray-100 mb-10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold">
-                      <Calendar size={24} />
+                  {/* 메타 정보 리스트 - 제목의 왼쪽 라인에 맞춰 수직 정렬하여 안정감 향상 */}
+                  <div className="flex flex-col gap-10 py-14 border-y border-gray-100">
+                    <div className="flex items-center gap-6">
+                      <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold flex-shrink-0">
+                        <Calendar size={28} />
+                      </div>
+                      <div>
+                        <p className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest mb-1.5">선포일</p>
+                        <p className="text-brand-dark font-black text-xl md:text-3xl">{latest.date}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">선포일</p>
-                      <p className="text-brand-dark font-bold text-lg">{latest.date}</p>
+                    
+                    <div className="flex items-center gap-6">
+                      <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold flex-shrink-0">
+                        <User size={28} />
+                      </div>
+                      <div>
+                        <p className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest mb-1.5">설교자</p>
+                        <p className="text-brand-dark font-black text-xl md:text-3xl">{latest.preacher}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-6">
+                      <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold flex-shrink-0">
+                        <BookOpen size={28} />
+                      </div>
+                      <div>
+                        <p className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest mb-1.5">성경 본문</p>
+                        <p className="text-brand-dark font-black text-xl md:text-3xl">{latest.passage}</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold">
-                      <User size={24} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">설교자</p>
-                      <p className="text-brand-dark font-bold text-lg">{latest.preacher}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 lg:col-span-2">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold">
-                      <BookOpen size={24} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">성경 본문</p>
-                      <p className="text-brand-dark font-bold text-lg">{latest.passage}</p>
-                    </div>
-                  </div>
-                </div>
                 
-                {/* 설교 요약 */}
-                <div className="max-w-4xl bg-gray-50/50 p-8 rounded-3xl border border-gray-100">
-                  <p className="text-lg md:text-xl text-brand-muted leading-relaxed italic font-medium">
-                    &quot;{latest.summary}&quot;
-                  </p>
                 </div>
               </div>
             </div>

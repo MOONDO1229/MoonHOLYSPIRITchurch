@@ -10,7 +10,7 @@ export default function NewsListClient({ initialNotices }) {
   const categories = useMemo(() => {
     const cats = ['전체', '중요'];
     initialNotices.forEach(item => {
-      if (item.category && !cats.includes(item.category)) {
+      if (item.category && item.category !== '연혁' && !cats.includes(item.category)) {
         cats.push(item.category);
       }
     });
@@ -22,9 +22,8 @@ export default function NewsListClient({ initialNotices }) {
       const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                            item.content.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesCategory = selectedCategory === '전체' || 
-                             (selectedCategory === '중요' && item.is_pinned) ||
-                             item.category === selectedCategory;
+      const matchesCategory = selectedCategory === '전체' ? (item.category !== '연혁') :
+                             (selectedCategory === '중요' ? item.is_pinned : item.category === selectedCategory);
       
       return matchesSearch && matchesCategory;
     });

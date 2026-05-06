@@ -7,7 +7,7 @@ export default async function AboutPage() {
   return (
     <main className="bg-[#fafafa]">
       {/* 상단 페이지 소개 영역 */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-white">
+      <section className="relative py-32 md:py-48 overflow-hidden bg-white">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full opacity-[0.03] pointer-events-none">
           <div className="absolute top-10 left-10 w-64 h-64 rounded-full bg-brand-gold blur-3xl"></div>
           <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-dark blur-3xl"></div>
@@ -28,7 +28,7 @@ export default async function AboutPage() {
       </section>
 
       {/* 목사님 인사말 영역 */}
-      <section className="py-24 md:py-32">
+      <section className="py-32 md:py-48">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="pastor-layout">
             {/* 왼쪽: 목사님 사진 */}
@@ -47,7 +47,7 @@ export default async function AboutPage() {
                <span className="text-brand-gold font-bold tracking-widest text-sm mb-4 block uppercase">인사말</span>
               <h3>{settings.pastorTitle || '"예수님의 사랑으로 여러분을 환영합니다"'}</h3>
               
-              <div className="pastor-message space-y-6">
+              <div className="pastor-message space-y-8">
                 {settings.pastorGreeting ? (
                   settings.pastorGreeting.split('\n').map((line, i) => (
                     <p key={i}>{line}</p>
@@ -72,9 +72,9 @@ export default async function AboutPage() {
       </section>
 
       {/* 교회 핵심 가치 영역 */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-32 md:py-48 bg-white">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
+          <div className="text-center mb-28">
             <h2 className="text-3xl md:text-5xl font-black text-brand-dark mb-6">교회 핵심 가치</h2>
             <p className="text-brand-muted text-lg font-medium">성령교회가 지향하는 4가지 비전입니다.</p>
           </div>
@@ -120,36 +120,6 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* 교회 연혁 영역 */}
-      <section className="py-24 md:py-32 overflow-hidden">
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-gold/10 text-brand-gold mb-6">
-              <Clock size={32} strokeWidth={1.5} />
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black text-brand-dark mb-6">교회 연혁</h2>
-            <p className="text-brand-muted text-lg font-medium">성령교회가 걸어온 믿음의 발자취입니다.</p>
-          </div>
-          
-          <div className="history-timeline-v2">
-            {settings.history && settings.history.length > 0 ? (
-              [...settings.history].sort((a, b) => b.year - a.year).map((item, idx) => (
-                <div key={idx} className="history-node animate-in fade-in slide-in-from-bottom-4" style={{ animationDelay: `${idx * 100}ms` }}>
-                  <div className="history-content-card">
-                    <span className="year-label">{item.year}</span>
-                    <span className="month-label">{item.month}월</span>
-                    <p>{item.content.replace('퇴촌성령교회', '성령교회')}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="py-20 text-center text-gray-400 font-medium">
-                등록된 연혁이 없습니다.
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

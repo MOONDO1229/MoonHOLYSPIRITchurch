@@ -51,7 +51,7 @@ export default function LocationClient({ settings }) {
             {/* 왼쪽: 지도 영역 */}
             <div className="lg:col-span-7 animate-in fade-in slide-in-from-left-4 duration-1000">
               <div className="location-map-wrapper">
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-[24px] overflow-hidden">
+                <div className="relative w-full aspect-square rounded-[24px] overflow-hidden shadow-sm">
                   <iframe 
                     width="100%" 
                     height="100%" 

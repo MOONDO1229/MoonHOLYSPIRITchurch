@@ -525,7 +525,7 @@ export default function SettingsForm({ initialSettings }) {
 
       <style jsx>{`
         .settings-premium { max-width: 1300px; margin: 0 auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 35px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
         .header-info h1 { margin: 0; font-size: 2.2rem; fontWeight: 900; color: #1b4d3e; letter-spacing: -0.02em; }
         .subtitle { color: #64748b; margin-top: 8px; font-size: 1.1rem; }
         
@@ -543,9 +543,9 @@ export default function SettingsForm({ initialSettings }) {
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(27,77,62,0.25); }
 
-        .settings-layout { display: grid; grid-template-columns: 1fr 450px; gap: 40px; align-items: start; }
+        .settings-layout { display: grid; grid-template-columns: 1fr 450px; gap: 60px; align-items: start; }
         
-        .tab-navigation { display: flex; gap: 8px; margin-bottom: 15px; }
+        .tab-navigation { display: flex; gap: 8px; margin-bottom: 32px; }
         .tab-navigation button { 
           padding: 12px 24px; background: white; border: 1px solid #e2e8f0; border-radius: 12px;
           font-weight: 700; cursor: pointer; color: #94a3b8; display: flex; align-items: center; gap: 8px;
@@ -553,10 +553,10 @@ export default function SettingsForm({ initialSettings }) {
         }
         .tab-navigation button.active { background: #1b4d3e; color: white; border-color: #1b4d3e; }
         
-        .main-form-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
-        .section-title { font-size: 1.4rem; font-weight: 800; color: #1e293b; margin-bottom: 30px; border-left: 5px solid #1b4d3e; padding-left: 15px; }
+        .main-form-card { background: white; padding: 56px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
+        .section-title { font-size: 1.6rem; font-weight: 800; color: #1e293b; margin-bottom: 40px; border-left: 5px solid #1b4d3e; padding-left: 20px; }
         
-        .image-field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .image-field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 64px; }
         .image-upload-card { text-align: center; background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #f1f5f9; }
         .image-upload-card label { display: block; font-weight: 800; color: #475569; margin-bottom: 15px; font-size: 0.95rem; }
         .preview-box { width: 100%; aspect-ratio: 1; background: white; border-radius: 12px; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; }
@@ -565,11 +565,11 @@ export default function SettingsForm({ initialSettings }) {
         .btn-upload-sm { background: white; border: 1px solid #e2e8f0; padding: 6px 12px; borderRadius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; color: #64748b; }
         .btn-upload-sm:hover { color: #1b4d3e; border-color: #1b4d3e; }
 
-        .input-field { margin-bottom: 24px; }
+        .input-field { margin-bottom: 32px; }
         .input-field label { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #475569; margin-bottom: 10px; font-size: 1rem; }
         .input-field input { width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 1.05rem; transition: all 0.2s; }
         .input-field input:focus { border-color: #1b4d3e; outline: none; box-shadow: 0 0 0 4px rgba(27,77,62,0.05); }
-        .input-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 
         .history-item-row { display: flex; gap: 15px; align-items: center; background: #f8fafc; padding: 15px; border-radius: 16px; margin-bottom: 12px; border: 1px solid #f1f5f9; }
         .date-inputs { display: flex; align-items: center; background: white; padding: 8px 12px; border-radius: 10px; border: 1px solid #e2e8f0; }
@@ -617,7 +617,7 @@ export default function SettingsForm({ initialSettings }) {
           display: flex; align-items: center; justify-content: center;
           z-index: 1000; font-size: 1.5rem; font-weight: 900; color: #1b4d3e;
         }
-        .form-section-group { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid #f1f5f9; }
+        .form-section-group { margin-bottom: 80px; padding-bottom: 48px; border-bottom: 1px solid #f1f5f9; }
         .form-section-group:last-child { border-bottom: none; }
         .section-desc { color: #64748b; margin-top: -20px; margin-bottom: 25px; font-size: 0.95rem; }
 

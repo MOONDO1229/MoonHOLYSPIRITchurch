@@ -90,24 +90,6 @@ export default async function WorshipPage() {
             })}
           </div>
           
-          {/* 하단 추가 안내 */}
-          <div className="mt-24 p-12 bg-white rounded-[32px] border border-gray-100 text-center animate-in fade-in slide-in-from-bottom-8">
-            <p className="text-brand-muted font-medium mb-2">예배 참여 안내</p>
-            <p className="text-brand-dark text-xl font-bold mb-6">
-              모든 예배는 유튜브를 통해 실시간 온라인으로도 참여하실 수 있습니다.
-            </p>
-            <a 
-              href="https://www.youtube.com/@moon-holyspiritchurch" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 bg-brand-dark text-white rounded-2xl font-bold hover:bg-black transition-all hover:shadow-xl group"
-            >
-              성령교회 유튜브 채널 바로가기
-              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
         </div>
       </section>
     </main>

@@ -12,14 +12,12 @@ export default function Header({ settings }) {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm py-4 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo Area */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="p-2.5 rounded-xl transition-all duration-300 shadow-md" style={{ backgroundColor: 'var(--primary-color)' }}>
-            <i className="ph ph-cross text-white text-2xl"></i>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-xl leading-tight text-brand-dark tracking-tight">{churchName}</span>
-            <span className="text-[10px] text-brand-muted tracking-widest uppercase font-medium">{denomination}</span>
-          </div>
+        <Link href="/" className="flex items-center group">
+          <img 
+            src="/church_logo.jpg" 
+            alt={churchName} 
+            className="h-10 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+          />
         </Link>
 
         {/* Desktop Menu */}
@@ -29,6 +27,7 @@ export default function Header({ settings }) {
           <Link href="/news" className="nav-link transition-colors py-1">교회소식</Link>
           <Link href="/support" className="nav-link transition-colors py-1">헌금 및 후원</Link>
           <Link href="/about" className="nav-link transition-colors py-1">교회소개</Link>
+          <Link href="/history" className="nav-link transition-colors py-1">교회연혁</Link>
           <Link href="/location" className="nav-link transition-colors py-1">오시는 길</Link>
         </div>
 
@@ -82,6 +81,10 @@ export default function Header({ settings }) {
               <Link href="/about" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-church text-3xl" style={{ color: 'var(--primary-color)' }}></i>
                 교회소개
+              </Link>
+              <Link href="/history" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
+                <i className="ph-fill ph-clock-counter-clockwise text-3xl" style={{ color: 'var(--primary-color)' }}></i>
+                교회연혁
               </Link>
               <Link href="/location" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-map-pin text-3xl" style={{ color: 'var(--primary-color)' }}></i>

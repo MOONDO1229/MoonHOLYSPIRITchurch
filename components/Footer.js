@@ -6,7 +6,7 @@ export default function Footer({ settings }) {
   const slogan = settings?.footerSlogan || '성령의 능력으로 세상을 변화시키고\n예수 그리스도의 사랑을 실천하는 믿음의 공동체';
 
   return (
-    <footer className="footer pt-24 pb-12 bg-transparent text-brand-dark overflow-hidden">
+    <footer className="footer pt-32 pb-20 bg-transparent text-brand-dark overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
           <div className="space-y-8">
