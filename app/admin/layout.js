@@ -6,6 +6,7 @@ import {
   LayoutDashboard, 
   Bell, 
   Image, 
+  Images,
   BookOpen, 
   Video, 
   Clock, 
@@ -38,6 +39,7 @@ export default function AdminLayout({ children }) {
 
   const contentItems = [
     { href: '/admin/notices', icon: Bell, label: '공지사항 관리' },
+    { href: '/admin/albums', icon: Images, label: '교회 앨범 관리' },
     { href: '/admin/bulletins', icon: BookOpen, label: '주보 관리' },
     { href: '/admin/sermons', icon: Video, label: '설교 관리' },
     { href: '/admin/events', icon: CalendarDays, label: '교회 행사 관리' },

@@ -155,3 +155,61 @@ INSERT INTO notices (title, category, content, date, is_pinned, show_on_main, st
 
 -- Supabase Storage 버킷 생성 (SQL Editor에서는 불가, Dashboard에서 수동 생성 필요)
 -- Storage > New bucket > 이름: "uploads" > Public bucket: ON
+
+-- ============================================
+-- Church album
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS album_posts (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL DEFAULT '',
+  content TEXT DEFAULT '',
+  event_date DATE,
+  category TEXT DEFAULT '기타',
+  cover_image_url TEXT DEFAULT '',
+  is_published BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS album_images (
+  id SERIAL PRIMARY KEY,
+  album_post_id INTEGER NOT NULL REFERENCES album_posts(id) ON DELETE CASCADE,
+  image_url TEXT NOT NULL DEFAULT '',
+  thumbnail_url TEXT NOT NULL DEFAULT '',
+  storage_path TEXT DEFAULT '',
+  thumbnail_storage_path TEXT DEFAULT '',
+  original_filename TEXT DEFAULT '',
+  alt_text TEXT DEFAULT '',
+  sort_order INTEGER DEFAULT 0,
+  width INTEGER,
+  height INTEGER,
+  size_bytes INTEGER,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_album_posts_published_date
+  ON album_posts (is_published, event_date DESC, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_album_images_post_order
+  ON album_images (album_post_id, sort_order ASC);
+
+-- Storage bucket for optimized album images.
+-- Dashboard alternative: Storage > New bucket > name: "album-images" > Public bucket: ON
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'album-images',
+  'album-images',
+  true,
+  5242880,
+  ARRAY['image/jpeg', 'image/png', 'image/webp']
+)
+ON CONFLICT (id) DO UPDATE
+SET public = EXCLUDED.public,
+    file_size_limit = EXCLUDED.file_size_limit,
+    allowed_mime_types = EXCLUDED.allowed_mime_types;
+
+-- This project uploads and deletes album images through server routes/actions
+-- using the existing server-side Supabase client. Do not expose service-role keys
+-- to browser code. If direct client-side Supabase uploads are introduced later,
+-- add narrow authenticated Storage policies for album-images first.

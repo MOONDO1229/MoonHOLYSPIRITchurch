@@ -21,11 +21,12 @@ export default function Header({ settings }) {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-brand-text">
+        <div className="hidden md:flex items-center gap-4 text-[16px] font-semibold text-brand-text">
           <Link href="/worship" className="nav-link transition-colors py-1">예배안내</Link>
           <Link href="/sermon" className="nav-link transition-colors py-1">설교말씀</Link>
           <Link href="/event" className="nav-link transition-colors py-1">교회행사</Link>
           <Link href="/news" className="nav-link transition-colors py-1">교회소식</Link>
+          <Link href="/album" className="nav-link transition-colors py-1">교회 앨범</Link>
           <Link href="/support" className="nav-link transition-colors py-1">헌금 및 후원</Link>
           <Link href="/about" className="nav-link transition-colors py-1">교회소개</Link>
           <Link href="/history" className="nav-link transition-colors py-1">교회연혁</Link>
@@ -49,7 +50,7 @@ export default function Header({ settings }) {
           {/* Semi-transparent backdrop with stronger blur */}
           <div className="md:hidden fixed inset-0 z-[45] bg-black/70 backdrop-blur-md" onClick={() => setIsOpen(false)}></div>
           
-          <div className="md:hidden fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-white z-[50] shadow-[-20px_0_60px_rgba(0,0,0,0.3)] p-8 flex flex-col gap-6 animate-in fade-in slide-in-from-right-full duration-500 ease-out">
+          <div className="md:hidden fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-white z-[50] shadow-[-20px_0_60px_rgba(0,0,0,0.3)] p-8 flex flex-col gap-6 overflow-y-auto animate-in fade-in slide-in-from-right-full duration-500 ease-out">
             <div className="flex justify-between items-center mb-6 pb-6 border-b-2 border-gray-100">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-sm" style={{ backgroundColor: 'var(--primary-color)' }}>
@@ -78,6 +79,10 @@ export default function Header({ settings }) {
               <Link href="/news" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-megaphone text-3xl" style={{ color: 'var(--primary-color)' }}></i>
                 교회소식
+              </Link>
+              <Link href="/album" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
+                <i className="ph-fill ph-images text-3xl" style={{ color: 'var(--primary-color)' }}></i>
+                교회 앨범
               </Link>
               <Link href="/support" onClick={() => setIsOpen(false)} className="flex items-center gap-5 text-xl font-black p-5 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 text-brand-dark shadow-sm hover:shadow-md">
                 <i className="ph-fill ph-heart text-3xl" style={{ color: 'var(--primary-color)' }}></i>
