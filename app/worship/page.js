@@ -46,7 +46,7 @@ export default async function WorshipPage() {
       {/* 예배 카드 그리드 영역 */}
       <section className="py-24 md:py-32">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 worship-grid-v2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 worship-grid-v2">
             {worshipTimes.map((time, idx) => {
               const badge = getBadgeInfo(time.name);
               return (
