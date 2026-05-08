@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { updateSettings } from '@/lib/actions';
-import { Save, Smartphone, Monitor, Plus, Trash2, Heart, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
+import { Save, Smartphone, Monitor, Plus, Trash2, Heart, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail, BookOpen, Cross } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
@@ -16,6 +16,7 @@ export default function SettingsForm({ initialSettings }) {
     pastor: initialSettings?.pastor || '',
     pastorTitle: initialSettings?.pastorTitle || '예수님의 사랑으로 여러분을 환영합니다',
     pastorGreeting: initialSettings?.pastorGreeting || '',
+    pastorImage: initialSettings?.pastorImage || '',
     welcomeTitle: initialSettings?.welcomeTitle || '',
     welcomeSubtitle: initialSettings?.welcomeSubtitle || '',
     youtubeLink: initialSettings?.youtubeLink || '',
@@ -488,7 +489,7 @@ export default function SettingsForm({ initialSettings }) {
             <div className="mockup-viewport">
               <div className="live-site-preview">
                 <nav className="nav-mock" style={{ borderBottom: `3px solid ${settings.theme.primaryColor}` }}>
-                  {settings.logoImage ? <img src={settings.logoImage} height="20" /> : <span style={{fontWeight:900, color: settings.theme.primaryColor}}>{settings.welcomeTitle?.substring(0,6)}</span>}
+                  {settings.logoImage ? <img src={settings.logoImage} height="20" /> : <span style={{fontWeight:900, color: settings.theme?.primaryColor || "#1b4d3e"}}>{settings.welcomeTitle?.substring(0,6)}</span>}
                   <div className="menu-dots"><span></span><span></span><span></span></div>
                 </nav>
                 <div className="hero-mock" style={{ 
