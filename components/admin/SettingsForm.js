@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { updateSettings } from '@/lib/actions';
-import { Save, Smartphone, Monitor, Plus, Trash2, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
+import { Save, Smartphone, Monitor, Plus, Trash2, Heart, Image as ImageIcon, ExternalLink, Palette, Clock, Bell, MapPin, Phone, User, Users, Layout, Globe, Calendar, Mail } from 'lucide-react';
 
 export default function SettingsForm({ initialSettings }) {
   const [settings, setSettings] = useState({
@@ -13,8 +13,13 @@ export default function SettingsForm({ initialSettings }) {
     address: initialSettings?.address || '경기도 광주시 퇴촌면 광동로52번길 27',
     copyrightYear: initialSettings?.copyrightYear || '2026',
     welcomeBadge: initialSettings?.welcomeBadge || '성령교회에 오신 것을 환영합니다',
+    pastor: initialSettings?.pastor || '',
     pastorTitle: initialSettings?.pastorTitle || '예수님의 사랑으로 여러분을 환영합니다',
     pastorGreeting: initialSettings?.pastorGreeting || '',
+    welcomeTitle: initialSettings?.welcomeTitle || '',
+    welcomeSubtitle: initialSettings?.welcomeSubtitle || '',
+    youtubeLink: initialSettings?.youtubeLink || '',
+    kakaoLink: initialSettings?.kakaoLink || '',
     visions: initialSettings?.visions || [
       { title: "말씀 중심", content: "", icon: "BookOpen" },
       { title: "사랑의 교제", content: "", icon: "Heart" },
