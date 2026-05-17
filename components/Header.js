@@ -128,70 +128,66 @@ export default function Header({ settings }) {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay (Full-screen Transparent White Glassmorphism) */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 z-[100] flex animate-in fade-in duration-300">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}></div>
-          
-          <div className="relative ml-auto h-full w-[300px] bg-white shadow-2xl flex flex-col animate-in slide-in-from-right duration-500">
-            <div className="flex justify-between items-center p-6 border-b border-gray-50">
-              <span className="font-extrabold text-xl text-brand-dark">{churchName}</span>
-              <button 
-                aria-label="메뉴 닫기" 
-                onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }} 
-                className="p-2 text-gray-400 hover:text-brand-dark transition-colors"
-              >
-                <X className="w-7 h-7" />
-              </button>
-            </div>
-            
-            <nav className="flex flex-col py-6 overflow-y-auto px-6 gap-2">
-              {menuItems.map((item, idx) => (
-                <div key={idx} className="mb-2">
-                  {item.href ? (
-                    <Link 
-                      href={item.href} 
-                      onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
-                      className={`text-center block py-4 text-xl font-extrabold border-b border-gray-50 ${
-                        item.isHighlight ? 'text-brand-gold' : 'text-brand-dark'
-                      }`}
+        <div className="md:hidden fixed inset-0 z-[100] bg-white/90 backdrop-blur-xl flex flex-col justify-center items-center animate-in fade-in duration-500">
+          {/* Close Button */}
+          <button 
+            aria-label="메뉴 닫기" 
+            onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }} 
+            className="absolute top-6 right-6 p-3 text-brand-dark hover:text-brand-gold transition-colors focus:outline-none"
+          >
+            <X className="w-8 h-8" />
+          </button>
+
+          {/* Centered Menu List */}
+          <nav className="w-full max-w-md px-8 flex flex-col justify-center items-center gap-6 overflow-y-auto py-16">
+            {menuItems.map((item, idx) => (
+              <div key={idx} className="w-full text-center">
+                {item.href ? (
+                  <Link 
+                    href={item.href} 
+                    onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
+                    className={`block py-3 text-2xl font-extrabold transition-all hover:scale-105 duration-200 ${
+                      item.isHighlight ? 'text-brand-gold' : 'text-brand-dark'
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <div className="py-1">
+                    <button 
+                      onClick={() => setMobileActiveMenu(mobileActiveMenu === idx ? null : idx)}
+                      className="w-full flex items-center justify-center gap-2 py-3 text-2xl font-extrabold text-brand-dark focus:outline-none hover:scale-105 duration-200"
                     >
-                      {item.title}
-                    </Link>
-                  ) : (
-                    <div className="py-2 border-b border-gray-50">
-                      <button 
-                        onClick={() => setMobileActiveMenu(mobileActiveMenu === idx ? null : idx)}
-                        className="w-full flex items-center justify-center gap-2 py-4 text-xl font-extrabold text-brand-dark focus:outline-none"
-                      >
-                        <span>{item.title}</span>
-                        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileActiveMenu === idx ? 'rotate-180 text-brand-gold' : 'text-gray-400'}`} />
-                      </button>
-                      
-                      <div className={`grid grid-cols-1 gap-1 overflow-hidden transition-all duration-300 ${
-                        mobileActiveMenu === idx ? 'max-h-[300px] opacity-100 mt-2 mb-4' : 'max-h-0 opacity-0 pointer-events-none'
-                      }`}>
-                        {item.links.map((link, lIdx) => (
-                          <Link 
-                            key={lIdx} 
-                            href={link.href}
-                            onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
-                            className="text-center py-3 px-4 text-lg font-bold text-gray-600 hover:bg-gray-50 hover:text-brand-gold rounded-xl transition-all block"
-                          >
-                            {link.name}
-                          </Link>
-                        ))}
-                      </div>
+                      <span>{item.title}</span>
+                      <ChevronDown className={`w-6 h-6 transition-transform duration-300 ${mobileActiveMenu === idx ? 'rotate-180 text-brand-gold' : 'text-gray-400'}`} />
+                    </button>
+                    
+                    <div className={`grid grid-cols-1 gap-2 overflow-hidden transition-all duration-300 ${
+                      mobileActiveMenu === idx ? 'max-h-[300px] opacity-100 mt-2 mb-2' : 'max-h-0 opacity-0 pointer-events-none'
+                    }`}>
+                      {item.links.map((link, lIdx) => (
+                        <Link 
+                          key={lIdx} 
+                          href={link.href}
+                          onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
+                          className="text-center py-2 px-4 text-lg font-bold text-gray-500 hover:text-brand-gold rounded-xl transition-all block"
+                        >
+                          {link.name}
+                        </Link>
+                      ))}
                     </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-            
-            <div className="mt-auto p-8 bg-gray-50 border-t border-gray-100 text-center">
-              <p className="text-[11px] text-brand-muted font-bold tracking-widest uppercase mb-1">{denomination}</p>
-              <p className="text-lg font-black text-brand-dark">{churchName}</p>
-            </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+          
+          {/* Centered Footer */}
+          <div className="absolute bottom-8 text-center w-full px-6">
+            <p className="text-[10px] text-brand-muted font-bold tracking-widest uppercase mb-1">{denomination}</p>
+            <p className="text-base font-black text-brand-dark">{churchName}</p>
           </div>
         </div>
       )}
