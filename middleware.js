@@ -1,11 +1,18 @@
 import { NextResponse } from 'next/server';
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from './lib/auth-session';
 
-export function middleware(request) {
+export async function middleware(request) {
   const { pathname } = request.nextUrl;
   
   // admin_session 쿠키 확인
-  const session = request.cookies.get('admin_session');
-  const isAuthenticated = session?.value === 'authenticated';
+  const sessionToken = request.cookies.get(ADMIN_SESSION_COOKIE)?.value;
+  let isAuthenticated = false;
+
+  try {
+    isAuthenticated = Boolean(await verifyAdminSessionToken(sessionToken));
+  } catch {
+    isAuthenticated = false;
+  }
 
   // 관리자 페이지 보호
   if (pathname.startsWith('/admin')) {
