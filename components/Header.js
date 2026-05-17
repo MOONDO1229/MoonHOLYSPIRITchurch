@@ -152,7 +152,7 @@ export default function Header({ settings }) {
                     <Link 
                       href={item.href} 
                       onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
-                      className={`block py-4 text-xl font-extrabold border-b border-gray-50 ${
+                      className={`text-center block py-4 text-xl font-extrabold border-b border-gray-50 ${
                         item.isHighlight ? 'text-brand-gold' : 'text-brand-dark'
                       }`}
                     >
@@ -162,7 +162,7 @@ export default function Header({ settings }) {
                     <div className="py-2 border-b border-gray-50">
                       <button 
                         onClick={() => setMobileActiveMenu(mobileActiveMenu === idx ? null : idx)}
-                        className="w-full flex items-center justify-between py-4 text-xl font-extrabold text-brand-dark focus:outline-none"
+                        className="w-full flex items-center justify-center gap-2 py-4 text-xl font-extrabold text-brand-dark focus:outline-none"
                       >
                         <span>{item.title}</span>
                         <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileActiveMenu === idx ? 'rotate-180 text-brand-gold' : 'text-gray-400'}`} />
@@ -176,7 +176,7 @@ export default function Header({ settings }) {
                             key={lIdx} 
                             href={link.href}
                             onClick={() => { setIsOpen(false); setMobileActiveMenu(null); }}
-                            className="py-3 px-4 text-lg font-bold text-gray-600 hover:bg-gray-50 hover:text-brand-gold rounded-xl transition-all block"
+                            className="text-center py-3 px-4 text-lg font-bold text-gray-600 hover:bg-gray-50 hover:text-brand-gold rounded-xl transition-all block"
                           >
                             {link.name}
                           </Link>
@@ -188,7 +188,7 @@ export default function Header({ settings }) {
               ))}
             </nav>
             
-            <div className="mt-auto p-8 bg-gray-50 border-t border-gray-100">
+            <div className="mt-auto p-8 bg-gray-50 border-t border-gray-100 text-center">
               <p className="text-[11px] text-brand-muted font-bold tracking-widest uppercase mb-1">{denomination}</p>
               <p className="text-lg font-black text-brand-dark">{churchName}</p>
             </div>
