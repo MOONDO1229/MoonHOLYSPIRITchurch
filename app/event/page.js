@@ -1,6 +1,7 @@
 import { getData } from '@/lib/db';
 import { Play, Calendar, MapPin, AlignLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import SermonThumbnail from '@/components/SermonThumbnail';
 
 export default async function EventPage() {
   const events = (await getData('events')).filter(e => e.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
@@ -123,13 +124,11 @@ export default async function EventPage() {
                     {videoId ? (
                       <Link href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" className="relative block mb-6">
                         <div className="relative aspect-video rounded-[24px] overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-700">
-                          <img 
-                            src={item.thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
-                            alt={item.title} 
+                          <SermonThumbnail
+                            videoId={videoId}
+                            thumbnail={item.thumbnail}
+                            title={item.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                            onError={(e) => {
-                              e.target.src = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-                            }}
                           />
                           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500 flex items-center justify-center">
                             <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-75 group-hover:scale-100 border border-white/30">

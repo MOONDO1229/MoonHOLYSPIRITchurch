@@ -2,6 +2,7 @@ import PageHeader from '@/components/PageHeader';
 import { getData } from '@/lib/db';
 import { Play, Calendar, User, BookOpen, Clock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import SermonThumbnail from '@/components/SermonThumbnail';
 
 export default async function SermonPage() {
   const sermons = (await getData('sermons')).filter(s => s.status === '게시').sort((a,b) => new Date(b.date) - new Date(a.date));
@@ -29,14 +30,20 @@ export default async function SermonPage() {
             <div className="sermon-featured-card bg-white rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 flex flex-col">
               {/* 대형 영상 영역 */}
               <div className="aspect-video w-full bg-black relative group">
-                <iframe 
-                  width="100%" 
-                  height="100%" 
-                  src={`https://www.youtube.com/embed/${getYoutubeId(latest.youtube_url)}?autoplay=0&rel=0`}
-                  frameBorder="0" 
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                ></iframe>
+                {getYoutubeId(latest.youtube_url) ? (
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src={`https://www.youtube.com/embed/${getYoutubeId(latest.youtube_url)}?autoplay=0&rel=0`}
+                    frameBorder="0" 
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  ></iframe>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-white/60">
+                    <p className="text-lg font-bold">영상이 준비 중입니다</p>
+                  </div>
+                )}
               </div>
               
               {/* 정보 영역: 영상 아래 배치하여 안정감 확보 */}
@@ -83,7 +90,7 @@ export default async function SermonPage() {
                       </div>
                       <div>
                         <p className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest mb-1.5">성경 본문</p>
-                        <p className="text-brand-dark font-black text-xl md:text-3xl">{latest.passage}</p>
+                        <p className="text-brand-dark font-black text-xl md:text-3xl">{latest.passage || '-'}</p>
                       </div>
                     </div>
                   </div>
@@ -112,17 +119,16 @@ export default async function SermonPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
             {sermons.slice(1).map(item => {
               const videoId = getYoutubeId(item.youtube_url);
+              const youtubeLink = videoId ? `https://www.youtube.com/watch?v=${videoId}` : '#';
               return (
                 <div key={item.id} className="group flex flex-col">
-                  <Link href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" className="relative block mb-6">
+                  <Link href={youtubeLink} target={videoId ? '_blank' : undefined} className="relative block mb-6">
                     <div className="relative aspect-video rounded-[24px] overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-700">
-                      <img 
-                        src={item.thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
-                        alt={item.title} 
+                      <SermonThumbnail
+                        videoId={videoId}
+                        thumbnail={item.thumbnail}
+                        title={item.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                        onError={(e) => {
-                          e.target.src = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-                        }}
                       />
                       {/* 호버 시 플레이 아이콘 노출 */}
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500 flex items-center justify-center">
@@ -143,19 +149,21 @@ export default async function SermonPage() {
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-xs font-bold text-brand-gold uppercase tracking-widest">{item.date}</span>
                       <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{item.preacher}</span>
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{item.preacher || '-'}</span>
                     </div>
                     
-                    <Link href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" className="block group-hover:text-brand-gold transition-colors">
+                    <Link href={youtubeLink} target={videoId ? '_blank' : undefined} className="block group-hover:text-brand-gold transition-colors">
                       <h4 className="text-xl md:text-2xl font-black text-brand-dark mb-4 leading-snug line-clamp-2 tracking-tight">
                         {item.title}
                       </h4>
                     </Link>
                     
-                    <div className="flex items-center gap-2 text-brand-muted text-sm font-medium pt-4 border-t border-gray-100">
-                      <BookOpen size={14} className="text-brand-gold/60" />
-                      <span className="line-clamp-1">{item.passage}</span>
-                    </div>
+                    {item.passage && (
+                      <div className="flex items-center gap-2 text-brand-muted text-sm font-medium pt-4 border-t border-gray-100">
+                        <BookOpen size={14} className="text-brand-gold/60" />
+                        <span className="line-clamp-1">{item.passage}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

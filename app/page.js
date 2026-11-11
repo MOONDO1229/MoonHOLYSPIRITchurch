@@ -35,11 +35,11 @@ export default async function Home() {
             <div className="icon-bg bg-red-50">📍</div>
             <span className="card-title">오시는길</span>
           </Link>
-          <Link href="/news" className="quick-card group">
-            <div className="icon-bg bg-orange-50">📢</div>
-            <span className="card-title">교회소식</span>
+          <Link href="/album" className="quick-card group">
+            <div className="icon-bg bg-orange-50">📸</div>
+            <span className="card-title">교회 앨범</span>
           </Link>
-          <Link href="/support" className="quick-card group">
+          <Link href="/about#support" className="quick-card group">
             <div className="icon-bg bg-pink-50">💝</div>
             <span className="card-title">헌금안내</span>
           </Link>
@@ -52,24 +52,6 @@ export default async function Home() {
         notices={notices}
         latestBulletin={latestBulletin}
       />
-
-      {/* Quick Contact Bar */}
-      <section className="bg-gray-100 py-12 border-y border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-lg text-brand-dark font-medium">
-          <div className="flex items-center gap-3">
-            <i className="ph ph-map-pin text-2xl text-brand-gold"></i>
-            <span>{settings.address || '경기도 광주시 퇴촌면 광동로52번길 27'}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <i className="ph ph-phone text-2xl text-brand-gold"></i>
-            <span>{settings.phone || '031-766-8847'}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <i className="ph ph-envelope-simple text-2xl text-brand-gold"></i>
-            <span>{settings.email || 'spirit-church@church.com'}</span>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

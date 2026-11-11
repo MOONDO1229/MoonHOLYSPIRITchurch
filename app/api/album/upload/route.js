@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 
-const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
-const MAX_COMPRESSED_BYTES = 5 * 1024 * 1024;
+const ALLOWED_TYPES = new Set(['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/webp', 'application/octet-stream']);
+const MAX_COMPRESSED_BYTES = 10 * 1024 * 1024;
 
 function safeSegment(value, fallback = 'image') {
   return String(value || fallback)
@@ -15,11 +15,16 @@ function safeSegment(value, fallback = 'image') {
 }
 
 function hasAllowedImageSignature(type, buffer) {
-  if (type === 'image/jpeg') return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
-  if (type === 'image/png') return buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+  if (type === 'image/jpeg' || type === 'image/jpg' || type === 'image/pjpeg') return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  if (type === 'image/png' || type === 'image/x-png') return buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
   if (type === 'image/webp') {
     return buffer.subarray(0, 4).toString('ascii') === 'RIFF'
       && buffer.subarray(8, 12).toString('ascii') === 'WEBP';
+  }
+  if (type === 'application/octet-stream') {
+    return (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff)
+      || buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+      || (buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP');
   }
   return false;
 }

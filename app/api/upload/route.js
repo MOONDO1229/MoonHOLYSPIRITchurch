@@ -3,15 +3,15 @@ import { requireAdmin } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 
 const ALLOWED_IMAGE_TYPES = {
-  '.jpg': ['image/jpeg'],
-  '.jpeg': ['image/jpeg'],
-  '.png': ['image/png'],
-  '.gif': ['image/gif'],
-  '.webp': ['image/webp'],
-  '.ico': ['image/x-icon', 'image/vnd.microsoft.icon'],
+  '.jpg': ['image/jpeg', 'image/jpg', 'image/pjpeg', 'application/octet-stream'],
+  '.jpeg': ['image/jpeg', 'image/jpg', 'image/pjpeg', 'application/octet-stream'],
+  '.png': ['image/png', 'image/x-png', 'application/octet-stream'],
+  '.gif': ['image/gif', 'application/octet-stream'],
+  '.webp': ['image/webp', 'application/octet-stream'],
+  '.ico': ['image/x-icon', 'image/vnd.microsoft.icon', 'application/octet-stream'],
 };
 const ALLOWED_DOC_TYPES = {
-  '.pdf': ['application/pdf'],
+  '.pdf': ['application/pdf', 'application/x-pdf', 'application/octet-stream'],
 };
 
 function hasAsciiPrefix(buffer, prefix, offset = 0) {
@@ -46,26 +46,28 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const originalName = file.name || 'unnamed_file';
-    const ext = originalName.substring(originalName.lastIndexOf('.')).toLowerCase();
+    const dotIndex = originalName.lastIndexOf('.');
+    const ext = dotIndex !== -1 ? originalName.substring(dotIndex).toLowerCase() : '';
     const fileSizeMB = buffer.length / (1024 * 1024);
     const isImage = Object.hasOwn(ALLOWED_IMAGE_TYPES, ext);
     const isDocument = Object.hasOwn(ALLOWED_DOC_TYPES, ext);
     const allowedTypes = ALLOWED_IMAGE_TYPES[ext] || ALLOWED_DOC_TYPES[ext] || [];
 
     if (isImage) {
-      if (fileSizeMB > 10) {
-        return NextResponse.json({ success: false, message: '이미지 파일은 10MB 이하만 업로드 가능합니다.' }, { status: 400 });
+      if (fileSizeMB > 15) {
+        return NextResponse.json({ success: false, message: '이미지 파일은 15MB 이하만 업로드 가능합니다.' }, { status: 400 });
       }
     } else if (isDocument) {
       if (fileSizeMB > 30) {
         return NextResponse.json({ success: false, message: 'PDF 파일은 30MB 이하만 업로드 가능합니다.' }, { status: 400 });
       }
     } else {
-      return NextResponse.json({ success: false, message: '허용되지 않는 파일 형식입니다. 이미지 또는 PDF만 가능합니다.' }, { status: 400 });
+      return NextResponse.json({ success: false, message: '허용되지 않는 파일 형식입니다. 이미지(JPG, PNG, WebP, GIF) 또는 PDF만 가능합니다.' }, { status: 400 });
     }
 
-    if (!allowedTypes.includes(file.type) || !hasAllowedSignature(ext, buffer)) {
-      return NextResponse.json({ success: false, message: '파일 형식이 올바르지 않습니다.' }, { status: 400 });
+    const isTypeAllowed = allowedTypes.includes(file.type) || file.type === 'application/octet-stream';
+    if (!isTypeAllowed || !hasAllowedSignature(ext, buffer)) {
+      return NextResponse.json({ success: false, message: '파일 형식이 올바르지 않거나 손상된 파일입니다.' }, { status: 400 });
     }
 
     const filename = `${Date.now()}_${crypto.randomUUID()}${ext}`;
