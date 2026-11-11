@@ -78,7 +78,7 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
             <h3 className="text-2xl md:text-3xl font-black text-[#2A4B41] mb-2">{latestBulletin?.title || '주보 업데이트 예정'}</h3>
             <p className="text-lg md:text-xl text-brand-muted mb-6 md:mb-8 font-medium">{latestBulletin?.date}</p>
             <div className="flex justify-center md:justify-start gap-3">
-              <Link href={`/bulletin/${latestBulletin?.id}`} 
+              <Link href={latestBulletin?.id ? `/bulletin/${latestBulletin.id}` : '/bulletin'} 
                 className="px-6 py-2.5 md:px-8 md:py-3 rounded-full font-bold text-sm md:text-base transition-colors"
                 style={{ backgroundColor: 'var(--secondary-color)', color: 'white' }}
                 onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
@@ -104,34 +104,33 @@ export default function HomeSections({ settings, latestSermon, notices, latestBu
 
       {/* News & Notices Section */}
       <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-        <div className="flex flex-col items-center mb-10 gap-4 text-center">
+        <div className="flex flex-col items-center mb-16 gap-4 text-center">
           <div className="w-full">
             <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight mb-2">교회 소식</h2>
-            <p className="text-base md:text-lg text-brand-muted">하나님의 사랑을 전하는 교회의 발자취입니다</p>
+            <p className="text-base md:text-lg text-brand-muted mb-4">하나님의 사랑을 전하는 교회의 발자취입니다</p>
+            <Link href="/news" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
+              교회 소식 전체보기
+              <i className="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </Link>
           </div>
         </div>
 
-        <div className="notice-grid">
-          {notices && notices.length > 0 ? notices.map((notice) => (
-            <Link key={notice.id} href={`/news/${notice.id}`} className="notice-card-simple group">
-              <div className="notice-meta flex justify-between items-center mb-4">
-                <span className="cat px-3 py-1 rounded-md bg-brand-gold text-white text-xs font-bold shadow-sm">{notice.category || '공지사항'}</span>
-                <span className="date text-gray-400 text-sm">{notice.date}</span>
+        <div className="notice-section-box">
+          <div className="notice-grid">
+            {notices && notices.length > 0 ? notices.map((notice) => (
+              <Link key={notice.id} href={`/news/${notice.id}`} className="notice-card-simple group">
+                <div className="notice-meta flex justify-between items-center mb-4">
+                  <span className="cat px-3 py-1 rounded-md bg-brand-gold text-white text-xs font-bold shadow-sm">{notice.category || '공지사항'}</span>
+                  <span className="date text-gray-400 text-sm">{notice.date}</span>
+                </div>
+                <h4 className="title group-hover:text-brand-gold">{notice.title}</h4>
+              </Link>
+            )) : (
+              <div className="col-span-full py-20 text-center text-gray-400 border-2 border-dashed border-gray-100 rounded-3xl">
+                <p>현재 등록된 소식이 없습니다.</p>
               </div>
-              <h4 className="title group-hover:text-brand-gold">{notice.title}</h4>
-            </Link>
-          )) : (
-            <div className="col-span-full py-20 text-center text-gray-400 border-2 border-dashed border-gray-100 rounded-3xl">
-              <p>현재 등록된 소식이 없습니다.</p>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <Link href="/news" className="inline-flex items-center gap-2 text-brand-gold font-bold hover:text-brand-brown transition-colors">
-            교회 소식 전체보기
-            <i className="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
-          </Link>
+            )}
+          </div>
         </div>
       </section>
     </div>

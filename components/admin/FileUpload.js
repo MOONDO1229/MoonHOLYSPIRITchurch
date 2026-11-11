@@ -32,6 +32,12 @@ export default function FileUpload({ onUploadComplete, label, accept = "image/*"
         method: 'POST',
         body: formData
       });
+      
+      if (res.status === 401) {
+        setError('관리자 로그인 세션이 만료되었습니다. 다시 로그인 후 시도해주세요.');
+        return;
+      }
+
       const data = await res.json();
 
       if (data.success) {
@@ -41,7 +47,7 @@ export default function FileUpload({ onUploadComplete, label, accept = "image/*"
         setError(data.message || '업로드 실패');
       }
     } catch (err) {
-      setError('업로드 중 오류가 발생했습니다.');
+      setError('업로드 중 네트워크 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }

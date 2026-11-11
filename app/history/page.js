@@ -1,23 +1,44 @@
 import { Clock } from 'lucide-react';
+import { getSettings } from '@/lib/db';
 
-export default function HistoryPage() {
-  const historyData = [
-    { year: "1954", month: "4", content: "4월 4일 십자군 전도대에 의하여 시작. 북을 치고 나팔을 불며 전도, 천막집회. 현 광동반점 자리를 매입. 전도대원중 한사람이었던 안전도사가 사역." },
-    { year: "1956", month: "", content: "임사순장로 사역." },
-    { year: "1958", month: "", content: "김광석목사 사역, 이홍수전도사, 한철인전도사, 이홍의 장로." },
-    { year: "1959", month: "", content: "김형환전도사 사역. 어떻게든지 믿으라고 전도." },
-    { year: "1961", month: "", content: "홍정길목사 부임." },
-    { year: "1963", month: "", content: "박길복목사 부임. 현 교회터인 광동리 산1번지에 시멘트 벽돌, 기와지붕의 교회지음." },
-    { year: "1965", month: "", content: "이무경목사 부임." },
-    { year: "1970", month: "", content: "최영두전도사 부임." },
-    { year: "1982", month: "", content: "양세창목사 부임." },
-    { year: "1985", month: "", content: "류윤석목사 부임. 조립식 교회건물 신축." },
-    { year: "1992", month: "", content: "김영원목사 부임." },
-    { year: "1994", month: "1", content: "1월 김정오목사 부임." },
-    { year: "2000", month: "9", content: "9월 조병수목사 부임." },
+export const revalidate = 0; // 항상 실시간 DB 데이터 반영
+
+export default async function HistoryPage() {
+  const settings = await getSettings();
+
+  const defaultHistoryData = [
+    { year: "2008", month: "5", content: "5월 25일 시멘트골조, 적 벽돌, 슬라브 지붕으로 1.2층 건물 봉헌. (80평)" },
     { year: "2001", month: "12", content: "12월 김진선목사 부임 ~ 현재" },
-    { year: "2008", month: "5", content: "5월 25일 시멘트골조, 적 벽돌, 슬라브 지붕으로 1.2층 건물 봉헌. (80평)" }
+    { year: "2000", month: "9", content: "9월 조병수목사 부임." },
+    { year: "1994", month: "12", content: "퇴촌성령교회 설립 및 김정오목사 부임." },
+    { year: "1992", month: "", content: "김영원목사 부임." },
+    { year: "1985", month: "", content: "류윤석목사 부임. 조립식 교회건물 신축." },
+    { year: "1982", month: "", content: "양세창목사 부임." },
+    { year: "1970", month: "", content: "최영두전도사 부임." },
+    { year: "1965", month: "", content: "이무경목사 부임." },
+    { year: "1963", month: "", content: "박길복목사 부임. 현 교회터인 광동리 산1번지에 시멘트 벽돌, 기와지붕의 교회지음." },
+    { year: "1961", month: "", content: "홍정길목사 부임." },
+    { year: "1959", month: "", content: "김형환전도사 사역. 어떻게든지 믿으라고 전도." },
+    { year: "1958", month: "", content: "김광석목사 사역, 이홍수전도사, 한철인전도사, 이홍의 장로." },
+    { year: "1956", month: "", content: "임사순장로 사역." },
+    { year: "1954", month: "4", content: "4월 4일 십자군 전도대에 의하여 시작. 북을 치고 나팔을 불며 전도, 천막집회. 현 광동반점 자리를 매입. 전도대원중 한사람이었던 안전도사가 사역." }
   ];
+
+  const rawHistory = (settings?.history && settings.history.length > 0)
+    ? settings.history
+    : defaultHistoryData;
+
+  // 연도(year)와 월(month) 기준 내림차순 정렬 (최신 연도가 맨 위)
+  const historyData = [...rawHistory].sort((a, b) => {
+    const yearA = parseInt(a.year, 10) || 0;
+    const yearB = parseInt(b.year, 10) || 0;
+    if (yearB !== yearA) {
+      return yearB - yearA;
+    }
+    const monthA = parseInt(a.month, 10) || 0;
+    const monthB = parseInt(b.month, 10) || 0;
+    return monthB - monthA;
+  });
 
   return (
     <main className="bg-[#fafafa] min-h-screen">

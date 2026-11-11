@@ -1,9 +1,0 @@
-[
-  { "id": 1, "name": "주일 1부 오전예배", "time": "오전 9시", "place": "본당", "order": 1, "is_visible": true },
-  { "id": 2, "name": "주일 2부 오전예배", "time": "오전 11시", "place": "본당", "order": 2, "is_visible": true },
-  { "id": 3, "name": "주일 오후 예배", "time": "오후 1시 50분", "place": "본당", "order": 3, "is_visible": true },
-  { "id": 4, "name": "주일 어린이 예배", "time": "오전 11시", "place": "교회 1층", "order": 4, "is_visible": true },
-  { "id": 5, "name": "새벽기도회 (월~금)", "time": "오전 5시", "place": "본당", "order": 5, "is_visible": true },
-  { "id": 6, "name": "수요예배", "time": "오후 7시 30분", "place": "본당", "order": 6, "is_visible": true },
-  { "id": 7, "name": "금요기도회", "time": "오후 8시", "place": "본당", "order": 7, "is_visible": true }
-]

@@ -1,12 +1,11 @@
-import { getData } from '@/lib/db';
+import { getPublishedBulletinById } from '@/lib/db';
 import { ChevronLeft, Download, Maximize2 } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export default async function BulletinDetailPage({ params }) {
   const { id } = await params;
-  const bulletinList = await getData('bulletins');
-  const bulletin = bulletinList.find(b => b.id === parseInt(id));
+  const bulletin = await getPublishedBulletinById(id);
 
   if (!bulletin) notFound();
 
